@@ -16,8 +16,11 @@ function HomeView({ navigate, openProject }) {
         {/* HERO */}
         <Cell variant="hero" glow>
           <div className="hero-pills">
-            <Chip variant="outline"><Icon name="sparkle" size={13} /> Hello</Chip>
-            <Chip variant="solid">Recherche Contrat Alternance</Chip>
+            {(DATA.profile?.heroChips || [{ text: 'Hello', variant: 'outline' }, { text: 'Recherche Contrat Alternance', variant: 'solid' }]).map((chip, i) => (
+              <Chip key={i} variant={chip.variant || 'outline'}>
+                {i === 0 && <Icon name="sparkle" size={13} />} {chip.text}
+              </Chip>
+            ))}
           </div>
           <h1 className="hero-name">{p.firstName}<br />{p.lastName}</h1>
           <p className="hero-role">{p.role}</p>
@@ -48,7 +51,7 @@ function HomeView({ navigate, openProject }) {
 
         {/* SKILLS */}
         <Cell variant="skills" glow>
-          <SectionTitle title="Compétences" />
+          <SectionTitle title={DATA.sectionLabels?.skills || 'Compétences'} />
           <div className="skills-groups">
             {skillGroups.map((g) => (
               <div key={g.category}>
@@ -63,7 +66,7 @@ function HomeView({ navigate, openProject }) {
 
         {/* CONTACT */}
         <Cell variant="contact" glow>
-          <SectionTitle title="Contact" />
+          <SectionTitle title={DATA.sectionLabels?.contact || 'Contact'} />
           <div className="contact-rows">
             {contactInfos.map((c) => (
               <div className="contact-row" key={c.key}>
@@ -87,7 +90,7 @@ function HomeView({ navigate, openProject }) {
 
         {/* FORMATION */}
         <Cell variant="formation" glow>
-          <SectionTitle title="Formation" />
+          <SectionTitle title={DATA.sectionLabels?.formation || 'Formation'} />
           {formations.map((f) => (
             <div className="xp" key={f.title}>
               <div className="xp-top">
@@ -102,7 +105,7 @@ function HomeView({ navigate, openProject }) {
 
         {/* INTERESTS */}
         <Cell variant="interests" glow>
-          <SectionTitle title="Centres d'intérêt" />
+          <SectionTitle title={DATA.sectionLabels?.interests || "Centres d'intérêt"} />
           <div className="interests-list">
             {interests.map((i) => (
               <div className="interest" key={i.title}>
@@ -119,7 +122,7 @@ function HomeView({ navigate, openProject }) {
         {/* PROJECTS PREVIEW */}
         <Cell variant="projects" glow>
           <div className="section-header">
-            <SectionTitle title="Projets" />
+            <SectionTitle title={DATA.sectionLabels?.projects || 'Projets'} />
             <button className="link-arrow" onClick={() => navigate('/projets')}>
               Voir tout <Icon name="arrowRight" size={14} />
             </button>

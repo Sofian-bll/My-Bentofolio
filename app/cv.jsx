@@ -1,28 +1,10 @@
 /* =============================================
-   BENTOFOLIO — CV page (A4 + featured selection + download) (ES module)
+   BENTOFOLIO — CV page (A4 + featured projects + download) (ES module)
    ============================================= */
-import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Icon, TechTag, CatGlyph } from './ui.jsx';
+import React, { useState, useEffect, useRef } from 'react';
+import { Icon, TechTag } from './ui.jsx';
 import { DATA, primaryCat } from './data.js';
-
-const CV_KEY = 'bentofolio.cv.featured';
-
-function useFeatured() {
-  const [ids, setIds] = useState(() => {
-    try {
-      const saved = JSON.parse(localStorage.getItem(CV_KEY));
-      if (Array.isArray(saved)) return new Set(saved);
-    } catch (e) {}
-    return new Set(DATA.projects.filter((p) => p.featured).map((p) => p.id));
-  });
-  useEffect(() => {localStorage.setItem(CV_KEY, JSON.stringify([...ids]));}, [ids]);
-  const toggle = (id) => setIds((prev) => {
-    const n = new Set(prev);
-    n.has(id) ? n.delete(id) : n.add(id);
-    return n;
-  });
-  return [ids, toggle];
-}
+import { getFeaturedCvProjects } from './cv-selection.js';
 
 /* A4 frame — scales horizontally to fit container width; height is always fixed 297mm */
 function A4Frame({ children }) {
@@ -52,21 +34,12 @@ function A4Frame({ children }) {
     </div>);
 }
 
-function CvView({ navigate, showToast, tweaks = {}, setTweak, adminMode }) {
+function CvView({ navigate, showToast, tweaks = {}, setTweak }) {
   const maxBullets = Number(tweaks.cvMaxBullets) || 2;
   const { personalInfo: p, contactInfos, socialLinks, skillGroups, formations, interests, projects, categories } = DATA;
   const catOf = (pr) => categories[primaryCat(pr)];
   const cvContactIcon = { 'Âge': 'star', 'Localisation': 'pin', 'Email': 'mail', 'Téléphone': 'phone' };
-  const MIN_CV = 4;
-  const [featured, toggle] = useFeatured();
-  const selected = projects.filter((pr) => featured.has(pr.id));
-  const guardedToggle = (id) => {
-    if (featured.has(id) && featured.size <= MIN_CV) {
-      showToast('Garde au moins ' + MIN_CV + ' projets pour un CV équilibré');
-      return;
-    }
-    toggle(id);
-  };
+  const selected = getFeaturedCvProjects(projects);
 
   const download = () => {showToast('Boîte d\'impression — choisis « Enregistrer en PDF »');setTimeout(() => window.print(), 350);};
 
@@ -75,7 +48,7 @@ function CvView({ navigate, showToast, tweaks = {}, setTweak, adminMode }) {
       <button className="back-link no-print" onClick={() => navigate('/')}><Icon name="arrowLeft" size={16} /> Retour au portfolio</button>
       <div className="page-head no-print">
         <h1 className="page-title">CV</h1>
-        <p className="page-sub">Prévisualisez et téléchargez votre CV en version A4 prête à imprimer.</p>
+        <p className="page-sub" style={{ fontSize: (DATA.profile?.cvSubtitleSize || 14) + 'px' }}>{DATA.profile?.cvSubtitle || "CV synthétique pour recruteurs : parcours, compétences, disponibilité et projets clés en une page."}</p>
       </div>
 
       <div className="cv-layout cv-layout--admin">
@@ -93,34 +66,11 @@ function CvView({ navigate, showToast, tweaks = {}, setTweak, adminMode }) {
             </div>
           </div>
 
-          {/* Project picker — admin only */}
-          {adminMode && (
-            <>
-              <h3 style={{ marginTop: 'var(--s4)' }}>Projets du CV</h3>
-              <p className="cv-panel-sub">Coche les projets qui apparaîtront dans la section « Projets » du CV. {selected.length} sélectionné{selected.length > 1 ? 's' : ''}.</p>
-              <div className="cv-pick-list">
-                {projects.map((pr) => {
-                  const on = featured.has(pr.id);
-                  return (
-                    <button key={pr.id} className={'cv-pick' + (on ? ' on' : '')} onClick={() => guardedToggle(pr.id)}>
-                      <span className="cv-check">{on && <Icon name="check" size={13} />}</span>
-                      <span className="cv-pick-info">
-                        <span className="cv-pick-name"><CatGlyph cat={primaryCat(pr)} size={13} /> {pr.name}</span>
-                        <span className="cv-pick-meta">{catOf(pr).label} · {pr.period}</span>
-                      </span>
-                    </button>);
-                })}
-              </div>
-            </>
-          )}
-
           {/* Actions — always visible */}
           <div className="cv-panel-actions" style={{ marginTop: 'var(--s4)' }}>
             <button className="btn btn--brand" onClick={download}><Icon name="download" size={16} /> Télécharger le CV (PDF)</button>
             <button className="btn btn--ghost" onClick={() => window.print()}><Icon name="cv" size={16} /> Aperçu impression</button>
           </div>
-
-          {adminMode && <p className="cv-hint">Astuce : 4 à 6 projets tiennent parfaitement sur une page A4. La sélection est mémorisée pour la prochaine fois.</p>}
         </aside>
 
         {/* A4 PREVIEW */}
@@ -184,7 +134,7 @@ function CvView({ navigate, showToast, tweaks = {}, setTweak, adminMode }) {
                 <hr className="cv-divider" />
                 <div className="cv-sec-title">Projets {selected.length > 0 && <span style={{ color: 'var(--color-zinc-400)', fontWeight: 600 }}>· {selected.length}</span>}</div>
                 {selected.length === 0 ?
-              <p className="cv-empty-note">Aucun projet sélectionné — coche des projets dans le panneau de gauche.</p> :
+              <p className="cv-empty-note">Aucun projet marqué comme featured dans la configuration.</p> :
               <div className="cv-projects">
                       {selected.map((pr) =>
                 <div className="cv-proj" key={pr.id} style={{ '--cv-c': catOf(pr).color }}>
