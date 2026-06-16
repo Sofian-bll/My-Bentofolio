@@ -16,7 +16,7 @@ function slugify(s) {
     .replace(/['']/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'projet'
 }
 
-function buildConfig(projects, socialLinks, photo, appearance, cv, contact) {
+function buildConfig(projects, socialLinks, photo, appearance, cv, contact, profile) {
   const featuredIds = new Set(cv?.featured || [])
   const projWithFeatured = projects.map(p => ({...p, featured: featuredIds.has(p.id)}))
   return {
@@ -26,6 +26,7 @@ function buildConfig(projects, socialLinks, photo, appearance, cv, contact) {
     appearance: appearance || {},
     cv: cv || {},
     contact: contact || {},
+    profile: profile || {},
   }
 }
 
@@ -43,11 +44,12 @@ function useConfigState() {
   const [appearance, setAppearance] = useState(() => ({...APP_CONFIG.appearance}))
   const [cv, setCv] = useState(() => ({...APP_CONFIG.cv}))
   const [contact, setContact] = useState(() => ({...APP_CONFIG.contact}))
+  const [profile, setProfile] = useState(() => ({ ...(APP_CONFIG.profile || {}) }))
 
-  const config = buildConfig(projects, socialLinks, photo, appearance, cv, contact)
+  const config = buildConfig(projects, socialLinks, photo, appearance, cv, contact, profile)
 
   return { projects, setProjects, socialLinks, setSocialLinks, photo, setPhoto,
-    appearance, setAppearance, cv, setCv, contact, setContact, config }
+    appearance, setAppearance, cv, setCv, contact, setContact, profile, setProfile, config }
 }
 
 /* ══════════════════════════════════════
@@ -60,6 +62,7 @@ const SECTIONS = [
   { id: 'cv',        label: 'CV',        icon: 'cv' },
   { id: 'contact',   label: 'Contact',   icon: 'mail' },
   { id: 'liens',     label: 'Liens',     icon: 'arrowUpRight' },
+  { id: 'profil',    label: 'Profil',    icon: 'user' },
   { id: 'backup',    label: 'Backup',    icon: 'download' },
 ]
 
@@ -894,7 +897,7 @@ function PreviewPanel({ iframeRef, page, setPage, iframeKey, previewWidth, setPr
 /* ─── MAIN DASHBOARD ─── */
 function DashboardView({ navigate, showToast, onLogout }) {
   const { projects, setProjects, socialLinks, setSocialLinks, photo, setPhoto,
-    appearance, setAppearance, cv, setCv, contact, setContact, config } = useConfigState()
+    appearance, setAppearance, cv, setCv, contact, setContact, profile, setProfile, config } = useConfigState()
 
   const [section, setSection] = useState('projets')
   const [previewPage, setPreviewPage] = useState('/')
@@ -918,9 +921,9 @@ function DashboardView({ navigate, showToast, onLogout }) {
         ? projects.map(p => p.id === draftProject.id ? draftProject : p)
         : [...projects, draftProject]
     }
-    const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact)
+    const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, profile)
     postToIframe(iframeRef, cfg)
-  }, [projects, socialLinks, photo, appearance, cv, contact, draftProject])
+  }, [projects, socialLinks, photo, appearance, cv, contact, profile, draftProject])
 
   useEffect(() => {
     clearTimeout(debounceRef.current)
@@ -939,7 +942,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
         ? projects.map(p => p.id === draftProject.id ? draftProject : p)
         : [...projects, draftProject]
     }
-    const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact)
+    const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, profile)
     const result = await saveConfigToDisk(cfg)
     if (result.ok) {
       try { clearAdminSaveOverrides(window.localStorage) } catch {}
@@ -953,7 +956,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
       showToast(`Sauvegarde echouee — ${result.error || 'dev uniquement'}`)
     }
     setSaving(false)
-  }, [projects, socialLinks, photo, appearance, cv, contact, draftProject, showToast, reloadPreview, setProjects])
+  }, [projects, socialLinks, photo, appearance, cv, contact, profile, draftProject, showToast, reloadPreview, setProjects])
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -1012,6 +1015,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
           {section === 'cv'        && <CvSection         cv={cv} setCv={setCv} projects={projects} photo={photo} setPhoto={setPhoto} showToast={showToast}/>}
           {section === 'contact'   && <ContactSection    contact={contact} setContact={setContact}/>}
           {section === 'liens'     && <LinksSection      socialLinks={socialLinks} setSocialLinks={setSocialLinks} showToast={showToast}/>}
+          {section === 'profil'    && <ProfileSection    profile={profile} setProfile={setProfile} showToast={showToast} />}
           {section === 'backup'    && <BackupSection     config={config} showToast={showToast}/>}
         </div>
       </main>
