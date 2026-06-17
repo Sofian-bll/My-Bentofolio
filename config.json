@@ -271,7 +271,7 @@
       "categories": [
         "dev"
       ],
-      "featured": true,
+      "featured": false,
       "techs": [
         {
           "label": "JavaScript",
@@ -303,7 +303,7 @@
         "devops",
         "dev"
       ],
-      "featured": true,
+      "featured": false,
       "techs": [
         {
           "label": "Docker",
@@ -548,12 +548,10 @@
       "connect-in",
       "connect-in-java",
       "sshk",
-      "rage-ui",
-      "epitalk",
-      "jeuvideops"
+      "rage-ui"
     ],
     "cvPills": "mono",
-    "cvPhoto": "grande",
+    "cvPhoto": "moyenne",
     "cvMaxBullets": 2,
     "cvCardDensity": "compact"
   },
@@ -577,9 +575,18 @@
         "Integrations Docker et deploiement continu"
       ],
       "techs": [
-        { "label": "Laravel", "tech": "laravel" },
-        { "label": "Vue 3", "tech": "vue" },
-        { "label": "Docker", "tech": "docker" }
+        {
+          "label": "Laravel",
+          "tech": "laravel"
+        },
+        {
+          "label": "Vue 3",
+          "tech": "vue"
+        },
+        {
+          "label": "Docker",
+          "tech": "docker"
+        }
       ],
       "featured": true
     },
@@ -613,7 +620,7 @@
       {
         "key": "Âge",
         "value": "22 ans",
-        "visible": true
+        "visible": false
       },
       {
         "key": "Localisation",
@@ -623,7 +630,7 @@
       {
         "key": "Téléphone",
         "value": "07 67 54 62 09",
-        "visible": true
+        "visible": false
       },
       {
         "key": "Email",
