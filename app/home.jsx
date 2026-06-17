@@ -55,7 +55,7 @@ function HomeView({ navigate, openProject }) {
         {/* PHOTO */}
         <Cell variant="photo" glow>
           <div className="photo-cell">
-            <img src={resolveImageSrc(DATA.personalInfo.photoUrl) || 'app/assets/photo.jpg'} alt={p.firstName + ' ' + p.lastName} />
+            <img src={resolveImageSrc(DATA.personalInfo.photoUrl) || 'photo.jpg'} alt={p.firstName + ' ' + p.lastName} />
           </div>
         </Cell>
 

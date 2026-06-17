@@ -80,7 +80,7 @@ function CvView({ navigate, showToast, tweaks = {}, setTweak }) {
           <A4Frame>
             {/* HEADER */}
             <div className="cv-header2">
-                <div className="cv-photo"><img src={resolveImageSrc(DATA.personalInfo.photoUrl) || 'app/assets/photo.jpg'} alt="" /></div>
+                <div className="cv-photo"><img src={resolveImageSrc(DATA.personalInfo.photoUrl) || 'photo.jpg'} alt="" /></div>
                 <div className="cv-id">
                   <div className="cv-name">{p.firstName} {p.lastName}</div>
                   <div className="cv-role">{p.role}</div>
