@@ -4,6 +4,7 @@
 import React from 'react';
 import { Icon, Cell, Chip, SectionTitle, TechTag, CatGlyph, Badge } from './ui.jsx';
 import { DATA, primaryCat } from './data.js';
+import { resolveImageSrc } from './config-runtime.js';
 
 function HomeView({ navigate, openProject }) {
   const { personalInfo: p, contactInfos, socialLinks, skillGroups, formations, interests, projects } = DATA;
@@ -54,7 +55,7 @@ function HomeView({ navigate, openProject }) {
         {/* PHOTO */}
         <Cell variant="photo" glow>
           <div className="photo-cell">
-            <img src={DATA.personalInfo.photoUrl || 'app/assets/photo.jpg'} alt={p.firstName + ' ' + p.lastName} />
+            <img src={resolveImageSrc(DATA.personalInfo.photoUrl) || 'app/assets/photo.jpg'} alt={p.firstName + ' ' + p.lastName} />
           </div>
         </Cell>
 

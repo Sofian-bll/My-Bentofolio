@@ -5,6 +5,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Icon, TechTag } from './ui.jsx';
 import { DATA, primaryCat } from './data.js';
 import { getFeaturedCvProjects } from './cv-selection.js';
+import { resolveImageSrc } from './config-runtime.js';
 
 /* A4 frame — scales horizontally to fit container width; height is always fixed 297mm */
 function A4Frame({ children }) {
@@ -79,7 +80,7 @@ function CvView({ navigate, showToast, tweaks = {}, setTweak }) {
           <A4Frame>
             {/* HEADER */}
             <div className="cv-header2">
-                <div className="cv-photo"><img src={DATA.personalInfo.photoUrl || 'app/assets/photo.jpg'} alt="" /></div>
+                <div className="cv-photo"><img src={resolveImageSrc(DATA.personalInfo.photoUrl) || 'app/assets/photo.jpg'} alt="" /></div>
                 <div className="cv-id">
                   <div className="cv-name">{p.firstName} {p.lastName}</div>
                   <div className="cv-role">{p.role}</div>

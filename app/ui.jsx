@@ -3,6 +3,7 @@
    ============================================= */
 import React, { useRef, useEffect, useState } from 'react';
 import { DATA, projCats, primaryCat } from './data.js';
+import { resolveImageSrc } from './config-runtime.js';
 
 /* ─── ICONS (lucide-style inline SVG) ─── */
 const ICON_PATHS = {
@@ -131,7 +132,7 @@ function ProjectThumb({ project, ratio = '16 / 10' }) {
   return (
     <div className="thumb" style={{ '--c': c, aspectRatio: ratio }}>
       {project.image
-        ? <img src={project.image} alt={project.name} className="thumb-img" />
+        ? <img src={resolveImageSrc(project.image)} alt={project.name} className="thumb-img" />
         : (
           <div className="thumb-ph">
             <Icon name={meta ? meta.glyph : 'code'} size={34} />

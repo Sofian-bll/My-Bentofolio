@@ -4,7 +4,7 @@ import { adminPlugin } from './vite-admin-plugin'
 
 export default defineConfig({
   plugins: [react(), adminPlugin()],
-  base: './',
+  base: '/My-Bentofolio/',
   build: {
     outDir: 'dist',
   },

@@ -78,6 +78,12 @@ export function resolveAppConfig(baseConfig, storage, options = {}) {
   return applyPreviewConfig(config, readJson(storage, PREVIEW_KEY))
 }
 
+export function resolveImageSrc(path) {
+  if (!path || typeof path !== 'string') return ''
+  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:')) return path
+  return (import.meta.env.BASE_URL || '/') + path.replace(/^\//, '')
+}
+
 const DENSITY_GAP = { compact: '12px', cozy: '16px', large: '24px' }
 
 export function applyLiveConfig(cfg, DATA, appConfig) {

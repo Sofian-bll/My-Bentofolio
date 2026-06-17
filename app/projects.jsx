@@ -7,6 +7,7 @@ import { DATA, projCats, primaryCat } from './data.js';
 import { getProjectGalleryState } from './project-gallery.js';
 import { getCaseStudyBlocks } from './case-study-renderer.js';
 import { Markdown } from './markdown-renderer.jsx';
+import { resolveImageSrc } from './config-runtime.js';
 
 function CaseStudyContent({ project }) {
   const blocks = getCaseStudyBlocks(project)
@@ -21,7 +22,7 @@ function CaseStudyContent({ project }) {
         if (block.type === 'image') {
           return (
             <figure key={i} className="cs-figure">
-              <img src={block.src} alt={block.alt || ''} />
+              <img src={resolveImageSrc(block.src)} alt={block.alt || ''} />
               {block.alt && <figcaption>{block.alt}</figcaption>}
             </figure>
           )

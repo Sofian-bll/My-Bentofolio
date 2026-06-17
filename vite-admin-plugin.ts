@@ -124,7 +124,7 @@ export function adminPlugin(): Plugin {
 
             sendJson(res, 200, {
               ok: true,
-              path: `/media/projects/${projectId}/${filename}`,
+              path: `media/projects/${projectId}/${filename}`,
             })
           } catch (err) {
             sendJson(res, 500, { ok: false, error: String(err) })

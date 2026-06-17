@@ -6,7 +6,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { Icon, TechTag, CatGlyph } from './ui.jsx'
 import { DATA, APP_CONFIG } from './data.js'
 import { clearAdminSaveOverrides, saveConfigToDisk } from './admin-save.js'
-import { applyLiveConfig } from './config-runtime.js'
+import { applyLiveConfig, resolveImageSrc } from './config-runtime.js'
 import { HomeView } from './home.jsx'
 import { ProjectsView, ProjectDetailView } from './projects.jsx'
 import { ExperiencesView } from './experiences.jsx'
@@ -336,7 +336,7 @@ function CvSection({ cv, setCv, projects, photo, setPhoto, showToast }) {
           <div className={'ds-drop'+(drag?' ds-drop--over':'')}
             onDragOver={e=>{e.preventDefault();setDrag(true)}} onDragLeave={()=>setDrag(false)} onDrop={handleDrop}>
             {photo
-              ? <img src={photo} alt="CV" className="ds-photo-prev" />
+              ? <img src={resolveImageSrc(photo)} alt="CV" className="ds-photo-prev" />
               : <div className="ds-drop-empty"><Icon name="download" size={28}/><span>Glisser une image</span></div>}
           </div>
           <div className="ds-photo-controls">
@@ -567,7 +567,7 @@ function ProjectForm({ init, onSave, onCancel, showToast, onDraftChange, setPrev
           <div className="ds-image-row">
             {f.image ? (
               <div className="ds-image-prev">
-                <img src={f.image} alt="Apercu" />
+                <img src={resolveImageSrc(f.image)} alt="Apercu" />
                 <button className="ds-image-clear" onClick={() => set('image', '')} title="Supprimer"><Icon name="x" size={14}/></button>
               </div>
             ) : (
