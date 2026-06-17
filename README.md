@@ -5,8 +5,8 @@ Portfolio personnel React/Vite avec navigation hash, CV A4, projets bento et das
 ## Démarrage local
 
 ```bash
-npm install
-npm run dev
+bun install
+bun dev
 ```
 
 Ouvrir http://localhost:5173/
@@ -24,7 +24,7 @@ Mot de passe admin : `bento`.
 ## Build production
 
 ```bash
-npm run build
+bun run build
 ```
 
 Le dossier `dist/` est prêt à être déployé sur GitHub Pages.

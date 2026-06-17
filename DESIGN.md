@@ -78,19 +78,18 @@ Les pages portfolio favorisent des grilles bento responsives. Le CV est un forma
 
 ## Data Architecture
 
-Les données projet sont structurées en TypeScript sous `projects/` :
+Les donnees projet sont centralisees dans `config.json` :
 
 ```
-projects/
-├── types.ts              # Interfaces Project, Category, Tech
-├── index.ts              # Registre global + helpers
-└── [slug]/
-    ├── project.data.ts   # Données typées du projet
-    ├── README.md         # Étude de cas markdown
-    └── images/           # Assets du projet
+config.json            # Source unique : projets, liens, apparence, CV, contact
+app/
+├── data.js            # Runtime config via config-runtime.js
+├── config-runtime.js  # Resolution preview/iframe, validation postMessage
+├── cv-selection.js    # Selection projets CV (featured flag uniquement)
+└── admin-save.js      # Sauvegarde disque + cleanup overrides
 ```
 
-### Catégories
+### Categories
 
 | ID | Label | Icône | Couleur |
 |----|-------|-------|---------|
@@ -103,14 +102,14 @@ projects/
 
 ### Ajout d'un projet
 
-1. Créer `projects/[slug]/project.data.ts` (implémente `Project`)
-2. Créer `projects/[slug]/README.md` (étude de cas)
-3. Ajouter les images dans `projects/[slug]/images/`
-4. Importer dans `projects/index.ts`
+1. Ouvrir le dashboard admin (`/#/admin`) avec le mot de passe `bento`
+2. Aller dans la section **Projets** et cliquer **Nouveau projet**
+3. Remplir les champs et sauvegarder (ecriture dans `config.json`)
+4. Lancer `bun run build` pour regenerer le site statique
 
-Le dashboard admin consommera les mêmes types TypeScript. Les overrides CSS persistent dans `override.css`.
+Le dashboard admin gere aussi les images projet, l'apparence, le CV et les liens sociaux.
 
-### Tokens CSS catégories
+### Tokens CSS categories
 
 Toutes les catégories doivent avoir une variable `--cat-{id}` définie dans `styles.css` :
 
@@ -126,13 +125,13 @@ Toutes les catégories doivent avoir une variable `--cat-{id}` définie dans `st
 | --cat-devops | #06b6d4 | bridge, index.ts |
 | --cat-ai | #10b981 | bridge, index.ts |
 
-### Cohérence des données
+### Coherence des donnees
 
-⚠️ **Source de vérité unique** : `projects/[slug]/project.data.ts`
-Le fichier `app/data-bridge.js` est un pont manuel qui doit rester aligné avec les fichiers TS. Toute modification d'un projet doit être faite dans le `.ts` puis répercutée dans le bridge.
+**Source de verite unique** : `config.json`
+Le dashboard admin ecrit directement dans `config.json` et `bun run build` l'embarque dans le build de production. Aucune autre source de donnees projet n'est acceptee.
 
-Champs obligatoires dans le bridge pour compatibilité CV : `id`, `name`, `subtitle`, `categories[]`, `techs[{label, tech}]`, `role`, `period`, `duration`, `highlights[]`, `image`.
+Champs obligatoires par projet pour compatibilite CV : `id`, `name`, `categories[]`, `techs[{label, tech}]`, `role`, `period`, `duration`, `highlights[]`, `image`.
 
 ## Do's and Don'ts
 
-Do préserver le système de tokens CSS existant. Do garder les corrections CV ciblées et imprimables. Do utiliser les types TypeScript comme source unique de vérité pour les données projet. Don’t introduire de palette externe, de police non prévue ou de composants décoratifs sans rôle. Don’t dupliquer les données entre data.js et projects/.
+Do preserver le systeme de tokens CSS existant. Do garder les corrections CV ciblees et imprimables. Do utiliser `config.json` comme source unique de verite pour les donnees projet. Don't introduire de palette externe, de police non prevue ou de composants decoratifs sans role.

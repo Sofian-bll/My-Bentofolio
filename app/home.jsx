@@ -25,13 +25,22 @@ function HomeView({ navigate, openProject }) {
           <h1 className="hero-name">{p.firstName}<br />{p.lastName}</h1>
           <p className="hero-role">{p.role}</p>
           <div className="hero-meta">
-            <span>Début <strong>{p.alternance.start}</strong></span>
+            {DATA.profile?.webExperienceSince ? (
+              <span><Icon name="star" size={12} /> {new Date().getFullYear() - DATA.profile.webExperienceSince} ans d'expérience</span>
+            ) : (
+              <span>Début <strong>{p.alternance.start}</strong></span>
+            )}
             <span className="meta-sep">·</span>
             <span><strong>{p.alternance.duration}</strong></span>
             <span className="meta-sep">·</span>
             <span><strong>{p.alternance.rythme}</strong></span>
           </div>
           <p className="hero-bio">{p.bio}</p>
+          <div className="hero-stats">
+            {DATA.projects.length > 0 && <span><Icon name="grid" size={14} /> <strong>{DATA.projects.length}</strong> projets</span>}
+            {(DATA.experiences || []).length > 0 && <span><Icon name="briefcase" size={14} /> <strong>{(DATA.experiences || []).length}</strong> expériences</span>}
+            {DATA.profile?.webExperienceSince && <span><Icon name="star" size={14} /> <strong>{new Date().getFullYear() - DATA.profile.webExperienceSince} ans</strong> d'expérience</span>}
+          </div>
           <div className="hero-actions">
             <button className="btn btn--brand" onClick={() => navigate('/contact')}>
               <Icon name="mail" size={15} /> Me contacter

@@ -108,6 +108,7 @@ function AppearanceSection({ appearance, setAppearance }) {
 function CvSection({ cv, setCv, projects, photo, setPhoto, showToast }) {
   const [drag, setDrag] = useState(false)
   const [urlInput, setUrlInput] = useState('')
+  const [uploading, setUploading] = useState(false)
   const set = (k, v) => setCv(p => ({...p, [k]: v}))
   const toggle = (id) => {
     const next = new Set(cv.featured || [])
@@ -115,11 +116,28 @@ function CvSection({ cv, setCv, projects, photo, setPhoto, showToast }) {
     else next.add(id)
     set('featured', [...next])
   }
+  const uploadPhoto = async (file) => {
+    if (!file || !file.type.startsWith('image/')) { showToast('Selectionne une image'); return }
+    setUploading(true)
+    const reader = new FileReader()
+    reader.onload = async () => {
+      try {
+        const resp = await fetch('/api/admin/upload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ projectId: 'photo-cv', image: reader.result }),
+        })
+        const data = await resp.json()
+        if (data.ok) { setPhoto(data.path); showToast('Photo telechargee') }
+        else showToast(data.error || 'Echec upload')
+      } catch { showToast('Echec upload') }
+      setUploading(false)
+    }
+    reader.readAsDataURL(file)
+  }
   const handleDrop = e => {
     e.preventDefault(); setDrag(false)
-    const file = e.dataTransfer.files[0]
-    if (!file || !file.type.startsWith('image/')) return
-    const r = new FileReader(); r.onload = ev => { setPhoto(ev.target.result); showToast('Photo mise à jour') }; r.readAsDataURL(file)
+    uploadPhoto(e.dataTransfer.files[0])
   }
   const savePhotoUrl = () => { if (urlInput.trim()) { setPhoto(urlInput.trim()); showToast('Photo mise à jour') } }
   const Seg = ({k, opts}) => (
@@ -139,6 +157,10 @@ function CvSection({ cv, setCv, projects, photo, setPhoto, showToast }) {
               : <div className="ds-drop-empty"><Icon name="download" size={28}/><span>Glisser une image</span></div>}
           </div>
           <div className="ds-photo-controls">
+            <label className="btn btn--ghost" style={{cursor:'pointer',textAlign:'center',marginBottom:'8px'}}>
+              {uploading ? 'Upload...' : <><Icon name="download" size={14}/> Cliquer pour uploader</>}
+              <input type="file" accept="image/*" style={{display:'none'}} onChange={e => { const file = e.target.files[0]; if (file) uploadPhoto(file) }} disabled={uploading} />
+            </label>
             <div className="ds-field">
               <label className="ds-label">URL de l'image</label>
               <div style={{display:'flex',gap:'8px'}}>
@@ -603,6 +625,10 @@ function ProfileSection({ profile, setProfile, showToast }) {
           <div className="ds-field" style={{ gridColumn: '1/-1' }}>
             <label className="ds-label">Rôle / Accroche</label>
             <input className="input" value={profile.role || ''} onChange={e => set('role', e.target.value)} placeholder="Développeur Web Full Stack" />
+          </div>
+          <div className="ds-field">
+            <label className="ds-label">Expérience web depuis</label>
+            <input className="input" type="number" value={profile.webExperienceSince || ''} onChange={e => set('webExperienceSince', Number(e.target.value) || null)} placeholder="2024" min="1900" max="2100" />
           </div>
         </div>
       </div>

@@ -45,10 +45,11 @@ description: Portfolio bento grid with A4 CV, zinc surfaces, and Syne display ty
 
 ## Data Conventions
 
-- All project data in `app/data.js` (`export const DATA`)
+- All project data in `config.json` (single source of truth)
+- Runtime resolution in `app/config-runtime.js` (preview iframe, postMessage validation)
 - Projects have: `id`, `name`, `categories[]`, `featured`, `techs[]`, `role`, `period`, `duration`, `description`, `caseStudy`, `highlights[]`, `demoUrl`, `repoUrl`, `image`
-- Migration bridge: `app/data-bridge.js` augments `DATA` with extra categories + migrated projects
-- CMS overrides: `localStorage` keys `bentofolio.cms`, `bentofolio.photo`, `bentofolio.cv.featured`
+- Admin dashboard edits via `/api/admin/save` write directly to `config.json`
+- `bun run build` embeds `config.json` into the production bundle
 
 ## Don'ts
 

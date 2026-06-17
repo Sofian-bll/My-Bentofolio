@@ -4,6 +4,32 @@
 import React, { useState, useEffect } from 'react';
 import { Icon, ProjectThumb, CatPills, TechTag, CatGlyph } from './ui.jsx';
 import { DATA, projCats, primaryCat } from './data.js';
+import { getProjectGalleryState } from './project-gallery.js';
+import { getCaseStudyBlocks } from './case-study-renderer.js';
+
+function CaseStudyContent({ project }) {
+  const blocks = getCaseStudyBlocks(project)
+  if (!blocks) return <p className="modal-case">{project.description}</p>
+
+  return (
+    <div className="cs-blocks">
+      {blocks.map((block, i) => {
+        if (block.type === 'heading') {
+          return <h3 key={i} className="cs-heading">{block.content}</h3>
+        }
+        if (block.type === 'image') {
+          return (
+            <figure key={i} className="cs-figure">
+              <img src={block.src} alt={block.alt || ''} />
+              {block.alt && <figcaption>{block.alt}</figcaption>}
+            </figure>
+          )
+        }
+        return <p key={i} className="cs-paragraph">{block.content}</p>
+      })}
+    </div>
+  )
+}
 
 function ProjectCard({ project, onOpen }) {
   return (
@@ -57,7 +83,7 @@ function ProjectModal({ project, onClose }) {
             {project.duration && <span>Durée <b>{project.duration}</b></span>}
             {project.featured && <span style={{ color: 'var(--cat-logo)' }}><Icon name="star" size={12} style={{ display: 'inline', verticalAlign: '-2px' }} /> Mis en avant sur le CV</span>}
           </div>
-          <p className="modal-case">{project.caseStudy || project.description}</p>
+          <CaseStudyContent project={project} />
           <div className="modal-techs">
             {project.techs.map((t, i) => <TechTag key={i} label={t.label} tech={t.tech} />)}
           </div>
@@ -74,29 +100,14 @@ function ProjectModal({ project, onClose }) {
 
 function ProjectsView({ navigate, openProject, filter, setFilter }) {
   const { projects, categories } = DATA;
-  const has = (p, k) => projCats(p).includes(k);
-  // membership counts across all projects
-  const counts = projects.reduce((acc, p) => {
-    projCats(p).forEach((k) => { acc[k] = (acc[k] || 0) + 1; });
-    return acc;
-  }, {});
-  // only categories that actually have projects, in canonical order
-  const catKeys = Object.keys(categories).filter((k) => counts[k]);
-  // if the active filter no longer exists, fall back to all
-  const activeFilter = filter === 'all' || counts[filter] ? filter : 'all';
-  const shown = activeFilter === 'all' ? projects : projects.filter((p) => has(p, activeFilter));
-
-  // group for "all" view — a project appears under every category it belongs to
-  const groups = activeFilter === 'all'
-    ? catKeys.map((k) => ({ key: k, items: projects.filter((p) => has(p, k)) })).filter((g) => g.items.length)
-    : null;
+  const { counts, catKeys, activeFilter, shown } = getProjectGalleryState({ projects, categories, filter });
 
   return (
     <main className="page-wrap">
       <button className="back-link" onClick={() => navigate('/')}><Icon name="arrowLeft" size={16} /> Retour au portfolio</button>
       <div className="page-head">
         <h1 className="page-title">Projets</h1>
-        <p className="page-sub">Sélection de réalisations — dev en priorité, plus du webdesign, de la 3D, de l'animation et de l'identité visuelle.</p>
+        <p className="page-sub">Projets sélectionnés pour montrer ma progression full-stack, mes choix techniques et ma capacité à livrer des interfaces utiles.</p>
       </div>
 
       <div className="filter-bar">
@@ -116,17 +127,7 @@ function ProjectsView({ navigate, openProject, filter, setFilter }) {
       </div>
 
       <div className="proj-gallery">
-        {activeFilter === 'all'
-          ? groups.map((g) => (
-              <React.Fragment key={g.key}>
-                <div className="gallery-group-title">
-                  <CatGlyph cat={g.key} size={18} /> {categories[g.key].label}
-                  <span className="line" /><span className="count">{g.items.length}</span>
-                </div>
-                {g.items.map((p) => <ProjectCard key={p.id} project={p} onOpen={openProject} />)}
-              </React.Fragment>
-            ))
-          : shown.map((p) => <ProjectCard key={p.id} project={p} onOpen={openProject} />)}
+        {shown.map((p) => <ProjectCard key={p.id} project={p} onOpen={openProject} />)}
         {shown.length === 0 && <div className="gallery-empty">Aucun projet dans cette catégorie pour l'instant.</div>}
       </div>
     </main>
@@ -170,7 +171,7 @@ function ProjectDetailView({ id, navigate, openProject }) {
       <div className="pd-body">
         <article className="pd-main">
           <h2 className="pd-section">Étude de cas</h2>
-          <p className="pd-case">{project.caseStudy || project.description}</p>
+          <CaseStudyContent project={project} />
         </article>
 
         <aside className="pd-aside">

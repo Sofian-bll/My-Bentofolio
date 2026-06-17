@@ -596,6 +596,7 @@
     },
     "cvSubtitle": "CV synthétique pour recruteurs : parcours, compétences, disponibilité et projets clés en une page.",
     "cvSubtitleSize": 14,
+    "webExperienceSince": 2024,
     "heroChips": [
       { "text": "Hello", "variant": "outline" },
       { "text": "Recherche Contrat Alternance", "variant": "solid" }
