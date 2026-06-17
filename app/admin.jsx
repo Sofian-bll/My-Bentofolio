@@ -16,7 +16,7 @@ function slugify(s) {
     .replace(/['']/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'projet'
 }
 
-function buildConfig(projects, socialLinks, photo, appearance, cv, contact, profile) {
+function buildConfig(projects, socialLinks, photo, appearance, cv, contact, experiences, profile) {
   const featuredIds = new Set(cv?.featured || [])
   const projWithFeatured = projects.map(p => ({...p, featured: featuredIds.has(p.id)}))
   return {
@@ -26,6 +26,7 @@ function buildConfig(projects, socialLinks, photo, appearance, cv, contact, prof
     appearance: appearance || {},
     cv: cv || {},
     contact: contact || {},
+    experiences: experiences || [],
     profile: profile || {},
   }
 }
@@ -45,11 +46,12 @@ function useConfigState() {
   const [cv, setCv] = useState(() => ({...APP_CONFIG.cv}))
   const [contact, setContact] = useState(() => ({...APP_CONFIG.contact}))
   const [profile, setProfile] = useState(() => ({ ...(APP_CONFIG.profile || {}) }))
+  const [experiences, setExperiences] = useState(() => [...(APP_CONFIG.experiences || [])])
 
-  const config = buildConfig(projects, socialLinks, photo, appearance, cv, contact, profile)
+  const config = buildConfig(projects, socialLinks, photo, appearance, cv, contact, experiences, profile)
 
   return { projects, setProjects, socialLinks, setSocialLinks, photo, setPhoto,
-    appearance, setAppearance, cv, setCv, contact, setContact, profile, setProfile, config }
+    appearance, setAppearance, cv, setCv, contact, setContact, experiences, setExperiences, profile, setProfile, config }
 }
 
 /* ══════════════════════════════════════
@@ -57,8 +59,9 @@ function useConfigState() {
    ══════════════════════════════════════ */
 
 const SECTIONS = [
-  { id: 'projets',   label: 'Projets',   icon: 'grid' },
-  { id: 'apparence', label: 'Apparence', icon: 'sparkle' },
+  { id: 'projets',      label: 'Projets',      icon: 'grid' },
+  { id: 'experiences',  label: 'Experiences',  icon: 'briefcase' },
+  { id: 'apparence',    label: 'Apparence',    icon: 'sparkle' },
   { id: 'cv',        label: 'CV',        icon: 'cv' },
   { id: 'contact',   label: 'Contact',   icon: 'mail' },
   { id: 'liens',     label: 'Liens',     icon: 'arrowUpRight' },
@@ -859,6 +862,128 @@ function ProfileSection({ profile, setProfile, showToast }) {
   )
 }
 
+/* ─── EXPERIENCES ─── */
+function ExperiencesSection({ experiences, setExperiences, showToast }) {
+  const [editing, setEditing] = useState(null)
+  const EMPTY = { title:'', company:'', location:'', period:'', description:'', highlights:['','',''], techs:[], featured:true }
+  const [f, setF] = useState(EMPTY)
+  const [tLabel, setTL] = useState('')
+  const [tKey, setTK] = useState('default')
+
+  const set = (k, v) => setF(p => ({ ...p, [k]: v }))
+  const setHl = (i, v) => setF(p => { const h = [...(p.highlights || ['','',''])]; h[i] = v; return { ...p, highlights: h } })
+  const addTech = () => { if (!tLabel.trim()) return; set('techs', [...f.techs, { label: tLabel.trim(), tech: tKey }]); setTL('') }
+
+  const startEdit = (exp) => { setEditing(exp); setF(exp ? { ...exp } : EMPTY) }
+  const handleCancel = () => setEditing(null)
+  const handleSave = () => {
+    if (!f.title) { showToast('Titre requis'); return }
+    const id = f.id || f.title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'')
+    const exp = { ...f, id }
+    const next = editing && editing.id ? experiences.map(e => e.id === exp.id ? exp : e) : [...experiences, exp]
+    setExperiences(next)
+    setEditing(null)
+    showToast(editing && editing.id ? 'Experience mise a jour' : 'Experience ajoutee')
+  }
+  const del = (id) => {
+    if (!window.confirm('Supprimer cette experience ?')) return
+    setExperiences(experiences.filter(e => e.id !== id))
+    showToast('Experience supprimee')
+  }
+
+  if (editing !== null) return (
+    <div className="ds-section">
+      <button className="back-link" style={{marginBottom:'var(--s2)'}} onClick={handleCancel}><Icon name="arrowLeft" size={14}/> Retour a la liste</button>
+      <h2 className="ds-title">{editing && editing.id ? 'Modifier — ' + editing.title : 'Ajouter une experience'}</h2>
+      <div className="ds-card">
+        <div className="ds-form-grid" style={{marginTop:'var(--s5)'}}>
+          <div className="ds-field" style={{gridColumn:'1/-1'}}>
+            <label className="ds-label">Titre *</label>
+            <input className="input" value={f.title} onChange={e => set('title', e.target.value)} placeholder="Developpeur Full Stack Freelance" />
+          </div>
+          <div className="ds-field">
+            <label className="ds-label">Entreprise</label>
+            <input className="input" value={f.company} onChange={e => set('company', e.target.value)} placeholder="Independant" />
+          </div>
+          <div className="ds-field">
+            <label className="ds-label">Lieu</label>
+            <input className="input" value={f.location} onChange={e => set('location', e.target.value)} placeholder="Ile-de-France" />
+          </div>
+          <div className="ds-field">
+            <label className="ds-label">Periode</label>
+            <input className="input" value={f.period} onChange={e => set('period', e.target.value)} placeholder="2025-2026" />
+          </div>
+          <div className="ds-field">
+            <label className="ds-label">CV</label>
+            <button className={'ds-vis-btn' + (f.featured ? ' on' : '')} onClick={() => set('featured', !f.featured)}>
+              {f.featured ? 'Featured' : 'Non'}
+            </button>
+          </div>
+          <div className="ds-field" style={{gridColumn:'1/-1'}}>
+            <label className="ds-label">Description</label>
+            <textarea className="textarea" value={f.description} onChange={e => set('description', e.target.value)} placeholder="Description de l'experience..." />
+          </div>
+          <div className="ds-field" style={{gridColumn:'1/-1'}}>
+            <label className="ds-label">Highlights (3 max)</label>
+            {[0,1,2].map(i => (
+              <input key={i} className="input" style={{marginTop:'6px'}} value={f.highlights[i] || ''} onChange={e => setHl(i, e.target.value)} placeholder={'Point '+(i+1)} />
+            ))}
+          </div>
+          <div className="ds-field" style={{gridColumn:'1/-1'}}>
+            <label className="ds-label">Technologies</label>
+            {f.techs.length > 0 && (
+              <div className="tech-added" style={{marginBottom:'8px'}}>
+                {f.techs.map((t, i) => (
+                  <span key={i} className="tech-added-tag">
+                    <TechTag label={t.label} tech={t.tech}/>
+                    <button onClick={() => set('techs', f.techs.filter((_, j) => j !== i))}><Icon name="x" size={11}/></button>
+                  </span>
+                ))}
+              </div>
+            )}
+            <div className="tech-add-row">
+              <input className="input" value={tLabel} onChange={e => setTL(e.target.value)} placeholder="Label" />
+              <select className="select" value={tKey} onChange={e => setTK(e.target.value)}>
+                {['laravel','vue','java','js','ts','tailwind','mysql','docker','git','linux','bash','default'].map(k => <option key={k} value={k}>{k}</option>)}
+              </select>
+              <button className="btn btn--ghost" onClick={addTech}><Icon name="plus" size={14}/></button>
+            </div>
+          </div>
+        </div>
+        <div className="ds-form-actions">
+          <button className="btn btn--ghost" onClick={handleCancel}>Annuler</button>
+          <button className="btn btn--brand" onClick={handleSave} disabled={!f.title}>
+            <Icon name="check" size={14}/> Enregistrer
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+
+  return (
+    <div className="ds-section">
+      <div className="ds-section-head">
+        <div><h2 className="ds-title">Experiences <span className="ds-count">{experiences.length}</span></h2><p className="ds-sub">Parcours professionnel.</p></div>
+        <button className="btn btn--brand" onClick={() => { setEditing({}); setF(EMPTY) }}><Icon name="plus" size={14}/> Ajouter</button>
+      </div>
+      <div className="ds-proj-list">
+        {experiences.map(exp => (
+          <div key={exp.id} className="ds-proj-row">
+            <div className="ds-proj-info">
+              <div className="ds-proj-name"><Icon name="briefcase" size={14}/> {exp.title}</div>
+              <div className="ds-proj-meta">{exp.company} · {exp.period}</div>
+            </div>
+            <div className="ds-proj-acts">
+              <button className="icon-btn" onClick={() => startEdit(exp)} title="Modifier"><Icon name="pen" size={15}/></button>
+              <button className="icon-btn" onClick={() => del(exp.id)} title="Supprimer"><Icon name="trash" size={15}/></button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 /* ─── PREVIEW PANEL ─── */
 function PreviewPanel({ iframeRef, page, setPage, iframeKey, previewWidth, setPreviewWidth }) {
   const PAGES = [
@@ -897,7 +1022,7 @@ function PreviewPanel({ iframeRef, page, setPage, iframeKey, previewWidth, setPr
 /* ─── MAIN DASHBOARD ─── */
 function DashboardView({ navigate, showToast, onLogout }) {
   const { projects, setProjects, socialLinks, setSocialLinks, photo, setPhoto,
-    appearance, setAppearance, cv, setCv, contact, setContact, profile, setProfile, config } = useConfigState()
+    appearance, setAppearance, cv, setCv, contact, setContact, experiences, setExperiences, profile, setProfile, config } = useConfigState()
 
   const [section, setSection] = useState('projets')
   const [previewPage, setPreviewPage] = useState('/')
@@ -921,9 +1046,9 @@ function DashboardView({ navigate, showToast, onLogout }) {
         ? projects.map(p => p.id === draftProject.id ? draftProject : p)
         : [...projects, draftProject]
     }
-    const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, profile)
+    const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, experiences, profile)
     postToIframe(iframeRef, cfg)
-  }, [projects, socialLinks, photo, appearance, cv, contact, profile, draftProject])
+  }, [projects, socialLinks, photo, appearance, cv, contact, experiences, profile, draftProject])
 
   useEffect(() => {
     clearTimeout(debounceRef.current)
@@ -931,7 +1056,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
       syncToIframe()
       reloadPreview()
     }, 600)
-  }, [projects, socialLinks, photo, appearance, cv, contact, draftProject, syncToIframe, reloadPreview])
+  }, [projects, socialLinks, photo, appearance, cv, contact, experiences, draftProject, syncToIframe, reloadPreview])
 
   const handleSave = useCallback(async () => {
     setSaving(true)
@@ -942,7 +1067,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
         ? projects.map(p => p.id === draftProject.id ? draftProject : p)
         : [...projects, draftProject]
     }
-    const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, profile)
+    const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, experiences, profile)
     const result = await saveConfigToDisk(cfg)
     if (result.ok) {
       try { clearAdminSaveOverrides(window.localStorage) } catch {}
@@ -956,7 +1081,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
       showToast(`Sauvegarde echouee — ${result.error || 'dev uniquement'}`)
     }
     setSaving(false)
-  }, [projects, socialLinks, photo, appearance, cv, contact, profile, draftProject, showToast, reloadPreview, setProjects])
+  }, [projects, socialLinks, photo, appearance, cv, contact, experiences, profile, draftProject, showToast, reloadPreview, setProjects])
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -1016,6 +1141,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
           {section === 'contact'   && <ContactSection    contact={contact} setContact={setContact}/>}
           {section === 'liens'     && <LinksSection      socialLinks={socialLinks} setSocialLinks={setSocialLinks} showToast={showToast}/>}
           {section === 'profil'    && <ProfileSection    profile={profile} setProfile={setProfile} showToast={showToast} />}
+          {section === 'experiences' && <ExperiencesSection experiences={experiences} setExperiences={setExperiences} showToast={showToast} />}
           {section === 'backup'    && <BackupSection     config={config} showToast={showToast}/>}
         </div>
       </main>
