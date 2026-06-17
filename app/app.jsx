@@ -1,7 +1,7 @@
 /* =============================================
    BENTOFOLIO v5 — App shell (router, theme, nav, footer)
    ============================================= */
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { useTweaks } from './tweaks-panel.jsx';
 import { Icon } from './ui.jsx';
@@ -10,8 +10,11 @@ import { ProjectsView, ProjectDetailView } from './projects.jsx';
 import { ExperiencesView } from './experiences.jsx';
 import { CvView } from './cv.jsx';
 import { ContactView } from './contact.jsx';
-import { AdminView } from './admin.jsx';
 import { APP_CONFIG } from './data.js';
+
+const AdminView = import.meta.env.DEV
+  ? React.lazy(() => import('./admin.jsx').then(m => ({ default: m.AdminView })))
+  : null;
 import './styles.css';
 import './components.css';
 import './pages.css';
@@ -137,7 +140,7 @@ function Footer({ navigate }) {
         <div className="footer-links">
           <button className="footer-link" onClick={() => navigate('/projets')}>Projets</button>
           <button className="footer-link" onClick={() => navigate('/cv')}>CV</button>
-          <button className="footer-link is-private" onClick={() => navigate('/admin')}>Espace admin</button>
+          {import.meta.env.DEV && <button className="footer-link is-private" onClick={() => navigate('/admin')}>Espace admin</button>}
           <a className="footer-link" href="https://github.com/Sofian-bll" target="_blank" rel="noreferrer">GitHub</a>
         </div>
       </div>
@@ -154,6 +157,7 @@ function App() {
   const [toast, setToast] = useState(null);
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [adminMode, setAdminMode] = useState(() => {
+    if (!import.meta.env.DEV) return false;
     if (window !== window.top) return false;
     return localStorage.getItem(ADMIN_AUTH_KEY) === 'true';
   });
@@ -207,10 +211,10 @@ function App() {
   else if (route === '/experiences') view = <ExperiencesView navigate={navigate} />;
   else if (route === '/cv') view = <CvView navigate={navigate} showToast={showToast} tweaks={tweaks} setTweak={setTweak} adminMode={adminMode} />;
   else if (route === '/contact') view = <ContactView navigate={navigate} showToast={showToast} tweaks={tweaks} adminMode={adminMode} />;
-  else if (route === '/admin') view = <AdminView navigate={navigate} showToast={showToast} adminMode={adminMode} onLogin={activateAdmin} onLogout={deactivateAdmin} />;
+  else if (route === '/admin' && AdminView) view = <Suspense fallback={null}><AdminView navigate={navigate} showToast={showToast} adminMode={adminMode} onLogin={activateAdmin} onLogout={deactivateAdmin} /></Suspense>;
   else view = <HomeView navigate={navigate} openProject={openProject} />;
 
-  const isDash = route === '/admin' && adminMode;
+  const isDash = route === '/admin' && adminMode && AdminView;
   return (
     <div className="app">
       <div className="mesh-bg" aria-hidden="true" />
