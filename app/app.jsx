@@ -1,17 +1,17 @@
 /* =============================================
-   BENTOFOLIO — App shell (ES module: router, theme, nav, footer)
+   BENTOFOLIO v5 — App shell (router, theme, nav, footer)
    ============================================= */
 import React, { useState, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom/client';
-import { useTweaks, TweaksPanel, TweakSection, TweakColor, TweakRadio, TweakToggle, TweakText, TweakSelect } from './tweaks-panel.jsx';
+import { useTweaks } from './tweaks-panel.jsx';
 import { Icon } from './ui.jsx';
 import { HomeView } from './home.jsx';
 import { ProjectsView, ProjectDetailView } from './projects.jsx';
+import { ExperiencesView } from './experiences.jsx';
 import { CvView } from './cv.jsx';
 import { ContactView } from './contact.jsx';
-import { AdminSidebar } from './admin-sidebar.jsx';
 import { AdminView } from './admin.jsx';
-import './data-bridge.js';
+import { APP_CONFIG } from './data.js';
 import './styles.css';
 import './components.css';
 import './pages.css';
@@ -42,81 +42,29 @@ const safeStorage = {
 };
 
 
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "accent": "#6366f1",
-  "displayFont": "Syne",
-  "density": "cozy",
-  "radius": "doux",
-  "photo": "compact",
-  "cvPhoto": "moyenne",
-  "cvPills": "couleur",
-  "cvMaxBullets": 2,
-  "cvCardDensity": "normal",
-  "contactShowStatus": true,
-  "contactShowPhone": true,
-  "contactShowType": true,
-  "formspreeUrl": ""
-} /*EDITMODE-END*/;
+const TWEAK_DEFAULTS = {
+  accent: APP_CONFIG.appearance?.accent || '#6366f1',
+  displayFont: APP_CONFIG.appearance?.displayFont || 'Syne',
+  density: APP_CONFIG.appearance?.density || 'cozy',
+  radius: APP_CONFIG.appearance?.radius || 'doux',
+  photo: APP_CONFIG.appearance?.photo || 'compact',
+  cvPhoto: APP_CONFIG.cv?.cvPhoto || 'moyenne',
+  cvPills: APP_CONFIG.cv?.cvPills || 'couleur',
+  cvMaxBullets: APP_CONFIG.cv?.cvMaxBullets || 2,
+  cvCardDensity: APP_CONFIG.cv?.cvCardDensity || 'normal',
+  contactShowStatus: APP_CONFIG.contact?.contactShowStatus !== false,
+  contactShowPhone: APP_CONFIG.contact?.contactShowPhone !== false,
+  contactShowType: APP_CONFIG.contact?.contactShowType !== false,
+  formspreeUrl: APP_CONFIG.contact?.formspreeUrl || '',
+};
 
 const DENSITY_GAP = { compact: '12px', cozy: '16px', large: '24px' };
-
-function PortfolioTweaks({ tweaks, setTweak }) {
-  return (
-    <TweaksPanel title="Tweaks">
-      <TweakSection label="Couleur">
-        <TweakColor label="Accent" value={tweaks.accent}
-        options={['#6366f1', '#0055ff', '#14b8a6', '#ea4b71', '#7c3aed']}
-        onChange={(v) => setTweak('accent', v)} />
-      </TweakSection>
-      <TweakSection label="Mise en page">
-        <TweakRadio label="Photo (accueil)" value={tweaks.photo}
-        options={[{ value: 'compact', label: 'Compacte' }, { value: 'equilibre', label: 'Équilibrée' }, { value: 'grand', label: 'Grande' }]}
-        onChange={(v) => setTweak('photo', v)} />
-        <TweakRadio label="Densité" value={tweaks.density}
-        options={[{ value: 'compact', label: 'Dense' }, { value: 'cozy', label: 'Cosy' }, { value: 'large', label: 'Aéré' }]}
-        onChange={(v) => setTweak('density', v)} />
-        <TweakRadio label="Arrondi" value={tweaks.radius}
-        options={[{ value: 'net', label: 'Net' }, { value: 'doux', label: 'Doux' }, { value: 'rond', label: 'Rond' }]}
-        onChange={(v) => setTweak('radius', v)} />
-      </TweakSection>
-      <TweakSection label="CV">
-        <TweakRadio label="Pills" value={tweaks.cvPills}
-        options={[{ value: 'couleur', label: 'Couleur' }, { value: 'sombre', label: 'Sombre' }, { value: 'mono', label: 'Mono' }]}
-        onChange={(v) => setTweak('cvPills', v)} />
-        <TweakRadio label="Photo (CV)" value={tweaks.cvPhoto}
-        options={[{ value: 'petite', label: 'Petite' }, { value: 'moyenne', label: 'Moyenne' }, { value: 'grande', label: 'Grande' }]}
-        onChange={(v) => setTweak('cvPhoto', v)} />
-        <TweakRadio label="Points / carte" value={tweaks.cvMaxBullets}
-        options={[{ value: 1, label: '1' }, { value: 2, label: '2' }, { value: 3, label: '3' }]}
-        onChange={(v) => setTweak('cvMaxBullets', Number(v))} />
-        <TweakRadio label="Densité cartes" value={tweaks.cvCardDensity}
-        options={[{ value: 'compact', label: 'Dense' }, { value: 'normal', label: 'Normal' }]}
-        onChange={(v) => setTweak('cvCardDensity', v)} />
-      </TweakSection>
-      <TweakSection label="Contact">
-        <TweakToggle label="Badge dispo alternance" value={tweaks.contactShowStatus}
-        onChange={(v) => setTweak('contactShowStatus', v)} />
-        <TweakToggle label="Champ téléphone" value={tweaks.contactShowPhone}
-        onChange={(v) => setTweak('contactShowPhone', v)} />
-        <TweakToggle label="Champ type de contact" value={tweaks.contactShowType}
-        onChange={(v) => setTweak('contactShowType', v)} />
-        <TweakText label="Endpoint Formspree" value={tweaks.formspreeUrl}
-        placeholder="https://formspree.io/f/xxx"
-        onChange={(v) => setTweak('formspreeUrl', v)} />
-      </TweakSection>
-      <TweakSection label="Typographie">
-        <TweakSelect label="Police titres" value={tweaks.displayFont}
-        options={['Syne', 'Space Grotesk', 'Sora']}
-        onChange={(v) => setTweak('displayFont', v)} />
-      </TweakSection>
-    </TweaksPanel>);
-
-}
 
 const THEME_KEY = 'bentofolio.theme';
 const NAV = [
 { path: '/', label: 'Accueil', icon: 'home' },
 { path: '/projets', label: 'Projets', icon: 'grid' },
+{ path: '/experiences', label: 'Experiences', icon: 'briefcase' },
 { path: '/cv', label: 'CV', icon: 'cv' },
 { path: '/contact', label: 'Contact', icon: 'mail' }];
 
@@ -251,16 +199,16 @@ function App() {
   let view;
   if (route.startsWith('/projet/')) view = <ProjectDetailView id={route.slice('/projet/'.length)} navigate={navigate} openProject={openProject} />;
   else if (route === '/projets') view = <ProjectsView navigate={navigate} openProject={openProject} filter={filter} setFilter={setFilter} />;
+  else if (route === '/experiences') view = <ExperiencesView navigate={navigate} />;
   else if (route === '/cv') view = <CvView navigate={navigate} showToast={showToast} tweaks={tweaks} setTweak={setTweak} adminMode={adminMode} />;
   else if (route === '/contact') view = <ContactView navigate={navigate} showToast={showToast} tweaks={tweaks} adminMode={adminMode} />;
-  else if (route === '/admin') view = <AdminView navigate={navigate} showToast={showToast} adminMode={adminMode} onLogin={activateAdmin} onLogout={deactivateAdmin} tweaks={tweaks} setTweak={setTweak} />;
+  else if (route === '/admin') view = <AdminView navigate={navigate} showToast={showToast} adminMode={adminMode} onLogin={activateAdmin} onLogout={deactivateAdmin} />;
   else view = <HomeView navigate={navigate} openProject={openProject} />;
 
   const isDash = route === '/admin' && adminMode;
   return (
-    <div className={'app' + (adminMode && !isDash ? ' admin-on' : '')}>
+    <div className="app">
       <div className="mesh-bg" aria-hidden="true" />
-      {adminMode && !isDash && <AdminSidebar tweaks={tweaks} setTweak={setTweak} onLogout={deactivateAdmin} navigate={navigate} />}
       {!isDash && <Navbar route={route} navigate={navigate} theme={theme} toggleTheme={toggleTheme} adminMode={adminMode} />}
       {view}
       {!isDash && <Footer navigate={navigate} />}

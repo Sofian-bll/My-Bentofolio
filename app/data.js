@@ -32,6 +32,8 @@ const contactInfos = (profile.contactInfos || []).filter((c) => c.visible !== fa
 
 const socialLinks = appConfig.socialLinks || []
 
+const experiences = appConfig.experiences || []
+
 const skillGroups = profile.skillGroups || []
 
 const formations = profile.formations || []
@@ -57,7 +59,7 @@ appConfig.projects = projects
 
 export const DATA = {
   personalInfo, contactInfos, socialLinks, skillGroups, formations, interests,
-  categories, projects, profile, sectionLabels,
+  categories, projects, experiences, profile, sectionLabels,
 }
 
 export const APP_CONFIG = appConfig

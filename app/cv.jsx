@@ -36,10 +36,11 @@ function A4Frame({ children }) {
 
 function CvView({ navigate, showToast, tweaks = {}, setTweak }) {
   const maxBullets = Number(tweaks.cvMaxBullets) || 2;
-  const { personalInfo: p, contactInfos, socialLinks, skillGroups, formations, interests, projects, categories } = DATA;
+  const { personalInfo: p, contactInfos, socialLinks, skillGroups, formations, interests, projects, categories, experiences } = DATA;
   const catOf = (pr) => categories[primaryCat(pr)];
   const cvContactIcon = { 'Âge': 'star', 'Localisation': 'pin', 'Email': 'mail', 'Téléphone': 'phone' };
   const selected = getFeaturedCvProjects(projects);
+  const featuredExperiences = experiences.filter(e => e.featured);
 
   const download = () => {showToast('Boîte d\'impression — choisis « Enregistrer en PDF »');setTimeout(() => window.print(), 350);};
 
@@ -128,6 +129,36 @@ function CvView({ navigate, showToast, tweaks = {}, setTweak }) {
                   <div className="cv-xp-desc">{f.description}</div>
                 </div>
             )}
+
+              {/* Section experiences */}
+              <div className="cv-proj-section">
+                <hr className="cv-divider" />
+                <div className="cv-sec-title">Experiences {featuredExperiences.length > 0 && <span style={{ color: 'var(--color-zinc-400)', fontWeight: 600 }}>· {featuredExperiences.length}</span>}</div>
+                {featuredExperiences.length === 0 ? (
+                  <p className="cv-empty-note">Aucune experience marquee comme featured dans la configuration.</p>
+                ) : (
+                  <div className="cv-projects">
+                    {featuredExperiences.map(e => (
+                      <div className="cv-proj" key={e.id} style={{ '--cv-c': 'var(--cat-dev)' }}>
+                        <div className="cv-proj-top">
+                          <span className="cv-proj-name">{e.title}</span>
+                          <span className="cv-proj-tech">{e.company}</span>
+                        </div>
+                        <div className="cv-proj-meta">{e.period}{e.location ? ' · ' + e.location : ''}</div>
+                        {e.highlights && e.highlights.length ? (
+                          <ul className="cv-proj-list">
+                            {e.highlights.slice(0, maxBullets).map((h, i) => (
+                              <li key={i}><Icon name="check" size={11} /><span>{h}</span></li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <div className="cv-proj-desc">{e.description}</div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
 
               {/* Section projets — prend tout l'espace restant entre formation et footer */}
               <div className="cv-proj-section">
