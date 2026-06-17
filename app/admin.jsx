@@ -116,7 +116,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
     setPreviewPage('/projet/' + id)
   }, [])
 
-  const previewFilter = '/'
+  const previewFilter = 'all'
   const previewSetFilter = () => {}
   const previewTweaks = {}
   const previewSetTweak = () => {}
@@ -190,11 +190,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
             </div>
           </div>
           <div className="ds-preview-frame">
-            <div className="live-preview" style={{ overflow: 'auto', height: '100%' }}>
-              <div className="preview-shell" style={{ transform: `scale(${Math.max(0.3, previewWidth / 1440)})`, transformOrigin: 'top left', width: `${Math.round(1440 / Math.max(0.3, previewWidth / 1440))}px` }}>
-                {renderPreview()}
-              </div>
-            </div>
+            {renderPreview()}
           </div>
         </div>
       </aside>

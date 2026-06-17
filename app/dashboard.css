@@ -689,7 +689,7 @@ html.is-resizing .dash-resizer {
 
 .ds-preview-frame {
   flex: 1;
-  overflow: hidden;
+  overflow: auto;
   position: relative;
 }
 

@@ -82,12 +82,13 @@ test.describe('Bentofolio - Admin UX', () => {
     }
   });
 
-  test('Admin live preview is visible', async ({ page }) => {
+  test('Admin live preview renders content', async ({ page }) => {
     await page.goto(BASE + '/index.html#/admin');
     await page.fill('input[type="password"]', 'bento');
     await page.click('button[type="submit"]');
     await page.waitForSelector('.dash-preview', { timeout: 5000 });
-    await expect(page.locator('.live-preview')).toBeVisible();
+    // Preview should render the HomeView component directly
+    await expect(page.locator('.dash-preview .cell--hero')).toBeVisible({ timeout: 5000 });
   });
 
   test('Admin sections switch without crash', async ({ page }) => {
