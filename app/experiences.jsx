@@ -9,10 +9,10 @@ import { Markdown } from './markdown-renderer.jsx';
 function ExperienceCard({ experience, onOpen }) {
   return (
     <button className="proj-card" onClick={() => onOpen(experience.id)}>
-      <div className="proj-card-top">
-        <span className="proj-card-name"><Icon name="briefcase" size={14} /> {experience.title}</span>
-      </div>
       <div className="proj-card-body">
+        <div className="proj-card-top">
+          <span className="proj-card-name"><Icon name="briefcase" size={14} /> {experience.title}</span>
+        </div>
         <p className="proj-card-meta">{experience.company} · {experience.period}</p>
         <Markdown text={experience.description} className="proj-card-desc" />
         <div className="proj-card-techs">
@@ -27,8 +27,8 @@ function ExperienceDetail({ experience, onClose }) {
   if (!experience) return null;
   return (
     <div className="modal-overlay" onClick={onClose}>
+      <button className="modal-close" onClick={onClose} aria-label="Fermer"><Icon name="x" size={18} /></button>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose} aria-label="Fermer"><Icon name="x" size={18} /></button>
         <div className="modal-body">
           <div className="modal-head">
             <h2 className="modal-title">{experience.title}</h2>

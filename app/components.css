@@ -232,6 +232,8 @@
 .modal-meta { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s4); font-size: var(--text-sm); color: var(--text-2); margin-bottom: var(--s5); }
 .modal-meta b { color: var(--text); font-weight: 600; }
 .modal-case { font-size: var(--text-md); line-height: var(--leading-loose); color: var(--text); margin-bottom: var(--s5); white-space: pre-line; }
+.modal-list { list-style: none; padding: 0; margin-bottom: var(--s5); display: flex; flex-direction: column; gap: 8px; }
+.modal-list li { display: flex; align-items: flex-start; gap: 8px; font-size: var(--text-base); line-height: var(--leading-relaxed); color: var(--text); }
 .modal-techs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: var(--s6); }
 .modal-actions { display: flex; gap: var(--s3); flex-wrap: wrap; }
 @keyframes fadeIn { from { opacity: 0; } }
