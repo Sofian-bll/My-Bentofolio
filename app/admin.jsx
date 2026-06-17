@@ -65,10 +65,45 @@ function DashboardView({ navigate, showToast, onLogout }) {
   const [section, setSection] = useState('projets')
   const [previewPage, setPreviewPage] = useState('/')
   const [saving, setSaving] = useState(false)
-  const [previewWidth, setPreviewWidth] = useState(420)
+  const [mainWidth, setMainWidth] = useState(null)
   const [previewKey, setPreviewKey] = useState(0)
   const [draftProject, setDraftProject] = useState(null)
   const debounceRef = useRef(null)
+  const isDragging = useRef(false)
+  const dashRef = useRef(null)
+
+  useEffect(() => {
+    const onMove = (e) => {
+      if (!isDragging.current || !dashRef.current) return
+      e.preventDefault()
+      const rect = dashRef.current.getBoundingClientRect()
+      const sidebarW = 200
+      const handleW = 6
+      const minMain = 400
+      const w = e.clientX - rect.left - sidebarW - handleW / 2
+      setMainWidth(Math.max(minMain, w))
+    }
+    const onUp = () => {
+      if (isDragging.current) {
+        isDragging.current = false
+        document.body.style.cursor = ''
+        document.documentElement.classList.remove('is-resizing')
+      }
+    }
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
+    }
+  }, [])
+
+  const startResize = (e) => {
+    e.preventDefault()
+    isDragging.current = true
+    document.body.style.cursor = 'col-resize'
+    document.documentElement.classList.add('is-resizing')
+  }
 
   useEffect(() => {
     clearTimeout(debounceRef.current)
@@ -147,7 +182,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
   ]
 
   return (
-    <div className="dashboard-v5" style={{ '--preview-w': `${previewWidth}px` }}>
+    <div className="dashboard-v5" ref={dashRef}>
       <aside className="dash-sidebar">
         <div className="dash-brand"><span className="dash-brand-dot"/><span>Admin</span></div>
         <nav className="dash-nav">
@@ -169,7 +204,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
           </button>
         </div>
       </aside>
-      <main className="dash-main">
+      <main className={'dash-main' + (mainWidth ? '' : ' is-auto')} style={mainWidth ? { width: mainWidth } : undefined}>
         <div className="dash-content">
           {section === 'projets'   && <ProjectsSection   projects={projects} setProjects={setProjects} showToast={showToast} onDraftChange={setDraftProject} setPreviewPage={setPreviewPage}/>}
           {section === 'apparence' && <AppearanceSection appearance={appearance} setAppearance={setAppearance}/>}
@@ -181,6 +216,8 @@ function DashboardView({ navigate, showToast, onLogout }) {
           {section === 'backup'    && <BackupSection     config={config} showToast={showToast}/>}
         </div>
       </main>
+
+      <div className="dash-resizer-h" onMouseDown={startResize} />
 
       <aside className="dash-preview">
         <div className="ds-preview-panel">

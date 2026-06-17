@@ -595,11 +595,10 @@
 }
 
 /* ═══════════════════════════════════════
-   V5 — 3-column dashboard layout
+   V5 — flexbox dashboard layout (50/50 default)
    ═══════════════════════════════════════ */
 .dashboard-v5 {
-  display: grid;
-  grid-template-columns: 200px 1fr 12px var(--preview-w, 420px);
+  display: flex;
   height: 100vh;
   overflow: hidden;
   background: var(--bg, #f0f0f3);
@@ -609,8 +608,39 @@
 }
 
 .dash-main {
+  flex: 0 0 auto;
+  min-width: 400px;
   overflow-y: auto;
   padding: 40px 32px;
+}
+
+.dash-main.is-auto {
+  flex: 1 1 0;
+}
+
+.dash-resizer-h {
+  width: 6px;
+  flex-shrink: 0;
+  cursor: col-resize;
+  background: var(--border, #dcdce0);
+  transition: background 0.15s;
+  position: relative;
+  z-index: 3;
+}
+
+.dash-resizer-h:hover,
+html.is-resizing .dash-resizer-h {
+  background: var(--accent, #6366f1);
+}
+
+.dash-preview {
+  flex: 1 1 0;
+  min-width: 400px;
+  background: var(--surface, #ffffff);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .dash-content {
@@ -626,37 +656,6 @@
 }
 
 /* ─── RESIZER ─── */
-.dash-resizer {
-  cursor: col-resize;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  transition: background 0.15s;
-}
-
-.dash-resizer:hover,
-html.is-resizing .dash-resizer {
-  background: var(--border, #dcdce0);
-}
-
-.dash-resizer-line {
-  width: 2px;
-  height: 32px;
-  border-radius: 2px;
-  background: var(--text-2, #6b6b76);
-  opacity: 0.3;
-}
-
-/* ─── PREVIEW PANEL ─── */
-.dash-preview {
-  background: var(--surface, #ffffff);
-  border-left: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
 .ds-preview-panel {
   display: flex;
   flex-direction: column;
@@ -1241,7 +1240,7 @@ html.is-resizing * {
 
 @media (max-width: 980px) {
   .dashboard-v5 {
-    grid-template-columns: 64px 1fr;
+    flex-wrap: wrap;
   }
 
   .dashboard-v5 .dash-sidebar {
@@ -1250,11 +1249,13 @@ html.is-resizing * {
   }
 
   .dash-preview,
-  .dash-resizer {
+  .dash-resizer-h {
     display: none;
   }
 
   .dashboard-v5 .dash-main {
+    flex: 1 1 0;
+    min-width: 0;
     padding: 24px 18px;
   }
 
