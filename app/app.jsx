@@ -154,9 +154,10 @@ function App() {
   const [toast, setToast] = useState(null);
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [adminMode, setAdminMode] = useState(() => {
-    if (window !== window.top) return false; // inside iframe → jamais admin
+    if (window !== window.top) return false;
     return localStorage.getItem(ADMIN_AUTH_KEY) === 'true';
   });
+  const isPreview = window.location.search.includes('preview')
 
   const activateAdmin = () => { localStorage.setItem(ADMIN_AUTH_KEY, 'true'); setAdminMode(true); navigate('/'); };
   const deactivateAdmin = () => { localStorage.removeItem(ADMIN_AUTH_KEY); setAdminMode(false); };
@@ -178,6 +179,10 @@ function App() {
     window.addEventListener('hashchange', onHash);
     return () => window.removeEventListener('hashchange', onHash);
   }, []);
+
+  useEffect(() => {
+    if (isPreview) document.documentElement.classList.add('is-preview')
+  }, [isPreview])
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);

@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import { Icon, TechTag } from './ui.jsx';
 import { DATA } from './data.js';
+import { Markdown } from './markdown-renderer.jsx';
 
 function ExperienceCard({ experience, onOpen }) {
   return (
@@ -13,7 +14,7 @@ function ExperienceCard({ experience, onOpen }) {
       </div>
       <div className="proj-card-body">
         <p className="proj-card-meta">{experience.company} · {experience.period}</p>
-        <p className="proj-card-desc">{experience.description}</p>
+        <Markdown text={experience.description} className="proj-card-desc" />
         <div className="proj-card-techs">
           {experience.techs.slice(0, 4).map((t, i) => <TechTag key={i} label={t.label} tech={t.tech} />)}
         </div>
@@ -44,7 +45,7 @@ function ExperienceDetail({ experience, onClose }) {
               ))}
             </ul>
           )}
-          <p className="modal-case">{experience.description}</p>
+          <Markdown text={experience.description} className="modal-case" />
           <div className="modal-techs">
             {experience.techs.map((t, i) => <TechTag key={i} label={t.label} tech={t.tech} />)}
           </div>

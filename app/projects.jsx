@@ -6,10 +6,11 @@ import { Icon, ProjectThumb, CatPills, TechTag, CatGlyph } from './ui.jsx';
 import { DATA, projCats, primaryCat } from './data.js';
 import { getProjectGalleryState } from './project-gallery.js';
 import { getCaseStudyBlocks } from './case-study-renderer.js';
+import { Markdown } from './markdown-renderer.jsx';
 
 function CaseStudyContent({ project }) {
   const blocks = getCaseStudyBlocks(project)
-  if (!blocks) return <p className="modal-case">{project.description}</p>
+  if (!blocks) return <Markdown text={project.description} className="modal-case" />
 
   return (
     <div className="cs-blocks">
@@ -25,7 +26,7 @@ function CaseStudyContent({ project }) {
             </figure>
           )
         }
-        return <p key={i} className="cs-paragraph">{block.content}</p>
+        return <Markdown key={i} text={block.content} />
       })}
     </div>
   )

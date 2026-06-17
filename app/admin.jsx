@@ -418,8 +418,8 @@ function ProjectForm({ init, onSave, onCancel, showToast, onDraftChange, setPrev
           </div>
         </div>
         <div className="ds-field" style={{gridColumn:'1/-1'}}>
-          <label className="ds-label">Description courte *</label>
-          <textarea className="textarea" value={f.description} onChange={e => set('description', e.target.value)} placeholder="Une ligne résumant le projet." />
+          <label className="ds-label">Description courte * (Markdown)</label>
+          <textarea className="textarea" value={f.description} onChange={e => set('description', e.target.value)} placeholder="**gras** *italique* `code` [lien](url) - liste" />
         </div>
         <div className="ds-field" style={{gridColumn:'1/-1'}}>
           <label className="ds-label">Etude de cas</label>
@@ -1039,7 +1039,7 @@ function PreviewPanel({ iframeRef, page, setPage, iframeKey, previewWidth, setPr
         </div>
       </div>
       <div className="ds-preview-frame">
-        <iframe ref={iframeRef} key={iframeKey} src={'index.html#' + page} title="Aperçu" sandbox="allow-scripts allow-same-origin" />
+        <iframe ref={iframeRef} key={iframeKey} src={'index.html?preview#' + page} title="Aperçu" sandbox="allow-scripts allow-same-origin" />
       </div>
     </div>
   )

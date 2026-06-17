@@ -330,3 +330,11 @@
   .a4-page { box-shadow: none !important; margin: 0 auto !important; }
   .mesh-bg { display: none !important; }
 }
+
+/* Preview mode — hide app shell in iframe */
+.is-preview .navbar,
+.is-preview .app-footer,
+.is-preview .back-link,
+.is-preview .page-head { display: none !important; }
+.is-preview .page-wrap { padding-top: var(--s4) !important; }
+}

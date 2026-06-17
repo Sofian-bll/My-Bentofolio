@@ -259,6 +259,24 @@
 .cs-blocks { display: flex; flex-direction: column; gap: var(--s5); }
 .cs-heading { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 700; color: var(--text); margin: 0; }
 .cs-paragraph { font-size: var(--text-lg); line-height: var(--leading-loose); color: var(--text); margin: 0; white-space: pre-line; }
+
+/* Markdown rendering */
+.md-content { display: flex; flex-direction: column; gap: var(--s3); }
+.md-h2 { font-size: var(--text-2xl); font-weight: 700; margin: var(--s3) 0 0; }
+.md-h3 { font-size: var(--text-lg); font-weight: 700; margin: var(--s2) 0 0; }
+.md-h4 { font-size: var(--text-base); font-weight: 700; margin: var(--s1) 0 0; }
+.md-list { padding-left: var(--s5); margin: 0; display: flex; flex-direction: column; gap: 4px; }
+.md-list li { font-size: var(--text-base); line-height: var(--leading-relaxed); }
+.md-list li::marker { color: var(--text-2); }
+.md-content code { background: var(--surface-2); padding: 1px 5px; border-radius: 4px; font-size: 0.9em; font-family: var(--font-mono, monospace); }
+.md-content a { color: var(--accent); text-decoration: underline; }
+.md-content strong { font-weight: 700; }
+.md-content em { font-style: italic; }
+.md-image img { max-width: 100%; border-radius: var(--radius-card); }
+.proj-card-desc { overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+.proj-card-desc p { margin: 0; display: inline; }
+.proj-card-desc code { background: none; padding: 0; }
+.proj-card-desc strong { font-weight: 600; }
 .cs-figure { margin: var(--s3) 0; }
 .cs-figure img { width: 100%; border-radius: var(--radius-card); }
 .cs-figure figcaption { font-size: var(--text-sm); color: var(--text-2); margin-top: var(--s2); text-align: center; }
