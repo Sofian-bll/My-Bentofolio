@@ -159,7 +159,7 @@ function App() {
   });
   const isPreview = window.location.search.includes('preview')
 
-  const activateAdmin = () => { localStorage.setItem(ADMIN_AUTH_KEY, 'true'); setAdminMode(true); navigate('/'); };
+  const activateAdmin = () => { localStorage.setItem(ADMIN_AUTH_KEY, 'true'); setAdminMode(true); };
   const deactivateAdmin = () => { localStorage.removeItem(ADMIN_AUTH_KEY); setAdminMode(false); };
 
   useEffect(() => {
