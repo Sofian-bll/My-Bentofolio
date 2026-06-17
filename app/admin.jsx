@@ -66,6 +66,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
   const [previewPage, setPreviewPage] = useState('/')
   const [saving, setSaving] = useState(false)
   const [previewWidth, setPreviewWidth] = useState(420)
+  const [previewKey, setPreviewKey] = useState(0)
   const [draftProject, setDraftProject] = useState(null)
   const debounceRef = useRef(null)
 
@@ -81,6 +82,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
       }
       const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, experiences, profile)
       syncLivePreview(cfg)
+      setPreviewKey(k => k + 1)
     }, 300)
   }, [projects, socialLinks, photo, appearance, cv, contact, experiences, profile, draftProject])
 
@@ -189,7 +191,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
               ))}
             </div>
           </div>
-          <div className="ds-preview-frame">
+          <div className="ds-preview-frame" key={previewKey}>
             {renderPreview()}
           </div>
         </div>
