@@ -541,7 +541,8 @@
     "displayFont": "Sora",
     "density": "compact",
     "radius": "doux",
-    "photo": "compact"
+    "photo": "compact",
+    "photoPosition": "center 16%"
   },
   "cv": {
     "featured": [

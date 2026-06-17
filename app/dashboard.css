@@ -1396,3 +1396,29 @@ html.is-resizing * {
   border: 2px solid white;
   box-shadow: 0 1px 3px rgba(0,0,0,.15);
 }
+
+/* Focal point picker */
+.dashboard-v5 .ds-focal-opt {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid var(--admin-line);
+  border-radius: 8px;
+  background: var(--admin-card);
+  cursor: pointer;
+  font-size: 18px;
+  display: grid;
+  place-items: center;
+  color: var(--admin-muted);
+  transition: all 0.15s;
+}
+
+.dashboard-v5 .ds-focal-opt:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.dashboard-v5 .ds-focal-opt.on {
+  background: var(--admin-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}

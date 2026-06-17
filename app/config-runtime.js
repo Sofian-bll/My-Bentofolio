@@ -146,6 +146,7 @@ export function applyLiveConfig(cfg, DATA, appConfig) {
     if (a.displayFont) root.style.setProperty('--font-display', `'${a.displayFont}', 'Syne', sans-serif`)
     if (a.radius) root.setAttribute('data-radius', a.radius)
     if (a.photo) root.setAttribute('data-photo', a.photo)
+    if (a.photoPosition) root.style.setProperty('--photo-position', a.photoPosition)
   }
   if (isObject(cfg.cv)) {
     const c = cfg.cv

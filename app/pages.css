@@ -95,7 +95,7 @@
 .a4-body { height: 100%; display: flex; flex-direction: column; overflow: hidden; }
 .cv-header2 { display: flex; gap: 20px; align-items: flex-start; }
 .cv-photo { width: var(--cv-photo-w, 118px); height: var(--cv-photo-h, 152px); border-radius: 10px; overflow: hidden; flex-shrink: 0; background: var(--color-zinc-100); }
-.cv-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 16%; }
+.cv-photo img { width: 100%; height: 100%; object-fit: cover; object-position: var(--photo-position, center 16%); }
 .cv-id { flex: 1; min-width: 0; display: flex; flex-direction: column; align-self: stretch; }
 .cv-name { font-family: var(--font-display); font-size: 30px; font-weight: 800; letter-spacing: -0.04em; line-height: 1.04; }
 .cv-role { font-size: 13.5px; font-weight: 600; color: var(--color-zinc-600); margin: 3px 0 7px; }
