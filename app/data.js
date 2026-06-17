@@ -8,6 +8,7 @@ import {
   isPreviewFrame,
   markFeaturedProjects,
   resolveAppConfig,
+  applyLiveConfig,
 } from './config-runtime.js'
 
 const appConfig = resolveAppConfig(
@@ -67,37 +68,7 @@ export const APP_CONFIG = appConfig
 /* ─── Runtime overrides (admin preview in iframe via parent postMessage) ─── */
 if (typeof window !== 'undefined') window.addEventListener('message', (e) => {
   const cfg = getRuntimeConfigFromMessage(e, window)
-  if (cfg) {
-    if (cfg.cv) {
-      appConfig.cv = { ...appConfig.cv, ...cfg.cv }
-      DATA.projects = markFeaturedProjects(DATA.projects, appConfig.cv?.featured)
-      appConfig.projects = DATA.projects
-    }
-    if (Array.isArray(cfg.projects)) {
-      DATA.projects = markFeaturedProjects(cfg.projects, appConfig.cv?.featured)
-      appConfig.projects = DATA.projects
-    }
-    if (Array.isArray(cfg.socialLinks)) DATA.socialLinks = cfg.socialLinks
-    if (cfg.photo != null) DATA.personalInfo.photoUrl = cfg.photo || null
-
-    if (cfg.appearance) {
-      const a = cfg.appearance
-      const root = document.documentElement
-      const DENSITY_GAP = { compact: '12px', cozy: '16px', large: '24px' }
-      if (a.accent) root.style.setProperty('--brand', a.accent)
-      if (a.density) root.style.setProperty('--bento-gap', DENSITY_GAP[a.density] || '16px')
-      if (a.displayFont) root.style.setProperty('--font-display', `'${a.displayFont}', 'Syne', sans-serif`)
-      if (a.radius) root.setAttribute('data-radius', a.radius)
-      if (a.photo) root.setAttribute('data-photo', a.photo)
-    }
-    if (cfg.cv) {
-      const c = cfg.cv
-      const root = document.documentElement
-      if (c.cvPhoto) root.setAttribute('data-cv-photo', c.cvPhoto)
-      if (c.cvPills) root.setAttribute('data-cv-pills', c.cvPills)
-      if (c.cvCardDensity) root.setAttribute('data-cv-density', c.cvCardDensity)
-    }
-  }
+  if (cfg) applyLiveConfig(cfg, DATA, appConfig)
 })
 
 /* Category helpers */

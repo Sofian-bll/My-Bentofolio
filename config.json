@@ -80,7 +80,7 @@
       "categories": [
         "dev"
       ],
-      "featured": true,
+      "featured": false,
       "techs": [
         {
           "label": "PHP MVC",
@@ -115,7 +115,7 @@
       "categories": [
         "dev"
       ],
-      "featured": true,
+      "featured": false,
       "techs": [
         {
           "label": "Java SE",
@@ -535,74 +535,6 @@
       "href": "https://github.com/Sofian-bll"
     }
   ],
-  "profile": {
-    "firstName": "Sofian",
-    "lastName": "BELLOUL",
-    "role": "Développeur Web Full Stack",
-    "bio": "Designer Framer reconverti dev — Laravel, Vue.js, Java. Mon TDAH me pousse à tout optimiser : workflows, archis complexes, et en ce moment ma transition vers un workflow full terminal. Je suis aussi à l'aise à monter une API REST qu'à mixer devant 1 200 personnes.",
-    "alternance": { "start": "sept. 2026", "duration": "14 mois", "rythme": "6/2 sem." },
-    "contactInfos": [
-      { "key": "Âge", "value": "22 ans", "visible": true },
-      { "key": "Localisation", "value": "Île-de-France", "visible": true },
-      { "key": "Téléphone", "value": "07 67 54 62 09", "visible": true },
-      { "key": "Email", "value": "sofian.belloul@epitech.eu", "visible": true }
-    ],
-    "skillGroups": [
-      { "category": "Dev Web", "skills": [
-        { "label": "PHP / Laravel", "tech": "laravel" }, { "label": "Vue 3 / Vite", "tech": "vue" },
-        { "label": "Java SE", "tech": "java" }, { "label": "Go", "tech": "go" },
-        { "label": "Tailwind", "tech": "tailwind" }, { "label": "shadcn-vue", "tech": "shadcn" },
-        { "label": "MySQL", "tech": "mysql" }
-      ]},
-      { "category": "DevOps", "skills": [
-        { "label": "Docker / Sail", "tech": "docker" }, { "label": "Git / GitHub", "tech": "git" },
-        { "label": "Linux (Arch)", "tech": "linux" }, { "label": "CI/CD", "tech": "bash" },
-        { "label": "SOPS / Age", "tech": "sops" }
-      ]},
-      { "category": "Design & IA", "skills": [
-        { "label": "Figma", "tech": "figma" }, { "label": "Framer", "tech": "framer" },
-        { "label": "Blender", "tech": "blender" }, { "label": "Three.js", "tech": "three" },
-        { "label": "Python", "tech": "python" }, { "label": "RAG / LLMs", "tech": "rag" },
-        { "label": "n8n", "tech": "n8n" }
-      ]},
-      { "category": "Outils & CLI", "skills": [
-        { "label": "Bash / Shell", "tech": "bash" }, { "label": "Neovim / tmux", "tech": "nvim" },
-        { "label": "SSH", "tech": "linux" }
-      ]},
-      { "category": "Soft Skills", "skills": [
-        { "label": "Prise de parole", "tech": "soft" }, { "label": "Vulgarisation", "tech": "soft" },
-        { "label": "Leadership", "tech": "soft" }
-      ]}
-    ],
-    "formations": [
-      {
-        "title": "Développeur-Intégrateur Web",
-        "badge": "BAC+2 RNCP",
-        "where": "Web@cademie by EPITECH — Paris · Depuis 2024",
-        "description": "Java, PHP Laravel, Vue 3. Pédagogie par projets. Prise de parole et présentations professionnelles."
-      }
-    ],
-    "interests": [
-      { "emoji": "🎧", "title": "DJ & Producteur", "detail": "+100k écoutes · Live devant +1 200 pers." },
-      { "emoji": "⌨️", "title": "CLI & Productivité", "detail": "Arch, Neovim, tmux, PKM Obsidian" },
-      { "emoji": "🔬", "title": "Science", "detail": "Physique quantique, cybersécurité" }
-    ],
-    "sectionLabels": {
-      "skills": "Compétences",
-      "formation": "Formation",
-      "contact": "Contact",
-      "interests": "Centres d'intérêt",
-      "projects": "Projets"
-    },
-    "cvSubtitle": "CV synthétique pour recruteurs : parcours, compétences, disponibilité et projets clés en une page.",
-    "cvSubtitleSize": 14,
-    "webExperienceSince": 2024,
-    "heroChips": [
-      { "text": "Hello", "variant": "outline" },
-      { "text": "Recherche Contrat Alternance", "variant": "solid" }
-    ]
-  },
-  "experiences": [],
   "photo": "",
   "appearance": {
     "accent": "#6366f1",
@@ -615,8 +547,6 @@
     "featured": [
       "connect-in",
       "connect-in-java",
-      "my-cinema",
-      "piscine-java",
       "sshk",
       "rage-ui",
       "epitalk",
@@ -632,5 +562,242 @@
     "contactShowStatus": true,
     "contactShowPhone": true,
     "contactShowType": true
+  },
+  "experiences": [
+    {
+      "id": "freelance-dev",
+      "title": "Developpeur Full Stack Freelance",
+      "company": "Independant",
+      "location": "Ile-de-France",
+      "period": "2025-2026",
+      "description": "Conception et developpement d'applications web full-stack sur mesure. Stack Laravel, Vue 3, Tailwind. Deploiement sur VPS Linux avec CI/CD.",
+      "highlights": [
+        "5 projets livres en production",
+        "Architecture REST API avec Sanctum",
+        "Integrations Docker et deploiement continu"
+      ],
+      "techs": [
+        { "label": "Laravel", "tech": "laravel" },
+        { "label": "Vue 3", "tech": "vue" },
+        { "label": "Docker", "tech": "docker" }
+      ],
+      "featured": true
+    },
+    {
+      "id": "dj-producer",
+      "title": "DJ & Producteur musical",
+      "company": "Independant",
+      "location": "Paris",
+      "period": "2022-2025",
+      "description": "Production musicale electronique et performances live. Gestion de projet artistique de A a Z : composition, mixage, mastering, promotion.",
+      "highlights": [
+        "+100k ecoutes sur les plateformes",
+        "Live devant +1 200 personnes",
+        "Gestion de projet creatif et technique"
+      ],
+      "techs": [],
+      "featured": true
+    }
+  ],
+  "profile": {
+    "firstName": "Sofian",
+    "lastName": "BELLOUL",
+    "role": "Développeur Web Full Stack",
+    "bio": "Designer Framer reconverti dev — Laravel, Vue.js, Java. Mon TDAH me pousse à tout optimiser : workflows, archis complexes, et en ce moment ma transition vers un workflow full terminal. Je suis aussi à l'aise à monter une API REST qu'à mixer devant 1 200 personnes.",
+    "alternance": {
+      "start": "sept. 2026",
+      "duration": "14 mois",
+      "rythme": "6/2 sem."
+    },
+    "contactInfos": [
+      {
+        "key": "Âge",
+        "value": "22 ans",
+        "visible": true
+      },
+      {
+        "key": "Localisation",
+        "value": "Île-de-France",
+        "visible": true
+      },
+      {
+        "key": "Téléphone",
+        "value": "07 67 54 62 09",
+        "visible": true
+      },
+      {
+        "key": "Email",
+        "value": "sofian.belloul@epitech.eu",
+        "visible": true
+      }
+    ],
+    "skillGroups": [
+      {
+        "category": "Dev Web",
+        "skills": [
+          {
+            "label": "PHP / Laravel",
+            "tech": "laravel"
+          },
+          {
+            "label": "Vue 3 / Vite",
+            "tech": "vue"
+          },
+          {
+            "label": "Java SE",
+            "tech": "java"
+          },
+          {
+            "label": "Go",
+            "tech": "go"
+          },
+          {
+            "label": "Tailwind",
+            "tech": "tailwind"
+          },
+          {
+            "label": "shadcn-vue",
+            "tech": "shadcn"
+          },
+          {
+            "label": "MySQL",
+            "tech": "mysql"
+          }
+        ]
+      },
+      {
+        "category": "DevOps",
+        "skills": [
+          {
+            "label": "Docker / Sail",
+            "tech": "docker"
+          },
+          {
+            "label": "Git / GitHub",
+            "tech": "git"
+          },
+          {
+            "label": "Linux (Arch)",
+            "tech": "linux"
+          },
+          {
+            "label": "CI/CD",
+            "tech": "bash"
+          },
+          {
+            "label": "SOPS / Age",
+            "tech": "sops"
+          }
+        ]
+      },
+      {
+        "category": "Design & IA",
+        "skills": [
+          {
+            "label": "Figma",
+            "tech": "figma"
+          },
+          {
+            "label": "Framer",
+            "tech": "framer"
+          },
+          {
+            "label": "Blender",
+            "tech": "blender"
+          },
+          {
+            "label": "Three.js",
+            "tech": "three"
+          },
+          {
+            "label": "Python",
+            "tech": "python"
+          },
+          {
+            "label": "RAG / LLMs",
+            "tech": "rag"
+          }
+        ]
+      },
+      {
+        "category": "Outils & CLI",
+        "skills": [
+          {
+            "label": "Bash / Shell",
+            "tech": "bash"
+          },
+          {
+            "label": "Neovim / tmux",
+            "tech": "nvim"
+          },
+          {
+            "label": "SSH",
+            "tech": "linux"
+          }
+        ]
+      },
+      {
+        "category": "Soft Skills",
+        "skills": [
+          {
+            "label": "Prise de parole",
+            "tech": "soft"
+          },
+          {
+            "label": "Vulgarisation",
+            "tech": "soft"
+          },
+          {
+            "label": "Leadership",
+            "tech": "soft"
+          }
+        ]
+      }
+    ],
+    "formations": [
+      {
+        "title": "Développeur-Intégrateur Web",
+        "badge": "BAC+2 RNCP",
+        "where": "Web@cademie by EPITECH — Paris · Depuis 2024",
+        "description": "Java, PHP Laravel, Vue 3. Pédagogie par projets. Prise de parole et présentations professionnelles."
+      }
+    ],
+    "interests": [
+      {
+        "emoji": "🎧",
+        "title": "DJ & Producteur",
+        "detail": "+100k écoutes · Live devant +1 200 pers."
+      },
+      {
+        "emoji": "⌨️",
+        "title": "CLI & Productivité",
+        "detail": "Arch, Neovim, tmux, PKM Obsidian"
+      },
+      {
+        "emoji": "🔬",
+        "title": "Science",
+        "detail": "Physique quantique, cybersécurité"
+      }
+    ],
+    "sectionLabels": {
+      "skills": "Compétences",
+      "formation": "Formation",
+      "contact": "Contact",
+      "interests": "Centres d'intérêt",
+      "projects": "Projets"
+    },
+    "cvSubtitle": "CV synthétique pour recruteurs : parcours, compétences, disponibilité et projets clés en une page.",
+    "cvSubtitleSize": 14,
+    "webExperienceSince": 2024,
+    "heroChips": [
+      {
+        "text": "Hello",
+        "variant": "outline"
+      },
+      {
+        "text": "Recherche Contrat Alternance",
+        "variant": "solid"
+      }
+    ]
   }
 }

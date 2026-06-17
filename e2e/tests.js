@@ -82,12 +82,12 @@ test.describe('Bentofolio - Admin UX', () => {
     }
   });
 
-  test('Admin preview iframe is visible', async ({ page }) => {
+  test('Admin live preview is visible', async ({ page }) => {
     await page.goto(BASE + '/index.html#/admin');
     await page.fill('input[type="password"]', 'bento');
     await page.click('button[type="submit"]');
     await page.waitForSelector('.dash-preview', { timeout: 5000 });
-    await expect(page.locator('.dash-preview iframe')).toBeVisible();
+    await expect(page.locator('.live-preview')).toBeVisible();
   });
 
   test('Admin sections switch without crash', async ({ page }) => {

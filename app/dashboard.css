@@ -707,6 +707,11 @@ html.is-resizing .dash-resizer {
   --admin-muted: #73737f;
   --admin-line: rgba(17, 17, 19, 0.09);
   --admin-soft: rgba(99, 102, 241, 0.08);
+  --admin-input: rgba(255, 255, 255, 0.66);
+  --admin-list: rgba(255, 255, 255, 0.62);
+  --admin-drop: rgba(255, 255, 255, 0.55);
+  --admin-seg: rgba(255, 255, 255, 0.38);
+  --admin-glow: rgba(255, 255, 255, 0.65);
 }
 
 [data-theme="dark"] .dashboard-v5 {
@@ -721,6 +726,11 @@ html.is-resizing .dash-resizer {
   --admin-muted: #a0a0aa;
   --admin-line: rgba(255, 255, 255, 0.1);
   --admin-soft: rgba(129, 140, 248, 0.14);
+  --admin-input: rgba(255, 255, 255, 0.06);
+  --admin-list: rgba(255, 255, 255, 0.04);
+  --admin-drop: rgba(255, 255, 255, 0.05);
+  --admin-seg: rgba(255, 255, 255, 0.07);
+  --admin-glow: rgba(255, 255, 255, 0.1);
 }
 
 .dashboard-v5 .dash-sidebar {
@@ -773,7 +783,7 @@ html.is-resizing .dash-resizer {
   border-radius: 18px;
   padding: 24px;
   background: color-mix(in srgb, var(--admin-card) 94%, var(--accent) 6%);
-  box-shadow: 0 1px 0 rgba(255,255,255,.65) inset, 0 16px 45px rgba(17,17,19,.06);
+  box-shadow: 0 1px 0 var(--admin-glow) inset, 0 16px 45px rgba(17,17,19,.06);
   min-width: 0;
 }
 
@@ -814,7 +824,7 @@ html.is-resizing .dash-resizer {
 .dashboard-v5 .select,
 .dashboard-v5 .textarea {
   border: 1px solid var(--admin-line);
-  background: rgba(255,255,255,.66);
+  background: var(--admin-input);
   border-radius: 12px;
   min-height: 42px;
 }
@@ -829,7 +839,7 @@ html.is-resizing .dash-resizer {
 .dashboard-v5 .ds-seg {
   min-height: 38px;
   border: 1px solid var(--admin-line);
-  background: rgba(255,255,255,.38);
+  background: var(--admin-seg);
 }
 
 .dashboard-v5 .ds-seg-opt {
@@ -852,8 +862,8 @@ html.is-resizing .dash-resizer {
   min-width: 0;
   border: 1px solid var(--admin-line);
   border-radius: 15px;
-  background: rgba(255,255,255,.62);
-  box-shadow: 0 1px 0 rgba(255,255,255,.65) inset;
+  background: var(--admin-list);
+  box-shadow: 0 1px 0 var(--admin-glow) inset;
 }
 
 .dashboard-v5 .ds-proj-row {
@@ -943,7 +953,7 @@ html.is-resizing .dash-resizer {
   color: var(--admin-muted);
   font-size: 12px;
   font-weight: 700;
-  background: rgba(255,255,255,.55);
+  background: var(--admin-drop);
   white-space: nowrap;
 }
 
@@ -1024,7 +1034,7 @@ html.is-resizing .dash-resizer {
   display: grid;
   place-items: center;
   overflow: hidden;
-  background: rgba(255,255,255,.5);
+  background: var(--admin-drop);
 }
 
 .ds-drop--over {
@@ -1143,7 +1153,7 @@ html.is-resizing .dash-resizer {
   border: 1px solid var(--admin-line);
   border-radius: 999px;
   padding: 7px 11px;
-  background: rgba(255,255,255,.55);
+  background: var(--admin-drop);
   color: var(--text);
   font-weight: 700;
   font-size: 12px;

@@ -6,6 +6,12 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { Icon, TechTag, CatGlyph } from './ui.jsx'
 import { DATA, APP_CONFIG } from './data.js'
 import { clearAdminSaveOverrides, saveConfigToDisk } from './admin-save.js'
+import { applyLiveConfig } from './config-runtime.js'
+import { HomeView } from './home.jsx'
+import { ProjectsView, ProjectDetailView } from './projects.jsx'
+import { ExperiencesView } from './experiences.jsx'
+import { CvView } from './cv.jsx'
+import { ContactView } from './contact.jsx'
 
 const TECH_KEYS = ['laravel','vue','java','tailwind','shadcn','mysql','docker','git','linux',
   'nvim','bash','figma','framer','python','rag','n8n','js','ts','shopify',
@@ -31,13 +37,6 @@ function buildConfig(projects, socialLinks, photo, appearance, cv, contact, expe
   }
 }
 
-/* ─── POST CONFIG TO IFRAME ─── */
-function postToIframe(iframeRef, config) {
-  try { localStorage.setItem('bentofolio.preview', JSON.stringify(config)) } catch (e) {}
-  if (!iframeRef.current?.contentWindow) return
-  iframeRef.current.contentWindow.postMessage({ type: '__bento_config_update', config }, '*')
-}
-
 function useConfigState() {
   const [projects, setProjects] = useState(() => [...(APP_CONFIG.projects || [])])
   const [socialLinks, setSocialLinks] = useState(() => [...(APP_CONFIG.socialLinks || [])])
@@ -45,13 +44,162 @@ function useConfigState() {
   const [appearance, setAppearance] = useState(() => ({...APP_CONFIG.appearance}))
   const [cv, setCv] = useState(() => ({...APP_CONFIG.cv}))
   const [contact, setContact] = useState(() => ({...APP_CONFIG.contact}))
-  const [profile, setProfile] = useState(() => ({ ...(APP_CONFIG.profile || {}) }))
   const [experiences, setExperiences] = useState(() => [...(APP_CONFIG.experiences || [])])
+  const [profile, setProfile] = useState(() => ({ ...(APP_CONFIG.profile || {}) }))
 
   const config = buildConfig(projects, socialLinks, photo, appearance, cv, contact, experiences, profile)
 
   return { projects, setProjects, socialLinks, setSocialLinks, photo, setPhoto,
     appearance, setAppearance, cv, setCv, contact, setContact, experiences, setExperiences, profile, setProfile, config }
+}
+
+function syncLivePreview(cfg) {
+  applyLiveConfig(cfg, DATA, APP_CONFIG)
+}
+
+/* ─── MAIN DASHBOARD ─── */
+function DashboardView({ navigate, showToast, onLogout }) {
+  const { projects, setProjects, socialLinks, setSocialLinks, photo, setPhoto,
+    appearance, setAppearance, cv, setCv, contact, setContact, experiences, setExperiences, profile, setProfile, config } = useConfigState()
+
+  const [section, setSection] = useState('projets')
+  const [previewPage, setPreviewPage] = useState('/')
+  const [saving, setSaving] = useState(false)
+  const [previewWidth, setPreviewWidth] = useState(420)
+  const [draftProject, setDraftProject] = useState(null)
+  const debounceRef = useRef(null)
+
+  useEffect(() => {
+    clearTimeout(debounceRef.current)
+    debounceRef.current = setTimeout(() => {
+      let merged = projects
+      if (draftProject) {
+        const idx = projects.findIndex(p => p.id === draftProject.id)
+        merged = idx >= 0
+          ? projects.map(p => p.id === draftProject.id ? draftProject : p)
+          : [...projects, draftProject]
+      }
+      const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, experiences, profile)
+      syncLivePreview(cfg)
+    }, 300)
+  }, [projects, socialLinks, photo, appearance, cv, contact, experiences, profile, draftProject])
+
+  const handleSave = useCallback(async () => {
+    setSaving(true)
+    let merged = projects
+    if (draftProject) {
+      const idx = projects.findIndex(p => p.id === draftProject.id)
+      merged = idx >= 0
+        ? projects.map(p => p.id === draftProject.id ? draftProject : p)
+        : [...projects, draftProject]
+    }
+    const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, experiences, profile)
+    const result = await saveConfigToDisk(cfg)
+    if (result.ok) {
+      try { clearAdminSaveOverrides(window.localStorage) } catch {}
+      showToast('Sauvegarde sur le disque — pret pour le build')
+      if (draftProject) {
+        setProjects(merged)
+        setDraftProject(null)
+      }
+    } else {
+      showToast(`Sauvegarde echouee — ${result.error || 'dev uniquement'}`)
+    }
+    setSaving(false)
+  }, [projects, socialLinks, photo, appearance, cv, contact, experiences, profile, draftProject, showToast, setProjects])
+
+  const previewNavigate = useCallback((path) => {
+    setPreviewPage(path)
+  }, [])
+
+  const previewOpenProject = useCallback((id) => {
+    setPreviewPage('/projet/' + id)
+  }, [])
+
+  const previewFilter = '/'
+  const previewSetFilter = () => {}
+  const previewTweaks = {}
+  const previewSetTweak = () => {}
+
+  const renderPreview = () => {
+    const page = previewPage
+    if (page.startsWith('/projet/')) {
+      const id = page.slice('/projet/'.length)
+      return <ProjectDetailView id={id} navigate={previewNavigate} openProject={previewOpenProject} />
+    }
+    switch (page) {
+      case '/projets': return <ProjectsView navigate={previewNavigate} openProject={previewOpenProject} filter={previewFilter} setFilter={previewSetFilter} />
+      case '/experiences': return <ExperiencesView navigate={previewNavigate} />
+      case '/cv': return <CvView navigate={previewNavigate} showToast={showToast} tweaks={previewTweaks} setTweak={previewSetTweak} />
+      case '/contact': return <ContactView navigate={previewNavigate} showToast={showToast} />
+      default: return <HomeView navigate={previewNavigate} openProject={previewOpenProject} />
+    }
+  }
+
+  const PAGES = [
+    { p: '/', l: 'Accueil' },
+    { p: '/projets', l: 'Projets' },
+    { p: '/experiences', l: 'Experiences' },
+    { p: '/cv', l: 'CV' },
+    { p: '/contact', l: 'Contact' },
+  ]
+
+  return (
+    <div className="dashboard-v5" style={{ '--preview-w': `${previewWidth}px` }}>
+      <aside className="dash-sidebar">
+        <div className="dash-brand"><span className="dash-brand-dot"/><span>Admin</span></div>
+        <nav className="dash-nav">
+          {SECTIONS.map(s => (
+            <button key={s.id} className={'dash-nav-item' + (section === s.id ? ' active' : '')} onClick={() => setSection(s.id)}>
+              <Icon name={s.icon} size={15}/>{s.label}
+            </button>
+          ))}
+        </nav>
+        <div className="dash-sidebar-footer">
+          <button className="btn btn--brand" style={{width:'100%',marginBottom:'8px'}} onClick={handleSave} disabled={saving}>
+            <Icon name={saving ? 'check' : 'download'} size={14}/> {saving ? 'Sauvegarde...' : 'Sauvegarder'}
+          </button>
+          <button className="btn btn--ghost" style={{width:'100%'}} onClick={() => navigate('/')}>
+            <Icon name="arrowLeft" size={13}/> Voir le site
+          </button>
+          <button className="btn btn--ghost" style={{width:'100%',marginTop:'4px'}} onClick={onLogout}>
+            <Icon name="x" size={13}/> Quitter
+          </button>
+        </div>
+      </aside>
+      <main className="dash-main">
+        <div className="dash-content">
+          {section === 'projets'   && <ProjectsSection   projects={projects} setProjects={setProjects} showToast={showToast} onDraftChange={setDraftProject} setPreviewPage={setPreviewPage}/>}
+          {section === 'apparence' && <AppearanceSection appearance={appearance} setAppearance={setAppearance}/>}
+          {section === 'cv'        && <CvSection         cv={cv} setCv={setCv} projects={projects} photo={photo} setPhoto={setPhoto} showToast={showToast}/>}
+          {section === 'contact'   && <ContactSection    contact={contact} setContact={setContact}/>}
+          {section === 'liens'     && <LinksSection      socialLinks={socialLinks} setSocialLinks={setSocialLinks} showToast={showToast}/>}
+          {section === 'profil'    && <ProfileSection    profile={profile} setProfile={setProfile} showToast={showToast} />}
+          {section === 'experiences' && <ExperiencesSection experiences={experiences} setExperiences={setExperiences} showToast={showToast} />}
+          {section === 'backup'    && <BackupSection     config={config} showToast={showToast}/>}
+        </div>
+      </main>
+
+      <aside className="dash-preview">
+        <div className="ds-preview-panel">
+          <div className="ds-preview-tabs">
+            <div className="ds-preview-routes">
+              {PAGES.map(x => (
+                <button key={x.p} className={'ds-preview-tab' + (previewPage === x.p ? ' active' : '')} onClick={() => setPreviewPage(x.p)}>{x.l}</button>
+              ))}
+            </div>
+          </div>
+          <div className="ds-preview-frame">
+            <div className="live-preview" style={{ overflow: 'auto', height: '100%' }}>
+              <div className="preview-shell" style={{ transform: `scale(${Math.max(0.3, previewWidth / 1440)})`, transformOrigin: 'top left', width: `${Math.round(1440 / Math.max(0.3, previewWidth / 1440))}px` }}>
+                {renderPreview()}
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  )
 }
 
 /* ══════════════════════════════════════
@@ -1006,188 +1154,6 @@ function ExperiencesSection({ experiences, setExperiences, showToast }) {
           </div>
         ))}
       </div>
-    </div>
-  )
-}
-
-/* ─── PREVIEW PANEL ─── */
-function PreviewPanel({ iframeRef, page, setPage, iframeKey, previewWidth, setPreviewWidth }) {
-  const PAGES = [
-    { p: '/', l: 'Accueil' },
-    { p: '/projets', l: 'Projets' },
-    { p: '/cv', l: 'CV' },
-    { p: '/contact', l: 'Contact' },
-  ]
-  const setPresetWidth = (width) => {
-    const maxWidth = Math.max(320, window.innerWidth - 620)
-    setPreviewWidth(Math.min(width, maxWidth))
-  }
-  return (
-    <div className="ds-preview-panel">
-      <div className="ds-preview-tabs">
-        <div className="ds-preview-routes">
-          {PAGES.map(x => (
-            <button key={x.p} className={'ds-preview-tab' + (page === x.p ? ' active' : '')} onClick={() => setPage(x.p)}>{x.l}</button>
-          ))}
-        </div>
-        <div className="ds-preview-tools">
-          <span className="ds-preview-size">{Math.round(previewWidth)}px</span>
-          <button className="ds-preview-preset" onClick={() => setPresetWidth(390)}>Mobile</button>
-          <button className="ds-preview-preset" onClick={() => setPresetWidth(768)}>Tablet</button>
-          <button className="ds-preview-preset" onClick={() => setPresetWidth(1100)}>Desktop</button>
-          <button className="icon-btn" onClick={() => { if (iframeRef.current) iframeRef.current.src = iframeRef.current.src }} title="Rafraîchir"><Icon name="arrowRight" size={15}/></button>
-        </div>
-      </div>
-      <div className="ds-preview-frame">
-        <iframe ref={iframeRef} key={iframeKey} src={'index.html?preview#' + page} title="Aperçu" sandbox="allow-scripts allow-same-origin" />
-      </div>
-    </div>
-  )
-}
-
-/* ─── MAIN DASHBOARD ─── */
-function DashboardView({ navigate, showToast, onLogout }) {
-  const { projects, setProjects, socialLinks, setSocialLinks, photo, setPhoto,
-    appearance, setAppearance, cv, setCv, contact, setContact, experiences, setExperiences, profile, setProfile, config } = useConfigState()
-
-  const [section, setSection] = useState('projets')
-  const [previewPage, setPreviewPage] = useState('/')
-  const [saving, setSaving] = useState(false)
-  const [iframeKey, setIframeKey] = useState(0)
-  const [previewWidth, setPreviewWidth] = useState(420)
-  const [draftProject, setDraftProject] = useState(null)
-  const iframeRef = useRef(null)
-  const debounceRef = useRef(null)
-  const isDragging = useRef(false)
-
-  const reloadPreview = useCallback(() => {
-    setIframeKey(k => k + 1)
-  }, [])
-
-  const syncToIframe = useCallback(() => {
-    let merged = projects
-    if (draftProject) {
-      const idx = projects.findIndex(p => p.id === draftProject.id)
-      merged = idx >= 0
-        ? projects.map(p => p.id === draftProject.id ? draftProject : p)
-        : [...projects, draftProject]
-    }
-    const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, experiences, profile)
-    postToIframe(iframeRef, cfg)
-  }, [projects, socialLinks, photo, appearance, cv, contact, experiences, profile, draftProject])
-
-  useEffect(() => {
-    clearTimeout(debounceRef.current)
-    debounceRef.current = setTimeout(() => {
-      syncToIframe()
-      reloadPreview()
-    }, 600)
-  }, [projects, socialLinks, photo, appearance, cv, contact, experiences, draftProject, syncToIframe, reloadPreview])
-
-  const handleSave = useCallback(async () => {
-    setSaving(true)
-    let merged = projects
-    if (draftProject) {
-      const idx = projects.findIndex(p => p.id === draftProject.id)
-      merged = idx >= 0
-        ? projects.map(p => p.id === draftProject.id ? draftProject : p)
-        : [...projects, draftProject]
-    }
-    const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, experiences, profile)
-    const result = await saveConfigToDisk(cfg)
-    if (result.ok) {
-      try { clearAdminSaveOverrides(window.localStorage) } catch {}
-      showToast('Sauvegarde sur le disque — pret pour le build')
-      if (draftProject) {
-        setProjects(merged)
-        setDraftProject(null)
-      }
-      reloadPreview()
-    } else {
-      showToast(`Sauvegarde echouee — ${result.error || 'dev uniquement'}`)
-    }
-    setSaving(false)
-  }, [projects, socialLinks, photo, appearance, cv, contact, experiences, profile, draftProject, showToast, reloadPreview, setProjects])
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (!isDragging.current) return
-      // Prevent selecting text while dragging
-      e.preventDefault()
-      // Calculate new width (from right edge)
-      const newWidth = window.innerWidth - e.clientX
-      // Keep enough room for the admin controls while allowing desktop preview on wide screens.
-      const maxW = window.innerWidth - 620
-      const w = Math.min(Math.max(newWidth, 320), maxW)
-      setPreviewWidth(w)
-    }
-    const handleMouseUp = () => {
-      if (isDragging.current) {
-        isDragging.current = false
-        document.body.style.cursor = ''
-        document.documentElement.classList.remove('is-resizing')
-      }
-    }
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('mouseup', handleMouseUp)
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('mouseup', handleMouseUp)
-    }
-  }, [])
-
-  return (
-    <div className="dashboard-v5" style={{ '--preview-w': `${previewWidth}px` }}>
-      <aside className="dash-sidebar">
-        <div className="dash-brand"><span className="dash-brand-dot"/><span>Admin</span></div>
-        <nav className="dash-nav">
-          {SECTIONS.map(s => (
-            <button key={s.id} className={'dash-nav-item' + (section === s.id ? ' active' : '')} onClick={() => setSection(s.id)}>
-              <Icon name={s.icon} size={15}/>{s.label}
-            </button>
-          ))}
-        </nav>
-        <div className="dash-sidebar-footer">
-          <button className="btn btn--brand" style={{width:'100%',marginBottom:'8px'}} onClick={handleSave} disabled={saving}>
-            <Icon name={saving ? 'check' : 'download'} size={14}/> {saving ? 'Sauvegarde...' : 'Sauvegarder'}
-          </button>
-          <button className="btn btn--ghost" style={{width:'100%'}} onClick={() => navigate('/')}>
-            <Icon name="arrowLeft" size={13}/> Voir le site
-          </button>
-          <button className="btn btn--ghost" style={{width:'100%',marginTop:'4px'}} onClick={onLogout}>
-            <Icon name="x" size={13}/> Quitter
-          </button>
-        </div>
-      </aside>
-      <main className="dash-main">
-        <div className="dash-content">
-          {section === 'projets'   && <ProjectsSection   projects={projects} setProjects={setProjects} showToast={showToast} onDraftChange={setDraftProject} setPreviewPage={setPreviewPage}/>}
-          {section === 'apparence' && <AppearanceSection appearance={appearance} setAppearance={setAppearance}/>}
-          {section === 'cv'        && <CvSection         cv={cv} setCv={setCv} projects={projects} photo={photo} setPhoto={setPhoto} showToast={showToast}/>}
-          {section === 'contact'   && <ContactSection    contact={contact} setContact={setContact}/>}
-          {section === 'liens'     && <LinksSection      socialLinks={socialLinks} setSocialLinks={setSocialLinks} showToast={showToast}/>}
-          {section === 'profil'    && <ProfileSection    profile={profile} setProfile={setProfile} showToast={showToast} />}
-          {section === 'experiences' && <ExperiencesSection experiences={experiences} setExperiences={setExperiences} showToast={showToast} />}
-          {section === 'backup'    && <BackupSection     config={config} showToast={showToast}/>}
-        </div>
-      </main>
-      
-      {/* Drag handle for resizing */}
-      <div 
-        className="dash-resizer" 
-        onMouseDown={(e) => {
-          e.preventDefault()
-          isDragging.current = true
-          document.body.style.cursor = 'col-resize'
-          document.documentElement.classList.add('is-resizing')
-        }}
-      >
-        <div className="dash-resizer-line" />
-      </div>
-
-      <aside className="dash-preview">
-        <PreviewPanel iframeRef={iframeRef} page={previewPage} setPage={setPreviewPage} iframeKey={iframeKey} previewWidth={previewWidth} setPreviewWidth={setPreviewWidth}/>
-      </aside>
     </div>
   )
 }

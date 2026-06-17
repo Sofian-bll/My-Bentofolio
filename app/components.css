@@ -100,6 +100,7 @@
 .hero-name { font-family: var(--font-display); font-size: clamp(32px, 4vw, 46px); font-weight: 800; line-height: 1.0; letter-spacing: var(--tracking-tight); margin-bottom: var(--s4); }
 .hero-role { font-size: var(--text-xl); font-weight: 500; color: var(--text-2); margin-bottom: var(--s5); }
 .hero-meta { display: flex; flex-wrap: wrap; gap: var(--s2); font-size: var(--text-sm); color: var(--text-2); margin-bottom: var(--s5); padding: var(--s3) var(--s4); background: var(--bg-inset); border-radius: var(--radius-md); }
+.hero-meta span { display: flex; align-items: center; gap: 4px; }
 .hero-meta strong { color: var(--text); }
 .meta-sep { opacity: 0.3; }
 .hero-bio { font-size: var(--text-md); line-height: var(--leading-loose); color: var(--text-2); margin-top: var(--s5); padding-top: var(--s5); border-top: 1px solid var(--border-sub); max-width: 60ch; white-space: pre-line; }
