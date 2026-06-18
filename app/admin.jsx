@@ -283,6 +283,21 @@ function AppearanceSection({ appearance, setAppearance }) {
             <Seg k="photo" opts={[{v:'compact',l:'Compacte'},{v:'equilibre',l:'Équil.'},{v:'grand',l:'Grande'}]} /></div>
         </div>
       </div>
+      <div className="ds-card">
+        <h3 className="ds-card-title">Point focal photo</h3>
+        <p className="ds-hint" style={{marginBottom:'12px'}}>Choisis la zone de la photo mise en avant.</p>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'4px',maxWidth:'200px'}}>
+          {[
+            { v:'0% 0%', l:'↖' },   { v:'50% 0%', l:'↑' },   { v:'100% 0%', l:'↗' },
+            { v:'0% 50%', l:'←' },  { v:'center 16%', l:'⊙' }, { v:'100% 50%', l:'→' },
+            { v:'0% 100%', l:'↙' }, { v:'50% 100%', l:'↓' },  { v:'100% 100%', l:'↘' },
+          ].map(p => (
+            <button key={p.v} className={'ds-focal-opt' + (appearance.photoPosition === p.v ? ' on' : '')}
+              onClick={() => set('photoPosition', p.v)}
+              title={p.v}>{p.l}</button>
+          ))}
+        </div>
+      </div>
     </div>
   )
 }
@@ -350,21 +365,6 @@ function CvSection({ cv, setCv, projects, photo, setPhoto, showToast }) {
                 <input className="input" value={urlInput} onChange={e=>setUrlInput(e.target.value)}
                   onKeyDown={e=>{if(e.key==='Enter')savePhotoUrl()}} placeholder="https://…" />
                 <button className="btn btn--ghost" onClick={savePhotoUrl}><Icon name="check" size={14}/></button>
-        </div>
-      </div>
-      <div className="ds-card">
-        <h3 className="ds-card-title">Point focal photo</h3>
-        <p className="ds-hint" style={{marginBottom:'12px'}}>Choisis la zone de la photo mise en avant.</p>
-        <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'4px',maxWidth:'200px'}}>
-          {[
-            { v:'0% 0%', l:'↖' },   { v:'50% 0%', l:'↑' },   { v:'100% 0%', l:'↗' },
-            { v:'0% 50%', l:'←' },  { v:'center 16%', l:'⊙' }, { v:'100% 50%', l:'→' },
-            { v:'0% 100%', l:'↙' }, { v:'50% 100%', l:'↓' },  { v:'100% 100%', l:'↘' },
-          ].map(p => (
-            <button key={p.v} className={'ds-focal-opt' + (appearance.photoPosition === p.v ? ' on' : '')}
-              onClick={() => set('photoPosition', p.v)}
-              title={p.v}>{p.l}</button>
-          ))}
         </div>
       </div>
             {photo && <button className="btn btn--ghost" style={{marginTop:'4px'}} onClick={()=>{setPhoto('');showToast('Photo réinitialisée')}}><Icon name="trash" size={13}/> Réinitialiser</button>}

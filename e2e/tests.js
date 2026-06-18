@@ -103,6 +103,21 @@ test.describe('Bentofolio - Admin UX', () => {
     }
   });
 
+  test('Admin CV section opens without runtime errors', async ({ page }) => {
+    const pageErrors = [];
+    page.on('pageerror', error => pageErrors.push(error.message));
+
+    await page.goto(BASE + '/index.html#/admin');
+    await page.fill('input[type="password"]', 'bento');
+    await page.click('button[type="submit"]');
+    await page.waitForSelector('.dashboard-v5', { timeout: 5000 });
+
+    await page.locator('.dash-nav-item').filter({ hasText: 'CV' }).click();
+    await expect(page.locator('.dashboard-v5')).toBeVisible({ timeout: 2000 });
+    await expect(page.locator('.ds-title')).toContainText('CV');
+    expect(pageErrors).toEqual([]);
+  });
+
   test('Admin preview tabs work', async ({ page }) => {
     await page.goto(BASE + '/index.html#/admin');
     await page.fill('input[type="password"]', 'bento');
