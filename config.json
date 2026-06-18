@@ -542,7 +542,9 @@
     "density": "compact",
     "radius": "doux",
     "photo": "compact",
-    "photoPosition": "center 16%"
+    "photoPosition": "center 16%",
+    "photoPositionHome": "50% 61%",
+    "photoPositionCv": "50% 61%"
   },
   "cv": {
     "featured": [

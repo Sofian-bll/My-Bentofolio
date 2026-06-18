@@ -146,7 +146,13 @@ export function applyLiveConfig(cfg, DATA, appConfig) {
     if (a.displayFont) root.style.setProperty('--font-display', `'${a.displayFont}', 'Syne', sans-serif`)
     if (a.radius) root.setAttribute('data-radius', a.radius)
     if (a.photo) root.setAttribute('data-photo', a.photo)
-    if (a.photoPosition) root.style.setProperty('--photo-position', a.photoPosition)
+    const homePosition = a.photoPositionHome || a.photoPosition
+    const cvPosition = a.photoPositionCv || a.photoPosition
+    if (homePosition) {
+      root.style.setProperty('--photo-position', homePosition)
+      root.style.setProperty('--photo-position-home', homePosition)
+    }
+    if (cvPosition) root.style.setProperty('--photo-position-cv', cvPosition)
   }
   if (isObject(cfg.cv)) {
     const c = cfg.cv

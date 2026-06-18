@@ -118,6 +118,27 @@ test.describe('Bentofolio - Admin UX', () => {
     expect(pageErrors).toEqual([]);
   });
 
+  test('Admin appearance provides separate focal controls for home and CV', async ({ page }) => {
+    const pageErrors = [];
+    page.on('pageerror', error => pageErrors.push(error.message));
+
+    await page.goto(BASE + '/index.html#/admin');
+    await page.fill('input[type="password"]', 'bento');
+    await page.click('button[type="submit"]');
+    await page.waitForSelector('.dashboard-v5', { timeout: 5000 });
+
+    await page.locator('.dash-nav-item').filter({ hasText: 'Apparence' }).click();
+    await expect(page.locator('.ds-title')).toContainText('Apparence');
+    await expect(page.locator('[data-testid="focal-tab-home"]')).toBeVisible();
+    await expect(page.locator('[data-testid="focal-tab-cv"]')).toBeVisible();
+
+    const preview = page.locator('[data-testid="focal-preview"]');
+    await expect(preview).toBeVisible();
+    await preview.click({ position: { x: 24, y: 24 } });
+    await expect(page.locator('[data-testid="focal-value"]')).toContainText('%');
+    expect(pageErrors).toEqual([]);
+  });
+
   test('Admin preview tabs work', async ({ page }) => {
     await page.goto(BASE + '/index.html#/admin');
     await page.fill('input[type="password"]', 'bento');

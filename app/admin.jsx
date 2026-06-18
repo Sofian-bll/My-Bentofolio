@@ -57,6 +57,113 @@ function syncLivePreview(cfg) {
   applyLiveConfig(cfg, DATA, APP_CONFIG)
 }
 
+const FOCAL_DEFAULTS = {
+  home: '50% 18%',
+  cv: '50% 16%',
+}
+
+function clampPercent(value) {
+  const n = Number(value)
+  if (!Number.isFinite(n)) return 50
+  return Math.max(0, Math.min(100, Math.round(n)))
+}
+
+function focalTokenToPercent(token, axis) {
+  if (!token) return null
+  if (token.endsWith('%')) return Number.parseFloat(token)
+  if (axis === 'x') {
+    if (token === 'left') return 0
+    if (token === 'center') return 50
+    if (token === 'right') return 100
+  }
+  if (axis === 'y') {
+    if (token === 'top') return 0
+    if (token === 'center') return 50
+    if (token === 'bottom') return 100
+  }
+  return null
+}
+
+function parseFocalPosition(value, fallback) {
+  const source = String(value || fallback || '50% 50%').trim().toLowerCase()
+  const parts = source.split(/\s+/)
+  const x = focalTokenToPercent(parts[0], 'x')
+  const y = focalTokenToPercent(parts[1], 'y')
+  return {
+    x: clampPercent(x ?? focalTokenToPercent(String(fallback || '50% 50%').split(/\s+/)[0], 'x')),
+    y: clampPercent(y ?? focalTokenToPercent(String(fallback || '50% 50%').split(/\s+/)[1], 'y')),
+  }
+}
+
+function formatFocalPosition(x, y) {
+  return `${clampPercent(x)}% ${clampPercent(y)}%`
+}
+
+function FocalPointControl({ label, hint, photo, value, fallback, aspectRatio, onChange }) {
+  const position = parseFocalPosition(value, fallback)
+  const imageSrc = resolveImageSrc(photo) || 'photo.jpg'
+  const setPosition = (x, y) => onChange(formatFocalPosition(x, y))
+  const updateFromPointer = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect()
+    const x = ((event.clientX - rect.left) / rect.width) * 100
+    const y = ((event.clientY - rect.top) / rect.height) * 100
+    setPosition(x, y)
+  }
+  const handlePointerDown = (event) => {
+    event.preventDefault()
+    event.currentTarget.setPointerCapture?.(event.pointerId)
+    updateFromPointer(event)
+  }
+  const handlePointerMove = (event) => {
+    if (event.buttons !== 1) return
+    updateFromPointer(event)
+  }
+
+  return (
+    <div className="ds-focal-control">
+      <div className="ds-focal-head">
+        <div>
+          <h4>{label}</h4>
+          <p>{hint}</p>
+        </div>
+        <span data-testid="focal-value" className="ds-focal-value">{formatFocalPosition(position.x, position.y)}</span>
+      </div>
+      <div
+        data-testid="focal-preview"
+        className="ds-focal-preview"
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        style={{
+          aspectRatio,
+          '--focal-position': formatFocalPosition(position.x, position.y),
+          '--focal-x': `${position.x}%`,
+          '--focal-y': `${position.y}%`,
+        }}
+      >
+        <img src={imageSrc} alt="Aperçu du cadrage" draggable="false" />
+        <span className="ds-focal-crosshair" />
+        <span className="ds-focal-marker" />
+      </div>
+      <div className="ds-focal-sliders">
+        <label>
+          <span>Horizontal</span>
+          <input type="range" min="0" max="100" value={position.x} onChange={e => setPosition(e.target.value, position.y)} />
+        </label>
+        <label>
+          <span>Vertical</span>
+          <input type="range" min="0" max="100" value={position.y} onChange={e => setPosition(position.x, e.target.value)} />
+        </label>
+      </div>
+      <div className="ds-focal-presets">
+        <button className="btn btn--ghost" onClick={() => setPosition(50, 50)}>Centrer</button>
+        <button className="btn btn--ghost" onClick={() => setPosition(50, 18)}>Visage haut</button>
+        <button className="btn btn--ghost" onClick={() => setPosition(35, 25)}>Gauche</button>
+        <button className="btn btn--ghost" onClick={() => setPosition(65, 25)}>Droite</button>
+      </div>
+    </div>
+  )
+}
+
 /* ─── MAIN DASHBOARD ─── */
 function DashboardView({ navigate, showToast, onLogout }) {
   const { projects, setProjects, socialLinks, setSocialLinks, photo, setPhoto,
@@ -207,7 +314,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
       <main className={'dash-main' + (mainWidth ? '' : ' is-auto')} style={mainWidth ? { width: mainWidth } : undefined}>
         <div className="dash-content">
           {section === 'projets'   && <ProjectsSection   projects={projects} setProjects={setProjects} showToast={showToast} onDraftChange={setDraftProject} setPreviewPage={setPreviewPage}/>}
-          {section === 'apparence' && <AppearanceSection appearance={appearance} setAppearance={setAppearance}/>}
+          {section === 'apparence' && <AppearanceSection appearance={appearance} setAppearance={setAppearance} photo={photo}/>}
           {section === 'cv'        && <CvSection         cv={cv} setCv={setCv} projects={projects} photo={photo} setPhoto={setPhoto} showToast={showToast}/>}
           {section === 'contact'   && <ContactSection    contact={contact} setContact={setContact}/>}
           {section === 'liens'     && <LinksSection      socialLinks={socialLinks} setSocialLinks={setSocialLinks} showToast={showToast}/>}
@@ -253,9 +360,13 @@ const SECTIONS = [
 ]
 
 /* ─── APPEARANCE ─── */
-function AppearanceSection({ appearance, setAppearance }) {
+function AppearanceSection({ appearance, setAppearance, photo }) {
   const ACCENTS = ['#6366f1','#0055ff','#14b8a6','#ea4b71','#7c3aed','#f59e0b']
+  const [focalTarget, setFocalTarget] = useState('home')
   const set = (k, v) => setAppearance(p => ({...p, [k]: v}))
+  const focal = focalTarget === 'cv'
+    ? { key: 'photoPositionCv', label: 'Cadrage CV', hint: 'Ajuste la photo dans le format portrait du CV.', fallback: appearance.photoPosition || FOCAL_DEFAULTS.cv, aspectRatio: '118 / 152' }
+    : { key: 'photoPositionHome', label: 'Cadrage accueil', hint: 'Ajuste la photo dans le bloc bento de la page d’accueil.', fallback: appearance.photoPosition || FOCAL_DEFAULTS.home, aspectRatio: '4 / 3' }
   const Seg = ({k, opts}) => (
     <div className="ds-seg">
       {opts.map(o => <button key={String(o.v)} className={'ds-seg-opt' + (appearance[k] === o.v ? ' on' : '')} onClick={() => set(k, o.v)}>{o.l}</button>)}
@@ -284,19 +395,21 @@ function AppearanceSection({ appearance, setAppearance }) {
         </div>
       </div>
       <div className="ds-card">
-        <h3 className="ds-card-title">Point focal photo</h3>
-        <p className="ds-hint" style={{marginBottom:'12px'}}>Choisis la zone de la photo mise en avant.</p>
-        <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'4px',maxWidth:'200px'}}>
-          {[
-            { v:'0% 0%', l:'↖' },   { v:'50% 0%', l:'↑' },   { v:'100% 0%', l:'↗' },
-            { v:'0% 50%', l:'←' },  { v:'center 16%', l:'⊙' }, { v:'100% 50%', l:'→' },
-            { v:'0% 100%', l:'↙' }, { v:'50% 100%', l:'↓' },  { v:'100% 100%', l:'↘' },
-          ].map(p => (
-            <button key={p.v} className={'ds-focal-opt' + (appearance.photoPosition === p.v ? ' on' : '')}
-              onClick={() => set('photoPosition', p.v)}
-              title={p.v}>{p.l}</button>
-          ))}
+        <h3 className="ds-card-title">Cadrage photo</h3>
+        <p className="ds-hint" style={{marginBottom:'12px'}}>Clique ou glisse sur la photo, puis affine avec les sliders.</p>
+        <div className="ds-focal-tabs">
+          <button data-testid="focal-tab-home" className={'ds-focal-tab' + (focalTarget === 'home' ? ' on' : '')} onClick={() => setFocalTarget('home')}>Accueil</button>
+          <button data-testid="focal-tab-cv" className={'ds-focal-tab' + (focalTarget === 'cv' ? ' on' : '')} onClick={() => setFocalTarget('cv')}>CV</button>
         </div>
+        <FocalPointControl
+          label={focal.label}
+          hint={focal.hint}
+          photo={photo}
+          value={appearance[focal.key]}
+          fallback={focal.fallback}
+          aspectRatio={focal.aspectRatio}
+          onChange={value => set(focal.key, value)}
+        />
       </div>
     </div>
   )

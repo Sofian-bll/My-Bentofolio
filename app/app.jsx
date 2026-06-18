@@ -52,6 +52,8 @@ const TWEAK_DEFAULTS = {
   radius: APP_CONFIG.appearance?.radius || 'doux',
   photo: APP_CONFIG.appearance?.photo || 'compact',
   photoPosition: APP_CONFIG.appearance?.photoPosition || 'center 16%',
+  photoPositionHome: APP_CONFIG.appearance?.photoPositionHome || APP_CONFIG.appearance?.photoPosition || '50% 18%',
+  photoPositionCv: APP_CONFIG.appearance?.photoPositionCv || APP_CONFIG.appearance?.photoPosition || '50% 16%',
   cvPhoto: APP_CONFIG.cv?.cvPhoto || 'moyenne',
   cvPills: APP_CONFIG.cv?.cvPills || 'couleur',
   cvMaxBullets: APP_CONFIG.cv?.cvMaxBullets || 2,
@@ -173,7 +175,9 @@ function App() {
     root.style.setProperty('--bento-gap', DENSITY_GAP[tweaks.density] || '16px');
     root.style.setProperty('--font-display', `'${tweaks.displayFont}', 'Syne', sans-serif`);
     root.setAttribute('data-photo', tweaks.photo);
-    root.style.setProperty('--photo-position', tweaks.photoPosition || 'center 16%');
+    root.style.setProperty('--photo-position', tweaks.photoPositionHome || tweaks.photoPosition || '50% 18%');
+    root.style.setProperty('--photo-position-home', tweaks.photoPositionHome || tweaks.photoPosition || '50% 18%');
+    root.style.setProperty('--photo-position-cv', tweaks.photoPositionCv || tweaks.photoPosition || '50% 16%');
     root.setAttribute('data-cv-photo', tweaks.cvPhoto);
     root.setAttribute('data-cv-pills', tweaks.cvPills);
     root.setAttribute('data-cv-density', tweaks.cvCardDensity);
