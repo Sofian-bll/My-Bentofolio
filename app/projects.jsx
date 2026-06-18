@@ -10,6 +10,8 @@ import { Markdown } from './markdown-renderer.jsx';
 import { resolveImageSrc } from './config-runtime.js';
 
 function CaseStudyContent({ project }) {
+  if (project?.caseStudy) return <Markdown text={project.caseStudy} className="case-article md-content" />
+
   const blocks = getCaseStudyBlocks(project)
   if (!blocks) return <Markdown text={project.description} className="modal-case" />
 
@@ -172,11 +174,15 @@ function ProjectDetailView({ id, navigate, openProject }) {
 
       <div className="pd-body">
         <article className="pd-main">
-          <h2 className="pd-section">Étude de cas</h2>
+          <div className="pd-section-kicker">Étude de cas</div>
           <CaseStudyContent project={project} />
         </article>
 
         <aside className="pd-aside">
+          <div className="pd-aside-card">
+            <span className="pd-aside-k">Résumé</span>
+            <p>{project.description}</p>
+          </div>
           <div className="pd-facts">
             <div className="pd-fact"><span className="pd-fact-k">Catégorie{projCats(project).length > 1 ? 's' : ''}</span><span className="pd-fact-v">{projCats(project).map((c) => categories[c].label).join(' · ')}</span></div>
             <div className="pd-fact"><span className="pd-fact-k">Rôle</span><span className="pd-fact-v">{project.role || '—'}</span></div>

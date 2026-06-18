@@ -104,7 +104,7 @@
         "Suppression logique (SoftDeletes) et algorithme anti-chevauchement.",
         "Frontend Vue 3 + Tailwind, back-office de gestion de séances."
       ],
-      "caseStudy": "Back-office de gestion de séances de cinéma avec un framework MVC conçu from scratch. Aucune dépendance — routing, ORM, templating, SoftDeletes et algorithme anti-chevauchement des séances par salle.",
+      "caseStudy": "Back-office de gestion de séances de cinéma avec un framework MVC conçu from scratch.\nAucune dépendance — routing, ORM, templating, SoftDeletes et algorithme anti-chevauchement des séances par salle.",
       "demoUrl": "",
       "repoUrl": "https://github.com/Sofian-bll",
       "image": ""

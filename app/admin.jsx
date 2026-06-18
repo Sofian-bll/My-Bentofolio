@@ -633,6 +633,7 @@ function ProjectForm({ init, onSave, onCancel, showToast, onDraftChange, setPrev
   const [tLabel, setTL] = useState('')
   const [tKey, setTK] = useState('default')
   const [uploading, setUploading] = useState(false)
+  const [caseImageUploading, setCaseImageUploading] = useState(false)
   const set = (k, v) => setF(p => ({...p, [k]: v}))
   const toggleCat = (k) => setF(p => {
     const has = p.categories.includes(k)
@@ -671,6 +672,41 @@ function ProjectForm({ init, onSave, onCancel, showToast, onDraftChange, setPrev
       reader.readAsDataURL(file)
     } catch {
       setUploading(false)
+      showToast('Echec upload')
+    }
+  }
+
+  const uploadCaseStudyImage = async (file) => {
+    if (!file || !file.type.startsWith('image/')) {
+      showToast('Veuillez selectionner une image')
+      return
+    }
+    setCaseImageUploading(true)
+    try {
+      const reader = new FileReader()
+      reader.onload = async () => {
+        const resp = await fetch('/api/admin/upload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            projectId: f.id || slugify(f.name || 'nouveau-projet'),
+            image: reader.result,
+          }),
+        })
+        const data = await resp.json()
+        if (data.ok) {
+          const caption = 'Décris cette image'
+          const markdown = `![${caption}](${data.path})`
+          set('caseStudy', `${(f.caseStudy || '').trim()}\n\n${markdown}\n`.trimStart())
+          showToast('Image insérée dans l’étude de cas')
+        } else {
+          showToast(data.error || 'Echec upload')
+        }
+        setCaseImageUploading(false)
+      }
+      reader.readAsDataURL(file)
+    } catch {
+      setCaseImageUploading(false)
       showToast('Echec upload')
     }
   }
@@ -733,8 +769,15 @@ function ProjectForm({ init, onSave, onCancel, showToast, onDraftChange, setPrev
           <textarea className="textarea" value={f.description} onChange={e => set('description', e.target.value)} placeholder="**gras** *italique* `code` [lien](url) - liste" />
         </div>
         <div className="ds-field" style={{gridColumn:'1/-1'}}>
-          <label className="ds-label">Etude de cas</label>
-          <textarea className="textarea" style={{minHeight:'80px'}} value={f.caseStudy} onChange={e => set('caseStudy', e.target.value)} placeholder="Contexte, defis techniques, resultats..." />
+          <label className="ds-label">Étude de cas complète (Markdown)</label>
+          <textarea className="textarea" style={{minHeight:'240px'}} value={f.caseStudy} onChange={e => set('caseStudy', e.target.value)} placeholder={'## Contexte\n\nExplique le problème, les choix techniques et les résultats.\n\n![Capture](media/projects/projet/capture.jpg)'} />
+          <div className="ds-markdown-tools">
+            <span>Supporte titres, listes, liens, code, citations et images markdown.</span>
+            <label className="btn btn--ghost" style={{cursor:'pointer'}}>
+              {caseImageUploading ? 'Upload...' : <><Icon name="download" size={14}/> Insérer image étude de cas</>}
+              <input type="file" accept="image/*" style={{display:'none'}} onChange={e => { const file = e.target.files[0]; if (file) uploadCaseStudyImage(file) }} disabled={caseImageUploading} />
+            </label>
+          </div>
         </div>
         <div className="ds-field" style={{gridColumn:'1/-1'}}>
           <label className="ds-label">Blocs etude de cas (optionnel)</label>

@@ -139,6 +139,17 @@ test.describe('Bentofolio - Admin UX', () => {
     expect(pageErrors).toEqual([]);
   });
 
+  test('Admin project editor exposes inline case study image upload', async ({ page }) => {
+    await page.goto(BASE + '/index.html#/admin');
+    await page.fill('input[type="password"]', 'bento');
+    await page.click('button[type="submit"]');
+    await page.waitForSelector('.dashboard-v5', { timeout: 5000 });
+
+    await page.locator('.ds-proj-row').first().locator('[title="Modifier"]').click();
+    await expect(page.locator('.ds-title')).toContainText('Modifier');
+    await expect(page.getByText('Insérer image étude de cas')).toBeVisible();
+  });
+
   test('Admin preview tabs work', async ({ page }) => {
     await page.goto(BASE + '/index.html#/admin');
     await page.fill('input[type="password"]', 'bento');

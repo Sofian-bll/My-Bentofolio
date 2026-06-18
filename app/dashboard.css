@@ -1350,6 +1350,27 @@ html.is-resizing * {
   flex-shrink: 0;
 }
 
+.dashboard-v5 .ds-markdown-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+  color: var(--admin-muted);
+  font-size: 12px;
+}
+
+.dashboard-v5 .ds-markdown-tools span {
+  line-height: 1.45;
+}
+
+@media (max-width: 760px) {
+  .dashboard-v5 .ds-markdown-tools {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
 /* Case study block editor */
 .dashboard-v5 .ds-blocks-list {
   display: flex;

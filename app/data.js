@@ -2,6 +2,7 @@
    BENTOFOLIO — DATA (ES module, v5: config.json)
    ============================================= */
 import baseConfig from '../config.json'
+import { projects as codeProjects } from '../content/projects.js'
 import {
   getBrowserStorage,
   getRuntimeConfigFromMessage,
@@ -11,8 +12,13 @@ import {
   applyLiveConfig,
 } from './config-runtime.js'
 
+const sourceConfig = {
+  ...baseConfig,
+  projects: codeProjects.length ? codeProjects : baseConfig.projects,
+}
+
 const appConfig = resolveAppConfig(
-  baseConfig,
+  sourceConfig,
   getBrowserStorage(globalThis),
   { isPreviewFrame: isPreviewFrame(typeof window !== 'undefined' ? window : null) },
 )
