@@ -1,149 +1,156 @@
-# Add Project
+---
+name: add-project
+description: Use when the user wants to add a new project to their Bentofolio portfolio, types /add-project, asks to "ajouter un projet", "créer un projet", or "nouveau projet". Also use when the user describes a project they built and mentions showcasing it or adding it to their portfolio. Do NOT use for editing existing projects — that's a different workflow.
+---
 
-Adds a new project to a Bentofolio portfolio via conversational data gathering and a standalone validation script.
+# Add Project to Bentofolio
 
-## Activation
+Conversational workflow to gather project metadata, validate it, and write the files via a standalone script.
 
-Triggered by the user typing `/add-project` or asking to "add a project", "create a new project", "ajouter un projet".
+## Core principle
+
+**Never write files directly.** The workflow is: ask questions → confirm with user → run the script. The script handles validation, file paths, and format. You doing it manually leads to invalid categories, missing fields, and fabricated content.
+
+## When NOT to use
+
+- The user says "modifier", "update", "edit", "changer" an existing project
+- The project already exists in `content/projects/<id>/` — the user means to update it
 
 ## Workflow
 
-Follow this conversational flow step by step. After each step, confirm with the user before proceeding to the next one.
+Follow this step-by-step. After each step, confirm before moving on.
 
-### Step 1: Gather basic metadata
+### Step 1: Name → derive ID
 
-Ask the user for these fields (required unless noted):
+Ask: "Quel est le nom du projet ?"
 
-- **Nom du projet** (required) — Display name
-- **Catégories** (required, array) — One or more from: `dev`, `webdesign`, `3d`, `animation`, `logo`, `tooling`, `devops`, `ai`, `tools`
-- **Rôle** (optional) — Role on the project (e.g. `"Solo"`, `"Binôme"`, `"Equipe (3)"`)
-- **Période** (optional) — Ask "Quand as-tu commencé ?" and "Quand as-tu fini ?" to derive `startDate` (ISO YYYY-MM-DD) and `endDate` (ISO or `null` if ongoing). Do NOT ask for `period` or `duration` — those are computed automatically.
-
-Confirm with user: "Je résume : [nom], catégories [x, y], rôle [rôle], période [startDate → endDate]. C'est bon ?"
-
-### Step 2: Gather tech stack
-
-Ask: "Quelles technos as-tu utilisées ?"
-
-For each tech:
-- **Label** — Human-readable name (e.g. `"React"`, `"Docker"`)
-- **Tech key** — Machine key from the palette (e.g. `"react"`, `"docker"`). If the user provides a label that matches a palette entry, use its key and color. If not in the palette, use a reasonable key or default.
-
-Confirm with user: "Je résume les technos : React (react), Docker (docker), ... C'est bon ?"
-
-### Step 3: Gather description and highlights
-
-- **Description** (required) — Une phrase courte (max 150 chars). Demander: "Décris le projet en une phrase."
-- **Highlights** (optional, array of 3 strings) — Bullet points. Demander: "3 points clés à mettre en avant ?"
-
-### Step 4: Gather URLs
-
-- **Demo URL** (optional) — Live demo link. Demander: "Une démo en ligne ?"
-- **Repo URL** (optional) — Source repository. Demander: "Un repo GitHub ?"
-
-### Step 5: Gather case study
-
-Demander: "Tu veux ajouter une étude de cas ? (oui/non)"
-
-If yes, ask the user to describe the project in natural language. Guide them to cover:
-- **Contexte** — Why this project exists, what problem it solves
-- **Points clés** — Key features or achievements
-- **Architecture** (optional) — How it's built
-- **Leçons apprises** (optional) — What they learned
-
-Then format their answer as a case-study.md:
-
-```markdown
-## Contexte
-
-[User's context description]
-
-## Points clés
-
-- [Key point 1]
-- [Key point 2]
-- [Key point 3]
-
-[Optional sections if user provided them]
+Derive the ID: lowercase, no accents, spaces → hyphens, strip special chars. Show the derived ID to the user immediately:
 ```
+→ ID généré : "mon-projet"
+```
+If the ID already exists in `content/projects/`, warn the user: "Ce projet existe déjà. Tu veux le mettre à jour ou en créer un nouveau ?"
 
-**Important:** Do NOT include `## Stack` — the stack is already displayed via tech pills.
+### Step 2: Categories
 
-### Step 6: Final review and confirmation
+Ask: "Dans quelle(s) catégorie(s) ?"
 
-Present ALL gathered data to the user in a structured format:
+Valid categories (exactly these): `dev`, `webdesign`, `3d`, `animation`, `logo`, `tooling`, `devops`, `ai`, `tools`.
+
+Show the list to the user if they're unsure. Accept 1 or more.
+
+### Step 3: Role
+
+Ask: "Quel était ton rôle ?" (optional). Examples: "Solo", "Binôme", "Équipe (3)".
+
+### Step 4: Dates
+
+Ask: "Quand as-tu commencé ?" → derive `startDate` as YYYY-MM-DD. If user only gives a year, use YYYY-01-01.
+
+Ask: "Quand as-tu fini ?" → derive `endDate` as YYYY-MM-DD or `null` if ongoing.
+
+Show: `startDate: "2025-03-15" → endDate: null ("En cours")`.
+
+Period and duration are computed automatically — do NOT ask for them.
+
+### Step 5: Tech stack
+
+Ask: "Quelles technos ?"
+
+For each tech the user names, look it up in `config.json` → `skillPalette`. A match gives you the `tech` key, `label`, and `color`. Use those. If not in the palette, use `{ label: "Name", tech: "default", color: "#888888" }`.
+
+Show the resolved techs with their colors.
+
+### Step 6: Description and highlights
+
+Ask for a one-sentence description (required, under 150 chars).
+
+Ask for 3 highlights (optional). Keep them short, factual, no emojis (the list already uses bullet points).
+
+### Step 7: URLs
+
+Ask: "Une démo en ligne ?" (demoUrl, optional).
+Ask: "Un repo GitHub ?" (repoUrl, optional).
+
+### Step 8: Case study
+
+Ask: "Tu veux une étude de cas ? (oui/non)"
+
+If yes, guide the user through: Contexte (why this project exists), Process (how it was built), Difficultés (what was hard), Fiertés (what they're proud of), Si c'était à refaire.
+
+Format as markdown with `##` headings. **Do NOT include a `## Stack` section** — the stack is rendered via tech pills separately. **Never fabricate content** — if the user doesn't provide it, don't invent it.
+
+### Step 9: Final review
+
+Show a summary of ALL gathered data in this format:
 
 ```
-Projet : [name] ([id])
-Catégories : [cat1, cat2]
-Rôle : [role]
-Dates : [startDate] → [endDate | "En cours"]
-Description : [description]
+Projet : AppStore Scraper (appstore-scraper)
+Catégories : dev, tools
+Rôle : Solo
+Dates : 2025-01-01 → 2025-09-04
+Technos : Python (python, #3776ab)
+Description : Scraper Python de l'App Store Apple...
 Highlights :
-  - [h1]
-  - [h2]
-  - [h3]
-Techs : [React (react), Docker (docker), ...]
-Demo : [demoUrl | —]
-Repo : [repoUrl | —]
-Case study : [oui/non]
+  • Scrape 36 storefronts Apple
+  • ...
+Demo : https://...
+Repo : https://...
+Case study : oui (1942 caractères)
 ```
 
-Ask: "Tout est correct ? Je lance le script ?"
+Ask: "Tout est bon ? Je lance le script ?"
 
-### Step 7: Run the script
+### Step 10: Run the script
 
-Build the JSON payload and run:
+Build the JSON payload with ALL fields and run:
 
 ```bash
 bun run .opencode/skills/add-project/scripts/add-project.ts '<JSON>'
 ```
 
-The script writes:
-- `content/projects/<id>/project.json`
-- `content/projects/<id>/case-study.md`
-- Updates `content/projects/order.json`
+The `caseStudy` field goes in the JSON as a string, not a separate file. The script handles writing both `project.json` and `case-study.md`, and updating `order.json`.
 
-**It does NOT rebuild `index.json`** — that is handled automatically by Vite HMR or the next `bun dev`/`bun build`.
+### Step 11: Verify
 
-### Step 8: Verify
-
-After the script succeeds, run the tests:
-
-```bash
-bun run test
-```
-
-Then tell the user: "Projet ajouté. Lance `bun dev` pour voir le résultat, ou `bun run build` pour déployer."
+Run `bun run test` to confirm nothing broke. Tell the user: "Projet ajouté. Lance `bun dev` pour voir le résultat."
 
 ## JSON payload format
 
 ```json
 {
   "name": "My Project",
-  "categories": ["dev", "tooling"],
-  "featured": true,
+  "categories": ["dev"],
   "role": "Solo",
-  "startDate": "2025-03-15",
+  "featured": false,
+  "startDate": "2025-01-01",
   "endDate": null,
-  "description": "A short description.",
+  "description": "Short description.",
   "highlights": ["Point 1", "Point 2", "Point 3"],
   "techs": [
-    { "label": "React", "tech": "react", "color": "#61dafb" },
-    { "label": "TypeScript", "tech": "ts", "color": "#3178c6" }
+    { "label": "React", "tech": "react", "color": "#61dafb" }
   ],
-  "demoUrl": "https://demo.example.com",
-  "repoUrl": "https://github.com/user/repo",
+  "demoUrl": "https://...",
+  "repoUrl": "https://...",
   "image": "",
-  "caseStudy": "## Contexte\n\n..." 
+  "caseStudy": "## Contexte\n\n..."
 }
 ```
 
-## Important rules
+Important:
+- `startDate` is YYYY-MM-DD, never a bare year
+- `endDate` is YYYY-MM-DD or `null`
+- Do NOT include `period` or `duration` — they are computed at runtime
+- `color` comes from the skill palette in `config.json`
+- The script writes `content/projects/<id>/project.json` and `case-study.md`, and appends to `order.json`
+- The script does NOT rebuild `index.json` — Vite HMR handles that
 
-1. **Always validate with the user** before running the script — show the full summary first
-2. **Never fabricate data** — only include what the user provides
-3. **Do NOT include `period` or `duration`** — they are auto-computed
-4. **Do NOT rebuild index.json** — Vite handles it
-5. **Use the palette** for tech keys and colors when possible — look up `config.json` > `skillPalette`
-6. **Keep one-step-per-exchange** — don't ask all questions at once, it's a conversation
+## Anti-patterns (from baseline failures)
+
+| Don't | Why | Do instead |
+|-------|-----|------------|
+| Write project.json directly with `writeFileSync` | You'll use wrong fields, invalid categories, miss the schema | Use the script |
+| Fabricate highlights or case study content | User may not agree, facts may be wrong | Ask the user, leave empty if they skip |
+| Include `## Stack` in case study | Stack is rendered via tech pills, duplication is noise | Skip it |
+| Use category names that aren't in the valid list | "tools" is not valid, only "tooling" is | Validate against the list |
+| Overwrite existing project without warning | Existing data may be correct | Check if ID exists first, warn the user |
+| Build the JSON manually in a `writeFileSync` | Wrong structure, missing validation | Use the script — it validates everything |

@@ -1,0 +1,45 @@
+{
+  "skill_name": "add-project",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Ajoute le projet SoundCloud Downloader à mon portfolio. C'est un script Python pour télécharger des playlists SoundCloud, projet solo de 2025. Catégories: dev, tooling. Pas de démo, pas de repo.",
+      "expected_output": "Agent follows conversational workflow: asks for missing info (role, dates, highlights, case study) instead of writing files immediately. Does NOT include ## Stack in case study. Uses valid categories. Confirms with user before running script.",
+      "assertions": [
+        {"text": "Asks user for missing info before writing any files", "passed": false, "evidence": ""},
+        {"text": "Does NOT fabricate highlights or case study content", "passed": false, "evidence": ""},
+        {"text": "Does NOT include ## Stack section in case study", "passed": false, "evidence": ""},
+        {"text": "Uses valid category 'tooling' not 'tools'", "passed": false, "evidence": ""},
+        {"text": "Confirms with user before running the script", "passed": false, "evidence": ""},
+        {"text": "Runs the add-project.ts script instead of writing files directly", "passed": false, "evidence": ""}
+      ],
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Ajoute le projet Klivio à mon bentofolio. C'est une landing page SaaS, design Figma et intégration Tailwind. Projet solo, 2025, 1 semaine. Il a une démo sur GitHub Pages et un repo GitHub.",
+      "expected_output": "Agent asks questions conversationally, looks up Figma and Tailwind in skillPalette for colors, derives valid startDate, does not invent case study content without asking, confirms before running add-project.ts script.",
+      "assertions": [
+        {"text": "Asks user step-by-step instead of writing files immediately", "passed": false, "evidence": ""},
+        {"text": "Looks up tech colors from config.json skillPalette", "passed": false, "evidence": ""},
+        {"text": "Derives startDate as YYYY-MM-DD format", "passed": false, "evidence": ""},
+        {"text": "Does NOT fabricate case study content", "passed": false, "evidence": ""},
+        {"text": "Runs add-project.ts script, not manual file writes", "passed": false, "evidence": ""}
+      ],
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Ajoute mon projet Epitalk au portfolio stp. C'est un projet web interactif avec un concept ludique, fait en équipe de 3 en 4 jours en 2025. Les technos c'est JavaScript et CSS. Le projet a un repo GitHub et une démo live sur GitHub Pages.",
+      "expected_output": "Agent follows conversational workflow, maps CSS to a valid tech (or uses default with color from palette), asks for missing info rather than inventing it, confirms before running script. Does not fabricate content like 'entièrement côté client'.",
+      "assertions": [
+        {"text": "Does NOT invent project details like 'entièrement côté client'", "passed": false, "evidence": ""},
+        {"text": "Asks user for details instead of fabricating them", "passed": false, "evidence": ""},
+        {"text": "Does NOT include ## Stack in case study if requested", "passed": false, "evidence": ""},
+        {"text": "Confirms all data with user before running script", "passed": false, "evidence": ""},
+        {"text": "Runs add-project.ts script instead of writing files directly", "passed": false, "evidence": ""}
+      ],
+      "files": []
+    }
+  ]
+}
