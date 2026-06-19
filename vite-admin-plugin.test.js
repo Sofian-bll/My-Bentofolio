@@ -73,6 +73,12 @@ describe('project content serialization', () => {
     expect(source).toContain('Use \\`code\\` and \\${danger}')
   })
 
+  test('serializes unknown project keys as safe property names', () => {
+    const source = serializeProjectModule({ id: 'safe-key-test', name: 'Safe Key Test', 'bad-key': 'value' })
+
+    expect(source).toContain('["bad-key"]: \'value\'')
+  })
+
   test('creates safe import variable names from project ids', () => {
     expect(projectIdToVariableName('connect-in')).toBe('connect_in')
     expect(projectIdToVariableName('3d-seahorse')).toBe('_3d_seahorse')

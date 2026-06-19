@@ -51,6 +51,12 @@ function formatValue(value: unknown, indent = 2): string {
   return 'null'
 }
 
+function formatPropertyKey(key: string) {
+  return /^[A-Za-z_$][\w$]*$/.test(key) && key !== '__proto__'
+    ? key
+    : `[${JSON.stringify(key)}]`
+}
+
 export function serializeProjectModule(project: Record<string, unknown>) {
   const orderedKeys = [
     'id', 'name', 'categories', 'featured', 'techs', 'role', 'period', 'duration',
@@ -60,7 +66,7 @@ export function serializeProjectModule(project: Record<string, unknown>) {
   const lines = ['export default {']
   for (const key of allKeys) {
     if (!(key in project)) continue
-    lines.push(`  ${key}: ${formatValue(project[key])},`)
+    lines.push(`  ${formatPropertyKey(key)}: ${formatValue(project[key])},`)
   }
   lines.push('}')
   return `${lines.join('\n')}\n`
