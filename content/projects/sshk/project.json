@@ -1,30 +1,23 @@
 {
   "id": "sshk",
   "name": "sshk",
-  "categories": [
-    "tooling"
-  ],
+  "categories": ["tooling", "devops"],
   "featured": true,
   "techs": [
-    {
-      "label": "Bash",
-      "tech": "bash"
-    },
-    {
-      "label": "OpenSSH",
-      "tech": "linux"
-    }
+    { "label": "Bash", "tech": "bash" },
+    { "label": "OpenSSH", "tech": "linux" },
+    { "label": "Git", "tech": "git" }
   ],
   "role": "Solo",
   "period": "2026",
   "duration": "En cours",
-  "description": "CLI Bash zéro dépendance pour créer, organiser et révoquer des clés SSH.",
+  "description": "CLI Bash zéro dépendance pour créer, organiser et révoquer des clés SSH. Une identité par usage, une commande par action — fini le plat de spaghettis ~/.ssh.",
   "highlights": [
-    "CLI Bash zéro dépendance — create, list, grant, revoke en une commande",
-    "Arborescence prévisible par projet/serveur, rotation de clés simplifiée",
+    "Arborescence prévisible : ~/.ssh/keys/, config.d/, authorized_keys.d/",
+    "5 commandes intuitives — create, list, grant, revoke, copy",
     "Installation curl | bash, compatible Linux/macOS sans runtime externe"
   ],
-  "demoUrl": "",
+  "demoUrl": "https://sofian-bll.github.io/sshk/",
   "repoUrl": "https://github.com/Sofian-bll/sshk",
   "image": "sshk-mockup.svg"
 }

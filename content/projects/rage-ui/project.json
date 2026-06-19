@@ -1,35 +1,25 @@
 {
   "id": "rage-ui",
   "name": "Rage-UI",
-  "categories": [
-    "tooling",
-    "devops"
-  ],
+  "categories": ["tooling", "devops"],
   "featured": true,
   "techs": [
-    {
-      "label": "JavaScript",
-      "tech": "js"
-    },
-    {
-      "label": "SOPS",
-      "tech": "docker"
-    },
-    {
-      "label": "Age",
-      "tech": "linux"
-    }
+    { "label": "React", "tech": "js" },
+    { "label": "Bun", "tech": "node" },
+    { "label": "SOPS", "tech": "sops" },
+    { "label": "Age", "tech": "linux" },
+    { "label": "Docker", "tech": "docker" }
   ],
   "role": "Solo",
   "period": "2026",
   "duration": "En cours",
-  "description": "Secrets Manager local-first — chiffrement SOPS + Age, injection GitOps, interface web.",
+  "description": "Secrets Manager local-first avec dashboard web. Chiffrement SOPS + Age, injection GitOps des .env, et synchronisation Git depuis l'interface.",
   "highlights": [
-    "Coffre-fort central pour secrets globaux et par projet.",
-    "Injection automatique via templates .env.template → .env.",
-    "Interface web pour gestion et injection en un clic."
+    "Coffre-fort central : secrets globaux + par projet, chiffrés en Age",
+    "Injection automatique : .env.template + {{PLACEHOLDERS}} → .env généré",
+    "Interface React pour gérer, injecter et versionner ses secrets sans terminal"
   ],
-  "demoUrl": "",
+  "demoUrl": "https://sofian-bll.github.io/Rage-UI/",
   "repoUrl": "https://github.com/Sofian-bll/Rage-UI",
-  "image": ""
+  "image": "media/projects/rage-ui/1781879615927.png"
 }
