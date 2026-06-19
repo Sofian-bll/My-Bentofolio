@@ -635,29 +635,16 @@ function LinksSection({ socialLinks, setSocialLinks, showToast }) {
 const EMPTY_P = { name:'', categories:['dev'], featured:true, role:'', startDate:'', endDate:'', description:'', caseStudy:'', caseStudyBlocks:[], demoUrl:'', repoUrl:'', techs:[], highlights:['','',''] }
 
 function SkillQuickPick({ palette, onPick }) {
-  const techs = (palette || []).filter(s => s.color)
-  const softs = (palette || []).filter(s => !s.color)
   return (
-    <>
-      {techs.length > 0 && (
-        <div className="pal-grid" style={{marginBottom:'6px'}}>
-          {techs.map(sk => (
-            <button key={sk.id} className="pal-pill" style={{'--c':sk.color}} onClick={() => onPick(sk)} title={sk.label}>
-              {sk.label}
-            </button>
-          ))}
-        </div>
-      )}
-      {softs.length > 0 && (
-        <div className="pal-grid">
-          {softs.map(sk => (
-            <button key={sk.id} className="pal-pill pal-pill--soft" onClick={() => onPick(sk)}>
-              {sk.label}
-            </button>
-          ))}
-        </div>
-      )}
-    </>
+    <div className="pal-grid" style={{marginBottom:'6px'}}>
+      {(palette || []).map(sk => (
+        <button key={sk.id} className={'pal-pill' + (sk.color ? '' : ' pal-pill--soft')}
+          style={sk.color ? { background: sk.color, color: contrastText(sk.color) } : {}}
+          onClick={() => onPick(sk)} title={sk.label}>
+          {sk.label}
+        </button>
+      ))}
+    </div>
   )
 }
 
@@ -972,110 +959,112 @@ function ProjectsSection({ projects, setProjects, skillPalette, showToast, onDra
 
 /* ─── BACKUP ─── */
 function PaletteSection({ skillPalette, setSkillPalette }) {
-  const [newLabel, setNewLabel] = useState('')
-  const [newColor, setNewColor] = useState('#6366f1')
-  const [newIsSoft, setNewIsSoft] = useState(false)
   const [editingId, setEditingId] = useState(null)
   const [editLabel, setEditLabel] = useState('')
   const [editColor, setEditColor] = useState('')
-  const [editIsSoft, setEditIsSoft] = useState(false)
+  const [editCategory, setEditCategory] = useState('')
 
-  const add = () => {
+  const [addingCat, setAddingCat] = useState(null)
+  const [newLabel, setNewLabel] = useState('')
+  const [newColor, setNewColor] = useState('#6366f1')
+
+  const categories = [...new Set(skillPalette.map(s => s.category || 'Sans catégorie'))]
+    .filter(Boolean)
+    .sort()
+
+  const add = (cat) => {
     if (!newLabel.trim()) return
-    const id = 'c_' + Date.now()
-    setSkillPalette(prev => [...prev, { id, label: newLabel.trim(), color: newIsSoft ? null : newColor }])
-    setNewLabel(''); setNewColor('#6366f1'); setNewIsSoft(false)
+    setSkillPalette(prev => [...prev, {
+      id: 'c_' + Date.now(),
+      label: newLabel.trim(),
+      color: newColor,
+      category: cat,
+    }])
+    setNewLabel('')
+    setAddingCat(null)
   }
 
   const remove = (id) => setSkillPalette(prev => prev.filter(s => s.id !== id))
 
   const startEdit = (s) => {
-    setEditingId(s.id); setEditLabel(s.label); setEditColor(s.color || '#6366f1'); setEditIsSoft(!s.color)
+    setEditingId(s.id)
+    setEditLabel(s.label)
+    setEditColor(s.color || '#6366f1')
+    setEditCategory(s.category || '')
   }
 
   const saveEdit = () => {
     if (!editLabel.trim()) { setEditingId(null); return }
-    setSkillPalette(prev => prev.map(s => s.id === editingId ? { ...s, label: editLabel.trim(), color: editIsSoft ? null : editColor } : s))
+    setSkillPalette(prev => prev.map(s =>
+      s.id === editingId
+        ? { ...s, label: editLabel.trim(), color: editCategory === 'Soft Skills' ? null : editColor, category: editCategory || undefined }
+        : s))
     setEditingId(null)
   }
 
-  const techs = skillPalette.filter(s => s.color)
-  const softs = skillPalette.filter(s => !s.color)
+  const cancelEdit = () => setEditingId(null)
+
+  const skillsInCat = (cat) => skillPalette.filter(s => (s.category || 'Sans catégorie') === cat)
 
   return (
     <div className="ds-section">
       <h2 className="ds-title">Competences</h2>
-      <p className="ds-sub">Palette de couleurs et labels des pills de competences techniques et soft skills.</p>
+      <p className="ds-sub">Palette de competences, organisees par categorie. Clique sur une pill pour modifier le label et la couleur.</p>
 
-      <div className="ds-card">
-        <h3 className="ds-card-title">Competences techniques</h3>
-        <div className="pal-grid">
-          {techs.map(s => (
-            <div key={s.id} className={'pal-pill-wrapper' + (editingId === s.id ? ' editing' : '')}>
-              {editingId === s.id ? (
-                <div className="pal-edit-popup">
-                  <div className="pal-edit-row">
-                    <input className="input" value={editLabel} onChange={e => setEditLabel(e.target.value)} placeholder="Label" autoFocus
-                      onKeyDown={e => { if (e.key === 'Enter') saveEdit(); if (e.key === 'Escape') setEditingId(null) }} />
-                    <input type="color" className="pal-color-input" value={editColor} onChange={e => setEditColor(e.target.value)} />
-                  </div>
-                  <div className="pal-edit-actions">
-                    <button className="btn btn--brand" style={{flex:1}} onClick={saveEdit}>Enregistrer</button>
-                    <button className="btn btn--ghost" onClick={() => setEditingId(null)}>Annuler</button>
-                  </div>
+      {categories.map(cat => {
+        const skills = skillsInCat(cat)
+        const isSoftCat = cat === 'Soft Skills'
+        return (
+          <div key={cat} className="ds-card">
+            <h3 className="ds-card-title">{cat}</h3>
+            <div className="pal-grid">
+              {skills.map(s => (
+                <div key={s.id} className={'pal-pill-wrapper' + (editingId === s.id ? ' editing' : '')}>
+                  {editingId === s.id ? (
+                    <div className="pal-edit-popup">
+                      <div className="pal-edit-row">
+                        <input className="input" value={editLabel} onChange={e => setEditLabel(e.target.value)} placeholder="Label" autoFocus
+                          onKeyDown={e => { if (e.key === 'Enter') saveEdit(); if (e.key === 'Escape') cancelEdit() }} />
+                        {!isSoftCat && (
+                          <input type="color" className="pal-color-input" value={editColor} onChange={e => setEditColor(e.target.value)} />
+                        )}
+                      </div>
+                      <div className="pal-edit-actions">
+                        <button className="btn btn--brand" style={{flex:1}} onClick={saveEdit}>Enregistrer</button>
+                        <button className="btn btn--ghost" onClick={cancelEdit}>Annuler</button>
+                      </div>
+                    </div>
+                  ) : (
+                    <button className={'pal-pill' + (s.color ? '' : ' pal-pill--soft')}
+                      style={s.color ? { background: s.color, color: contrastText(s.color) } : {}}
+                      onClick={() => startEdit(s)}>
+                      {s.label}
+                      <span className="pal-pill-del" onClick={(e) => { e.stopPropagation(); remove(s.id) }} title="Supprimer"><Icon name="x" size={10} /></span>
+                    </button>
+                  )}
                 </div>
-              ) : (
-                <button className="pal-pill" style={{ background: s.color, color: contrastText(s.color) }} onClick={() => startEdit(s)}>
-                  {s.label}
-                  <span className="pal-pill-del" onClick={(e) => { e.stopPropagation(); remove(s.id) }} title="Supprimer"><Icon name="x" size={10} /></span>
-                </button>
-              )}
+              ))}
             </div>
-          ))}
-        </div>
-        <div className="pal-add-row" style={{marginTop:'16px'}}>
-          <input className="input" value={newLabel} onChange={e => setNewLabel(e.target.value)}
-            onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); add() } }}
-            placeholder="Label" style={{flex:2}} />
-          <input type="color" className="pal-color-input" value={newColor} onChange={e => setNewColor(e.target.value)} disabled={newIsSoft} />
-          <label className="pal-soft-check"><input type="checkbox" checked={newIsSoft} onChange={e => setNewIsSoft(e.target.checked)} /> Soft</label>
-          <button className="btn btn--brand" onClick={add} style={{flex:1}}>Ajouter</button>
-        </div>
-      </div>
-
-      <div className="ds-card">
-        <h3 className="ds-card-title">Soft Skills</h3>
-        <div className="pal-grid">
-          {softs.map(s => (
-            <div key={s.id} className={'pal-pill-wrapper' + (editingId === s.id ? ' editing' : '')}>
-              {editingId === s.id ? (
-                <div className="pal-edit-popup">
-                  <div className="pal-edit-row">
-                    <input className="input" value={editLabel} onChange={e => setEditLabel(e.target.value)} placeholder="Label" autoFocus
-                      onKeyDown={e => { if (e.key === 'Enter') saveEdit(); if (e.key === 'Escape') setEditingId(null) }} />
-                  </div>
-                  <div className="pal-edit-actions">
-                    <button className="btn btn--brand" style={{flex:1}} onClick={saveEdit}>Enregistrer</button>
-                    <button className="btn btn--ghost" onClick={() => setEditingId(null)}>Annuler</button>
-                  </div>
-                </div>
-              ) : (
-                <button className="pal-pill pal-pill--soft" onClick={() => startEdit(s)}>
-                  {s.label}
-                  <span className="pal-pill-del" onClick={(e) => { e.stopPropagation(); remove(s.id) }} title="Supprimer"><Icon name="x" size={10} /></span>
-                </button>
-              )}
-            </div>
-          ))}
-        </div>
-        <div className="pal-add-row" style={{marginTop:'16px'}}>
-          <input className="input" value={newLabel} onChange={e => setNewLabel(e.target.value)}
-            onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); add() } }}
-            placeholder="Label" style={{flex:2}} />
-          <label className="pal-soft-check"><input type="checkbox" checked={newIsSoft} onChange={e => setNewIsSoft(e.target.checked)} /> Soft</label>
-          <button className="btn btn--brand" onClick={add} style={{flex:1}}>Ajouter</button>
-        </div>
-      </div>
+            {addingCat === cat ? (
+              <div className="pal-add-row" style={{marginTop:'16px'}}>
+                <input className="input" value={newLabel} onChange={e => setNewLabel(e.target.value)}
+                  onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); add(cat) } }}
+                  placeholder="Label" style={{flex:2}} autoFocus />
+                {!isSoftCat && (
+                  <input type="color" className="pal-color-input" value={newColor} onChange={e => setNewColor(e.target.value)} />
+                )}
+                <button className="btn btn--brand" onClick={() => add(cat)} style={{flex:1}}>Ajouter</button>
+                <button className="btn btn--ghost" onClick={() => setAddingCat(null)}>Annuler</button>
+              </div>
+            ) : (
+              <button className="btn btn--ghost" style={{marginTop:'12px'}}
+                onClick={() => { setAddingCat(cat); setNewLabel(''); setNewColor('#6366f1') }}>
+                <Icon name="plus" size={14} /> Ajouter
+              </button>
+            )}
+          </div>
+        )
+      })}
     </div>
   )
 }
