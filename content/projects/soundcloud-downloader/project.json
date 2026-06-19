@@ -1,0 +1,26 @@
+{
+  "id": "soundcloud-downloader",
+  "name": "Soundcloud DL",
+  "categories": [
+    "tooling"
+  ],
+  "featured": false,
+  "techs": [
+    {
+      "label": "Python",
+      "tech": "python"
+    }
+  ],
+  "role": "Solo",
+  "period": "2025",
+  "duration": "Quelques jours",
+  "description": "Téléchargeur de playlists SoundCloud en WAV — extraction propre par playlist.",
+  "highlights": [
+    "Téléchargement par playlist complète en WAV.",
+    "Interface CLI simple et efficace.",
+    "Conversion propre pour qualité maximale."
+  ],
+  "demoUrl": "",
+  "repoUrl": "https://github.com/Sofian-bll/Soundcloud_Wav_Playlist",
+  "image": ""
+}

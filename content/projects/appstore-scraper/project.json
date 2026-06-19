@@ -1,0 +1,26 @@
+{
+  "id": "appstore-scraper",
+  "name": "AppStore Scraper",
+  "categories": [
+    "tooling"
+  ],
+  "featured": false,
+  "techs": [
+    {
+      "label": "Python",
+      "tech": "python"
+    }
+  ],
+  "role": "Solo",
+  "period": "2025",
+  "duration": "Quelques jours",
+  "description": "Scraper de l’App Store Apple — comparaison de prix multi-régions pour trouver le tarif le plus bas.",
+  "highlights": [
+    "Scraping multi-régions de l’App Store Apple.",
+    "Comparaison automatique des prix par pays.",
+    "Format exportable pour analyse."
+  ],
+  "demoUrl": "",
+  "repoUrl": "https://github.com/Sofian-bll/AppStore-Scraper",
+  "image": ""
+}

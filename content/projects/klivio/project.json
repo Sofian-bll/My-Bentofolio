@@ -1,0 +1,30 @@
+{
+  "id": "klivio",
+  "name": "Klivio",
+  "categories": [
+    "webdesign"
+  ],
+  "featured": false,
+  "techs": [
+    {
+      "label": "Tailwind",
+      "tech": "tailwind"
+    },
+    {
+      "label": "HTML/CSS",
+      "tech": "default"
+    }
+  ],
+  "role": "Solo",
+  "period": "2025",
+  "duration": "1 sem.",
+  "description": "Landing page SaaS, intégration pixel-perfect en Tailwind.",
+  "highlights": [
+    "Landing page SaaS intégrée en pixel-perfect.",
+    "Système d’espacement cohérent en Tailwind.",
+    "Fidélité maquette → code maximale."
+  ],
+  "demoUrl": "https://sofian-bll.github.io/klivio-tailwind/",
+  "repoUrl": "https://github.com/Sofian-bll/klivio-tailwind",
+  "image": ""
+}
