@@ -160,3 +160,7 @@ Important:
 | Writes case study content without user input | User may not agree with fabricated story | Ask for EACH section, wait for content, format only |
 | Overwrite existing project without warning | Existing data may be correct | Check if ID exists first, warn the user |
 | Build the JSON manually in a `writeFileSync` | Wrong structure, missing validation | Use the script — it validates everything |
+
+## Pipeline Integration
+
+This skill is the terminal step (10) of the `portfolio-polish` pipeline. When invoked from that pipeline, the project has already been polished, deployed, and screenshotted. The `image` field should receive the deployed-site screenshot (`<project-path>/docs/assets/screenshot.png`), copied into `public/media/projects/<id>/`. The `demoUrl` is the GitHub Pages URL and `repoUrl` is the project repo.
