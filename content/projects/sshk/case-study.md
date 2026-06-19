@@ -1,45 +1,39 @@
 ## Contexte
 
-Je gérais mes clés SSH comme tout le monde : un `~/.ssh/id_rsa` fourre-tout, des clés qui traînent sans savoir à quoi elles servent, et des `ssh-copy-id` à l'arrache. Quand j'ai commencé à avoir 5+ serveurs et plusieurs projets, c'est devenu ingérable.
+J'ai un TDAH, ce qui rend l'organisation compliquée au quotidien. Les fichiers qui s'accumulent, les configurations qui dérivent — très vite, c'est le chaos.
 
-J'ai conçu `sshk` pour apporter de l'ordre avec une arborescence prévisible : une identité par usage, un fichier de config par hôte, et des commandes simples qui font chacune une chose.
+Récemment, j'ai converti deux vieux PC en serveurs maison (un NAS et un serveur applicatif). Entre les ratés, les conflits et les réinstallations successives, je me retrouvais à devoir recréer et redéployer mes clés SSH à chaque fois. Quelle clé pour quelle machine ? L'empreinte est-elle la bonne ? L'accès tient-il encore ? Autant de vérifications manuelles qui me sortaient du flow.
 
-## Points clés
+`~/.ssh` était devenu un fourre-tout incompréhensible. Il me fallait un outil minimal, qui range sans casser ce qui existe déjà.
 
-- **Arborescence namespacée** — `~/.ssh/keys/<nom>/`, `~/.ssh/config.d/<nom>.conf`, `~/.ssh/authorized_keys.d/<nom>` : chaque identité a sa place
-- **5 commandes qui couvrent tout** — `create` (wizard interactif), `list` (identités + accès), `grant` (push clé publique vers serveur), `revoke` (révoquer accès), `copy` (copier clé dans le presse-papier)
-- **Zéro dépendance** — Bash pur + OpenSSH, pas de Python, pas de Node, pas de runtime
-- **Installation one-liner** — `curl -fsSL https://raw.githubusercontent.com/Sofian-bll/sshk/main/install.sh | bash` installe dans `~/.local/bin/`
-- **Configuration persistante** — `~/.config/sshk/config` pour personnaliser type de clé, user SSH, chemins
+![sshk list — avant/après](media/projects/sshk/sshk-list.png)
 
-## Architecture
+## Process
 
-```
-~/.ssh/
-├── keys/                  # Identités (qui je suis)
-│   ├── github/
-│   │   └── id_ed25519
-│   └── vela/
-│       └── id_ed25519
-├── config.d/              # Snippets SSH (ssh <nom>)
-│   ├── github.conf
-│   └── vela.conf
-└── authorized_keys.d/     # Qui peut se connecter à moi
-    └── macbook
-```
+Ma méthode actuelle : je fournis l'idée et une première version, je m'appuie sur l'IA pour accélérer l'implémentation, puis j'itère. Pour sshk, je suis parti d'une contrainte forte — ne pas imposer une nouvelle architecture, mais se glisser proprement dans ce qui existe déjà (`~/.ssh/config`, `authorized_keys`). Pas de daemon, pas de format propriétaire, pas de runtime exotique. Uniquement Bash et OpenSSH, déjà présents sur n'importe quelle machine Unix.
 
-Le script principal fait ~550 lignes de Bash, découpé en fonctions : `cmd_create`, `cmd_list`, `cmd_show`, `cmd_copy`, `cmd_delete`, `cmd_grant`, `cmd_revoke`. Chaque commande lit/écrit dans les trois répertoires de manière atomique.
+## Difficultés rencontrées
+
+- **Compatibilité multiplateforme** — le script doit tourner sur macOS et Linux sans ajustement. Les commandes `stat` diffèrent entre BSD et GNU, `pbcopy` côtoie `wl-copy` et `xclip` pour le presse-papier. Autant de micro-différences à gérer.
+- **Intégration non destructive** — le vrai défi, c'est de ne rien casser. Le script ne modifie jamais le `~/.ssh/config` existant : il ajoute des snippets dans `config.d/`, charge à l'utilisateur de les inclure s'il le veut.
+- **Résister à la surcouche** — en Bash, chaque nouvelle fonctionnalité devient vite un nid à bugs. J'ai tenu la ligne : 7 commandes, 549 lignes, pas plus.
+
+![sshk show — détail d'une identité](media/projects/sshk/sshk-show.png)
 
 ## Stack
 
-- Bash
-- OpenSSH
-- Git / GitHub Pages pour la landing
+- Bash pur — zéro dépendance, un fichier auditable en dix minutes
+- OpenSSH — `ssh-keygen`, `ssh`, `ssh-copy-id`
+- GitHub Pages — landing page en un seul fichier HTML, Tailwind en CDN
 
-## Leçons apprises
+![sshk help — toutes les commandes](media/projects/sshk/sshk-help.png)
 
-- **Bash suffit pour 90% des CLIs** — pas besoin de Python ou Go pour un outil qui orchestre des commandes système
-- **L'arborescence est la feature** — une convention de nommage claire évite des centaines de flags et d'options
-- **Le wizard interactif fait l'adoption** — `sshk create` pose 3 questions et génère tout, c'est ça qui rend l'outil agréable
+## Ce dont je suis fier
 
-![sshk demo](media/projects/sshk/sshk-mockup.svg)
+- **`sshk copy`** — copier une clé publique dans le presse-papier en une commande, quel que soit l'OS. Tellement évident que je ne comprends pas pourquoi ça n'existait pas.
+- **`sshk grant`** — automatise le `ssh-copy-id` et range proprement la clé dans `authorized_keys.d/` sur la machine distante. Avant, c'était cinq commandes manuelles.
+- **L'absence totale de dépendances** — un seul script Bash de 549 lignes, lisible, modifiable, forkable en deux clics.
+
+## Si c'était à refaire
+
+Même approche. Le projet est fonctionnel et propre, mais il mériterait plus de rodage pour traquer les cas limites avant d'être qualifié « production ready ». Peut-être une suite de tests automatisés avec des conteneurs SSH jetables.
