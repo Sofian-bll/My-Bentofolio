@@ -157,6 +157,7 @@ function App() {
   const [route, setRoute] = useState(parseHash());
   const [theme, setTheme] = useState(() => localStorage.getItem(THEME_KEY) || 'light');
   const [filter, setFilter] = useState('all');
+  const [sort, setSort] = useState('default');
   const [toast, setToast] = useState(null);
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [adminMode, setAdminMode] = useState(() => {
@@ -213,7 +214,7 @@ function App() {
 
   let view;
   if (route.startsWith('/projet/')) view = <ProjectDetailView id={route.slice('/projet/'.length)} navigate={navigate} openProject={openProject} />;
-  else if (route === '/projets') view = <ProjectsView navigate={navigate} openProject={openProject} filter={filter} setFilter={setFilter} />;
+  else if (route === '/projets') view = <ProjectsView navigate={navigate} openProject={openProject} filter={filter} setFilter={setFilter} sort={sort} setSort={setSort} />;
   else if (route === '/experiences') view = <ExperiencesView navigate={navigate} />;
   else if (route === '/cv') view = <CvView navigate={navigate} showToast={showToast} tweaks={tweaks} setTweak={setTweak} adminMode={adminMode} />;
   else if (route === '/contact') view = <ContactView navigate={navigate} showToast={showToast} tweaks={tweaks} adminMode={adminMode} />;

@@ -102,9 +102,9 @@ function ProjectModal({ project, onClose }) {
   );
 }
 
-function ProjectsView({ navigate, openProject, filter, setFilter }) {
+function ProjectsView({ navigate, openProject, filter, setFilter, sort, setSort }) {
   const { projects, categories } = DATA;
-  const { counts, catKeys, activeFilter, shown } = getProjectGalleryState({ projects, categories, filter });
+  const { counts, catKeys, activeFilter, shown } = getProjectGalleryState({ projects, categories, filter, sort });
 
   return (
     <main className="page-wrap">
@@ -127,6 +127,12 @@ function ProjectsView({ navigate, openProject, filter, setFilter }) {
           </button>
         ))}
         <span className="filter-spacer" />
+        <select className="sort-select" value={sort} onChange={(e) => setSort(e.target.value)} aria-label="Trier les projets">
+          <option value="default">Par défaut</option>
+          <option value="recent">Récents → Anciens</option>
+          <option value="az">A → Z</option>
+          <option value="za">Z → A</option>
+        </select>
         <span className="filter-result">{shown.length} projet{shown.length > 1 ? 's' : ''}</span>
       </div>
 
