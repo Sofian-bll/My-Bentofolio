@@ -1,26 +1,21 @@
 {
   "id": "appstore-scraper",
   "name": "AppStore Scraper",
-  "categories": [
-    "tooling"
-  ],
+  "categories": ["dev", "tools"],
   "featured": false,
   "techs": [
-    {
-      "label": "Python",
-      "tech": "python"
-    }
+    { "label": "Python", "tech": "python" }
   ],
   "role": "Solo",
-  "description": "Scraper de l’App Store Apple — comparaison de prix multi-régions pour trouver le tarif le plus bas.",
-  "highlights": [
-    "Scraping multi-régions de l’App Store Apple.",
-    "Comparaison automatique des prix par pays.",
-    "Format exportable pour analyse."
-  ],
-  "demoUrl": "",
-  "repoUrl": "https://github.com/Sofian-bll/AppStore-Scraper",
-  "image": "",
   "startDate": "2025-01-01",
-  "endDate": null
+  "endDate": "2025-09-04",
+  "description": "Scraper Python de l'App Store Apple — compare les prix in-app sur 36 pays et 30+ devises avec conversion EUR en temps réel.",
+  "highlights": [
+    "Scrape 36 storefronts Apple en parallèle",
+    "Conversion EUR temps réel via Exchange Rate API",
+    "Export CSV structuré — pays, produit, prix, devise, prix EUR"
+  ],
+  "demoUrl": "https://sofian-bll.github.io/AppStore-Scraper/",
+  "repoUrl": "https://github.com/Sofian-bll/AppStore-Scraper",
+  "image": ""
 }
