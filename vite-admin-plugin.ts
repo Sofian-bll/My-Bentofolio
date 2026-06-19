@@ -1,6 +1,6 @@
 import type { Plugin, ViteDevServer } from 'vite'
-import { writeFileSync, mkdirSync, existsSync } from 'fs'
-import { resolve, basename, join } from 'path'
+import { writeFileSync, readFileSync, mkdirSync, existsSync, rmSync } from 'fs'
+import { resolve, join } from 'path'
 
 export function getConfigFilePath(root: string) {
   return resolve(root, 'config.json')
@@ -10,8 +10,20 @@ export function getProjectsDirPath(root: string) {
   return resolve(root, 'content', 'projects')
 }
 
-export function getProjectsIndexPath(root: string) {
-  return resolve(root, 'content', 'projects.js')
+export function getProjectsOrderPath(root: string) {
+  return resolve(root, 'content', 'projects', 'order.json')
+}
+
+export function getProjectDirPath(root: string, id: string) {
+  return resolve(root, 'content', 'projects', id)
+}
+
+export function getProjectJsonPath(root: string, id: string) {
+  return resolve(root, 'content', 'projects', id, 'project.json')
+}
+
+export function getProjectCaseStudyPath(root: string, id: string) {
+  return resolve(root, 'content', 'projects', id, 'case-study.md')
 }
 
 export function sanitizeProjectId(raw: unknown) {
@@ -21,62 +33,6 @@ export function sanitizeProjectId(raw: unknown) {
     .replace(/['’]/g, '')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
-}
-
-export function projectIdToVariableName(id: string) {
-  const variable = sanitizeProjectId(id).replace(/-/g, '_')
-  return /^[0-9]/.test(variable) ? `_${variable}` : variable
-}
-
-function escapeTemplateLiteral(value: string) {
-  return value.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
-}
-
-function escapeSingleQuotedString(value: string) {
-  return value.replace(/\\/g, '\\\\').replace(/'/g, "\\'")
-}
-
-function formatString(value: unknown) {
-  if (typeof value !== 'string') return "''"
-  return value.includes('\n') || value.includes('`') || value.includes('${')
-    ? `\`${escapeTemplateLiteral(value)}\``
-    : `'${escapeSingleQuotedString(value)}'`
-}
-
-function formatValue(value: unknown, indent = 2): string {
-  if (typeof value === 'string') return formatString(value)
-  if (typeof value === 'number' || typeof value === 'boolean') return JSON.stringify(value)
-  if (Array.isArray(value)) return JSON.stringify(value, null, indent)
-  if (value && typeof value === 'object') return JSON.stringify(value, null, indent)
-  return 'null'
-}
-
-function formatPropertyKey(key: string) {
-  return /^[A-Za-z_$][\w$]*$/.test(key) && key !== '__proto__'
-    ? key
-    : `[${JSON.stringify(key)}]`
-}
-
-export function serializeProjectModule(project: Record<string, unknown>) {
-  const orderedKeys = [
-    'id', 'name', 'categories', 'featured', 'techs', 'role', 'period', 'duration',
-    'description', 'highlights', 'caseStudy', 'demoUrl', 'repoUrl', 'image',
-  ]
-  const allKeys = [...orderedKeys, ...Object.keys(project).filter((key) => !orderedKeys.includes(key))]
-  const lines = ['export default {']
-  for (const key of allKeys) {
-    if (!(key in project)) continue
-    lines.push(`  ${formatPropertyKey(key)}: ${formatValue(project[key])},`)
-  }
-  lines.push('}')
-  return `${lines.join('\n')}\n`
-}
-
-export function buildProjectsIndex(projectIds: string[]) {
-  const ids = projectIds.map(sanitizeProjectId).filter(Boolean)
-  const imports = ids.map((id) => `import ${projectIdToVariableName(id)} from './projects/${id}.js'`)
-  const entries = ids.map((id) => `  ${projectIdToVariableName(id)},`)
-  return `${imports.join('\n')}\n\nexport const projects = [\n${entries.join('\n')}\n]\n`
 }
 
 export function parseConfigBody(body: string) {
@@ -89,6 +45,50 @@ export function parseConfigBody(body: string) {
   } catch {
     return { ok: false, status: 400, error: 'Invalid JSON' }
   }
+}
+
+export function readProjectOrder(root: string): string[] {
+  const orderPath = getProjectsOrderPath(root)
+  if (!existsSync(orderPath)) return []
+  try {
+    const raw = readFileSync(orderPath, 'utf8')
+    return JSON.parse(raw)
+  } catch {
+    return []
+  }
+}
+
+export function updateProjectOrder(
+  existing: string[],
+  id: string,
+  action: 'save' | 'delete',
+): string[] {
+  if (action === 'save') {
+    if (!existing.includes(id)) return [...existing, id]
+    return existing
+  }
+  return existing.filter((item) => item !== id)
+}
+
+export function buildProjectIndex(root: string) {
+  const order = readProjectOrder(root)
+  const projects = order.map(id => {
+    try {
+      const jsonRaw = readFileSync(getProjectJsonPath(root, id), 'utf8')
+      const project = JSON.parse(jsonRaw)
+      try {
+        project.caseStudy = readFileSync(getProjectCaseStudyPath(root, id), 'utf8')
+      } catch {
+        project.caseStudy = ''
+      }
+      return project
+    } catch {
+      return null
+    }
+  }).filter(Boolean)
+
+  const indexPath = resolve(root, 'content', 'projects', 'index.json')
+  writeFileSync(indexPath, JSON.stringify(projects, null, 2) + '\n', 'utf8')
 }
 
 function parseDataUrl(raw: string) {
@@ -119,6 +119,21 @@ function sendJson(res: Parameters<ViteDevServer['middlewares']['use']>[1], statu
   res.statusCode = status
   res.setHeader('Content-Type', 'application/json')
   res.end(JSON.stringify(payload))
+}
+
+function readRequestBody(req: Parameters<ViteDevServer['middlewares']['use']>[0], maxSize: number): Promise<string | null> {
+  return new Promise((resolve) => {
+    let body = ''
+    req.on('data', (chunk: Buffer) => {
+      body += chunk.toString()
+      if (body.length > maxSize) {
+        req.destroy()
+        resolve(null)
+      }
+    })
+    req.on('error', () => resolve(null))
+    req.on('end', () => resolve(body))
+  })
 }
 
 const MAX_BODY_SIZE = 5_000_000
@@ -203,6 +218,103 @@ export function adminPlugin(): Plugin {
             sendJson(res, 500, { ok: false, error: String(err) })
           }
         })
+      })
+
+      server.middlewares.use('/api/admin/project/save', async (req, res, next) => {
+        if (req.method !== 'POST') return next()
+        if (req.url !== '/') return next()
+        const root = server.config.root
+
+        const body = await readRequestBody(req, MAX_BODY_SIZE)
+        if (body === null) {
+          return sendJson(res, 413, { ok: false, error: 'Payload too large' })
+        }
+
+        try {
+          const { project } = JSON.parse(body)
+          if (!project || typeof project !== 'object') {
+            return sendJson(res, 400, { ok: false, error: 'Missing project object' })
+          }
+
+          const rawId = project.id || project.name
+          const id = sanitizeProjectId(rawId)
+          if (!id) {
+            return sendJson(res, 400, { ok: false, error: 'Missing project id' })
+          }
+
+          if (id.includes('..') || id.includes('/') || id.includes('\\')) {
+            return sendJson(res, 400, { ok: false, error: 'Invalid project id' })
+          }
+
+          const projectDir = getProjectDirPath(root, id)
+          if (!existsSync(projectDir)) mkdirSync(projectDir, { recursive: true })
+
+          const { caseStudy, ...meta } = project
+          writeFileSync(getProjectJsonPath(root, id), JSON.stringify(meta, null, 2) + '\n', 'utf8')
+          writeFileSync(getProjectCaseStudyPath(root, id), typeof caseStudy === 'string' ? caseStudy : '', 'utf8')
+
+          const existingOrder = readProjectOrder(root)
+          const newOrder = updateProjectOrder(existingOrder, id, 'save')
+          const orderPath = getProjectsOrderPath(root)
+          const orderDir = join(root, 'content', 'projects')
+          if (!existsSync(orderDir)) mkdirSync(orderDir, { recursive: true })
+          writeFileSync(orderPath, JSON.stringify(newOrder, null, 2) + '\n', 'utf8')
+
+          buildProjectIndex(root)
+
+          sendJson(res, 200, {
+            ok: true,
+            id,
+            files: {
+              project: getProjectJsonPath(root, id),
+              caseStudy: getProjectCaseStudyPath(root, id),
+              order: orderPath,
+              index: resolve(root, 'content', 'projects', 'index.json'),
+            },
+          })
+        } catch (err) {
+          sendJson(res, 500, { ok: false, error: String(err) })
+        }
+      })
+
+      server.middlewares.use('/api/admin/project/delete', async (req, res, next) => {
+        if (req.method !== 'POST') return next()
+        if (req.url !== '/') return next()
+        const root = server.config.root
+
+        const body = await readRequestBody(req, MAX_BODY_SIZE)
+        if (body === null) {
+          return sendJson(res, 413, { ok: false, error: 'Payload too large' })
+        }
+
+        try {
+          const { id: rawId } = JSON.parse(body)
+          const id = sanitizeProjectId(rawId)
+          if (!id) {
+            return sendJson(res, 400, { ok: false, error: 'Missing project id' })
+          }
+
+          const projectJson = getProjectJsonPath(root, id)
+          const caseStudy = getProjectCaseStudyPath(root, id)
+
+          if (existsSync(projectJson)) rmSync(projectJson)
+          if (existsSync(caseStudy)) rmSync(caseStudy)
+
+          const projectDir = getProjectDirPath(root, id)
+          if (existsSync(projectDir)) {
+            try { rmSync(projectDir, { recursive: true }) } catch { /* dir not empty, fine */ }
+          }
+
+          const existingOrder = readProjectOrder(root)
+          const newOrder = updateProjectOrder(existingOrder, id, 'delete')
+          writeFileSync(getProjectsOrderPath(root), JSON.stringify(newOrder, null, 2) + '\n', 'utf8')
+
+          buildProjectIndex(root)
+
+          sendJson(res, 200, { ok: true, id })
+        } catch (err) {
+          sendJson(res, 500, { ok: false, error: String(err) })
+        }
       })
     },
   }
