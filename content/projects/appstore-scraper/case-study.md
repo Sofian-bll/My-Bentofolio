@@ -1,35 +1,29 @@
 ## Contexte
 
-Je suis SE, donc chaque euro compte. Les abonnements — ChatGPT, Claude, Raycast — représentent une part significative de mon budget mensuel. J'avais entendu dire que les prix variaient selon les pays sur l'App Store, parfois du simple au double. L'idée était simple : trouver le storefront le moins cher pour chaque app.
-
-Sauf que vérifier manuellement 36 pays, un par un, pour 3 applications, c'est 108 pages à ouvrir. Inimaginable. Et même après, il fallait convertir les devises pour comparer — le réal brésilien, la livre turque, la roupie indienne... rien de comparable sans un taux de change actualisé.
-
-C'était aussi mes deux premières semaines sur Python. Je découvrais le langage, les API HTTP, le parsing de données. Autant dire que rien n'était acquis.
-
-![Scraper en action](media/projects/appstore-scraper/scraper-run.png)
+J'étais fauché, les abonnements commençaient à peser lourd. Certaines apps coûtent 2× moins cher selon le pays de l'App Store, mais vérifier les prix sur 36 storefronts à la main était impensable. J'apprenais Python depuis 2-3 semaines — l'occasion parfaite pour un premier vrai projet.
 
 ## Process
 
-Le projet a connu trois phases. D'abord un prototype codé à la main — un script basique qui scrapait quelques pays avec `requests` et `BeautifulSoup`. Puis une deuxième itération où j'ai intégré l'Exchange Rate API pour la conversion en temps réel, avec un système de cache pour éviter de saturer les appels API. Enfin, une refonte assistée par IA pour structurer le code en couches (scraping, conversion, export) et ajouter une barre de progression visuelle.
+Le projet est passé par 3 phases. Phase 1 : un script manuel qui scrapait un seul pays à la fois, 36 runs séparés, casse-pied mais ça marchait. Phase 2 : j'ai branché l'Exchange Rate API pour convertir tous les prix en EUR en temps réel, avec un système de cache pour ne pas saturer l'API. Phase 3 : j'ai fait refactoriser le code par IA pour le rendre plus propre, structuré en couches, avec barre de progression et gestion d'erreurs.
 
 ## Difficultés rencontrées
 
-- **Conversion de devises** — l'Exchange Rate API a un quota limité. Pour 36 pays × 3 apps × plusieurs prix par page, ça part vite. J'ai dû implémenter un cache intelligent qui conserve les taux pendant 24h et ne rappelle l'API qu'en cas de devise inconnue.
-- **Parsing multi-pages** — chaque app a potentiellement plusieurs dizaines d'achats in-app. Le scraper devait naviguer la pagination Apple sans se faire bloquer. J'ai appris les `User-Agent`, les délais entre requêtes, et la gestion des erreurs HTTP.
-- **Apprendre Python en même temps** — deux semaines avant, je n'avais jamais écrit une ligne de Python. Tout était nouveau : les imports, les list comprehensions, le typage dynamique. Le projet m'a forcé à apprendre vite.
+- **Conversion de devises** — 30+ devises, taux qui changent en direct, fallait un cache intelligent pour éviter de re-fetch les mêmes taux 36 fois par run.
+- **Parsing multi-pages** — l'API Apple pagine les résultats, fallait itérer proprement sans exploser le rate limit.
+- **Apprendre Python en même temps** — chaque feature était une double bataille : comprendre le problème ET comprendre le langage. Lent, mais formateur.
 
 ## Stack
 
-- Python — requests, BeautifulSoup, CSV
-- Exchange Rate API — taux de change en temps réel avec cache
-- GitHub Pages — landing page en HTML/Tailwind
+- Python — requests, pandas
+- Exchange Rate API — conversion EUR temps réel
+- GitHub Pages — landing page en un seul fichier HTML
 
 ## Ce dont je suis fier
 
-- **La couverture** — 36 pays, 30+ devises, en un seul run. Un truc qu'Apple ne propose nulle part.
-- **Le cache de conversion** — solution élégante à un vrai problème de quota API, codée en comprenant progressivement les limites des services gratuits.
-- **La progression** — passer d'un script linéaire à une architecture en couches, avec barre de progression et gestion d'erreurs, en trois semaines d'apprentissage.
+- **36 pays couverts** — tous les storefronts Apple majeurs, d'un seul run.
+- **Cache des taux de change** — solution simple qui a divisé le temps d'exécution par 3.
+- **Progression réelle** — passer d'un script spaghetti à un outil propre en 3 itérations, tout en apprenant Python from scratch.
 
 ## Si c'était à refaire
 
-J'utiliserais `aiohttp` pour paralléliser les requêtes vers les 36 storefronts — aujourd'hui c'est séquentiel, et 36 × N pages, ça prend du temps. Peut-être aussi un export JSON en plus du CSV, pour intégration directe dans un dashboard.
+Je paralléliserais les requêtes vers les différents storefronts pour gagner en vitesse. Et j'ajouterais un export JSON en complément du CSV, pour intégration directe avec d'autres outils.

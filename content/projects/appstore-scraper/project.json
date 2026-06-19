@@ -1,14 +1,20 @@
 {
   "id": "appstore-scraper",
   "name": "AppStore Scraper",
-  "categories": ["dev", "tools"],
-  "featured": false,
-  "techs": [
-    { "label": "Python", "tech": "python" }
+  "categories": [
+    "dev",
+    "tools"
   ],
+  "featured": false,
   "role": "Solo",
   "startDate": "2025-01-01",
   "endDate": "2025-09-04",
+  "techs": [
+    {
+      "label": "Python",
+      "tech": "python"
+    }
+  ],
   "description": "Scraper Python de l'App Store Apple — compare les prix in-app sur 36 pays et 30+ devises avec conversion EUR en temps réel.",
   "highlights": [
     "Scrape 36 storefronts Apple en parallèle",
