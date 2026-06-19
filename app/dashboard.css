@@ -1623,14 +1623,25 @@ html.is-resizing * {
 .pal-pill-wrapper:hover .pal-pill-del {
   opacity: 1;
 }
+.pal-edit-popup {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 100;
+  min-width: 240px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(0,0,0,.15);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 .pal-edit-row {
   display: flex;
   gap: 8px;
   align-items: end;
-  padding: 10px;
-  background: var(--bg-inset);
-  border-radius: var(--radius-md);
-  margin-top: 6px;
 }
 .pal-edit-row .input {
   flex: 1;
@@ -1654,6 +1665,23 @@ html.is-resizing * {
   gap: 6px;
   align-items: center;
   padding: 8px 0;
+}
+.pal-cat-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+.pal-cat-header h3 {
+  flex: 1;
+  margin: 0;
+}
+.pal-cat-header .icon-btn {
+  opacity: 0.4;
+  transition: opacity 0.15s;
+}
+.pal-cat-header .icon-btn:hover {
+  opacity: 1;
 }
 .pal-add-row .input {
   flex: 1;

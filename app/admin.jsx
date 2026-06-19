@@ -968,16 +968,30 @@ function PaletteSection({ skillPalette, setSkillPalette }) {
   const [newLabel, setNewLabel] = useState('')
   const [newColor, setNewColor] = useState('#6366f1')
 
+  const [newCatName, setNewCatName] = useState('')
+  const [renamingCat, setRenamingCat] = useState(null)
+  const [renameValue, setRenameValue] = useState('')
+
   const categories = [...new Set(skillPalette.map(s => s.category || 'Sans catégorie'))]
     .filter(Boolean)
     .sort()
+
+  const renameCat = (oldName, newName) => {
+    if (!newName.trim() || newName === oldName) { setRenamingCat(null); return }
+    setSkillPalette(prev => prev.map(s => (s.category || 'Sans catégorie') === oldName ? { ...s, category: newName } : s))
+    setRenamingCat(null)
+  }
+
+  const deleteCat = (cat) => {
+    setSkillPalette(prev => prev.filter(s => (s.category || 'Sans catégorie') !== cat))
+  }
 
   const add = (cat) => {
     if (!newLabel.trim()) return
     setSkillPalette(prev => [...prev, {
       id: 'c_' + Date.now(),
       label: newLabel.trim(),
-      color: newColor,
+      color: cat === 'Soft Skills' ? null : newColor,
       category: cat,
     }])
     setNewLabel('')
@@ -1009,14 +1023,34 @@ function PaletteSection({ skillPalette, setSkillPalette }) {
   return (
     <div className="ds-section">
       <h2 className="ds-title">Competences</h2>
-      <p className="ds-sub">Palette de competences, organisees par categorie. Clique sur une pill pour modifier le label et la couleur.</p>
+      <p className="ds-sub">Palette de competences organisees par categorie. Clique sur une pill pour modifier.</p>
+
+      <div className="pal-add-row" style={{marginBottom:'16px'}}>
+        <input className="input" value={newCatName} onChange={e => setNewCatName(e.target.value)}
+          onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); if (!newCatName.trim()) return; setSkillPalette(prev => [...prev, { id: 'c_' + Date.now(), label: '?', color: '#6366f1', category: newCatName.trim() }]); setNewCatName('') } }}
+          placeholder="Nouvelle catégorie" style={{flex:2}} />
+        <button className="btn btn--brand" onClick={() => { if (!newCatName.trim()) return; setSkillPalette(prev => [...prev, { id: 'c_' + Date.now(), label: '?', color: '#6366f1', category: newCatName.trim() }]); setNewCatName('') }}>
+          <Icon name="plus" size={14} /> Ajouter
+        </button>
+      </div>
 
       {categories.map(cat => {
         const skills = skillsInCat(cat)
         const isSoftCat = cat === 'Soft Skills'
         return (
           <div key={cat} className="ds-card">
-            <h3 className="ds-card-title">{cat}</h3>
+            <div className="pal-cat-header">
+              {renamingCat === cat ? (
+                <input className="input" value={renameValue} onChange={e => setRenameValue(e.target.value)}
+                  onKeyDown={e => { if (e.key === 'Enter') renameCat(cat, renameValue); if (e.key === 'Escape') setRenamingCat(null) }}
+                  onBlur={() => renameCat(cat, renameValue)}
+                  autoFocus style={{maxWidth:'200px'}} />
+              ) : (
+                <h3 className="ds-card-title">{cat}</h3>
+              )}
+              <button className="icon-btn" onClick={() => { setRenamingCat(cat); setRenameValue(cat) }} title="Renommer"><Icon name="pen" size={13} /></button>
+              <button className="icon-btn" onClick={() => deleteCat(cat)} title="Supprimer la catégorie"><Icon name="trash" size={13} /></button>
+            </div>
             <div className="pal-grid">
               {skills.map(s => (
                 <div key={s.id} className={'pal-pill-wrapper' + (editingId === s.id ? ' editing' : '')}>
@@ -1025,9 +1059,14 @@ function PaletteSection({ skillPalette, setSkillPalette }) {
                       <div className="pal-edit-row">
                         <input className="input" value={editLabel} onChange={e => setEditLabel(e.target.value)} placeholder="Label" autoFocus
                           onKeyDown={e => { if (e.key === 'Enter') saveEdit(); if (e.key === 'Escape') cancelEdit() }} />
-                        {!isSoftCat && (
+                        {editCategory !== 'Soft Skills' && (
                           <input type="color" className="pal-color-input" value={editColor} onChange={e => setEditColor(e.target.value)} />
                         )}
+                      </div>
+                      <div className="pal-edit-row">
+                        <select className="select" value={editCategory} onChange={e => setEditCategory(e.target.value)} style={{flex:1}}>
+                          {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                        </select>
                       </div>
                       <div className="pal-edit-actions">
                         <button className="btn btn--brand" style={{flex:1}} onClick={saveEdit}>Enregistrer</button>
@@ -1046,7 +1085,7 @@ function PaletteSection({ skillPalette, setSkillPalette }) {
               ))}
             </div>
             {addingCat === cat ? (
-              <div className="pal-add-row" style={{marginTop:'16px'}}>
+              <div className="pal-add-row" style={{marginTop:'12px'}}>
                 <input className="input" value={newLabel} onChange={e => setNewLabel(e.target.value)}
                   onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); add(cat) } }}
                   placeholder="Label" style={{flex:2}} autoFocus />
