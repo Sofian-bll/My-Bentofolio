@@ -32,4 +32,10 @@ describe('content/projects', () => {
     expect(existsSync(legacyProjectsIndexPath)).toBe(false)
     expect(readdirSync(projectsDir).filter((entry) => entry.endsWith('.js'))).toEqual([])
   })
+
+  test('config.json does not contain a projects key as a fallback source', () => {
+    const configPath = join(contentDir, '..', 'config.json')
+    const config = JSON.parse(readFileSync(configPath, 'utf8'))
+    expect(config).not.toHaveProperty('projects')
+  })
 })

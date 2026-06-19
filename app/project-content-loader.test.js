@@ -51,4 +51,21 @@ describe('buildProjectsFromContent', () => {
     const result = buildProjectsFromContent({ order: ['missing'], projectModules, caseStudyModules })
     expect(result.length).toBe(0)
   })
+
+  test('preserves image field and markdown image paths through folder source', () => {
+    const projectModules = {
+      '../content/projects/demo/project.json': {
+        default: { id: 'demo', title: 'Demo', image: 'media/projects/demo/cover.jpeg' },
+      },
+    }
+    const caseStudyModules = {
+      '../content/projects/demo/case-study.md': {
+        default: '# Intro\n\n![Alt](media/projects/demo/screenshot.jpeg)',
+      },
+    }
+    const result = buildProjectsFromContent({ order: ['demo'], projectModules, caseStudyModules })
+    expect(result.length).toBe(1)
+    expect(result[0].image).toBe('media/projects/demo/cover.jpeg')
+    expect(result[0].caseStudy).toContain('![Alt](media/projects/demo/screenshot.jpeg)')
+  })
 })
