@@ -6,6 +6,73 @@ export function getConfigFilePath(root: string) {
   return resolve(root, 'config.json')
 }
 
+export function getProjectsDirPath(root: string) {
+  return resolve(root, 'content', 'projects')
+}
+
+export function getProjectsIndexPath(root: string) {
+  return resolve(root, 'content', 'projects.js')
+}
+
+export function sanitizeProjectId(raw: unknown) {
+  if (typeof raw !== 'string') return ''
+  return raw.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/['’]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
+export function projectIdToVariableName(id: string) {
+  const variable = sanitizeProjectId(id).replace(/-/g, '_')
+  return /^[0-9]/.test(variable) ? `_${variable}` : variable
+}
+
+function escapeTemplateLiteral(value: string) {
+  return value.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
+}
+
+function escapeSingleQuotedString(value: string) {
+  return value.replace(/\\/g, '\\\\').replace(/'/g, "\\'")
+}
+
+function formatString(value: unknown) {
+  if (typeof value !== 'string') return "''"
+  return value.includes('\n') || value.includes('`') || value.includes('${')
+    ? `\`${escapeTemplateLiteral(value)}\``
+    : `'${escapeSingleQuotedString(value)}'`
+}
+
+function formatValue(value: unknown, indent = 2): string {
+  if (typeof value === 'string') return formatString(value)
+  if (typeof value === 'number' || typeof value === 'boolean') return JSON.stringify(value)
+  if (Array.isArray(value)) return JSON.stringify(value, null, indent)
+  if (value && typeof value === 'object') return JSON.stringify(value, null, indent)
+  return 'null'
+}
+
+export function serializeProjectModule(project: Record<string, unknown>) {
+  const orderedKeys = [
+    'id', 'name', 'categories', 'featured', 'techs', 'role', 'period', 'duration',
+    'description', 'highlights', 'caseStudy', 'demoUrl', 'repoUrl', 'image',
+  ]
+  const allKeys = [...orderedKeys, ...Object.keys(project).filter((key) => !orderedKeys.includes(key))]
+  const lines = ['export default {']
+  for (const key of allKeys) {
+    if (!(key in project)) continue
+    lines.push(`  ${key}: ${formatValue(project[key])},`)
+  }
+  lines.push('}')
+  return `${lines.join('\n')}\n`
+}
+
+export function buildProjectsIndex(projectIds: string[]) {
+  const ids = projectIds.map(sanitizeProjectId).filter(Boolean)
+  const imports = ids.map((id) => `import ${projectIdToVariableName(id)} from './projects/${id}.js'`)
+  const entries = ids.map((id) => `  ${projectIdToVariableName(id)},`)
+  return `${imports.join('\n')}\n\nexport const projects = [\n${entries.join('\n')}\n]\n`
+}
+
 export function parseConfigBody(body: string) {
   try {
     const config = JSON.parse(body)
