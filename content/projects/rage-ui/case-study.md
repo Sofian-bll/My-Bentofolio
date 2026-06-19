@@ -13,3 +13,5 @@ Manager de secrets local-first avec interface web. Chiffrement SOPS + Age, organ
 - JavaScript
 - SOPS
 - Age
+
+![Logo rage UI](media/projects/rage-ui/1781879615927.png)

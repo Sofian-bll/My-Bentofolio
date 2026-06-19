@@ -262,7 +262,7 @@
     "demoUrl": "",
     "repoUrl": "https://github.com/Sofian-bll/Rage-UI",
     "image": "",
-    "caseStudy": "## Contexte\n\nManager de secrets local-first avec interface web. Chiffrement SOPS + Age, organisation en coffre-fort global et templates par projet. Un changement de token ? Une seule modification, injection partout.\n\n## Points clés\n\n- Coffre-fort central pour secrets globaux et par projet.\n- Injection automatique via templates .env.template → .env.\n- Interface web pour gestion et injection en un clic.\n\n## Stack\n\n- JavaScript\n- SOPS\n- Age\n"
+    "caseStudy": "## Contexte\n\nManager de secrets local-first avec interface web. Chiffrement SOPS + Age, organisation en coffre-fort global et templates par projet. Un changement de token ? Une seule modification, injection partout.\n\n## Points clés\n\n- Coffre-fort central pour secrets globaux et par projet.\n- Injection automatique via templates .env.template → .env.\n- Interface web pour gestion et injection en un clic.\n\n## Stack\n\n- JavaScript\n- SOPS\n- Age\n\n![Logo rage UI](media/projects/rage-ui/1781879615927.png)\n"
   },
   {
     "id": "epitalk",
