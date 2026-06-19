@@ -106,14 +106,19 @@ function ProjectsView({ navigate, openProject, filter, setFilter, sort, setSort 
   const { projects, categories } = DATA;
   const { counts, catKeys, activeFilter, shown } = getProjectGalleryState({ projects, categories, filter, sort });
 
-  const handleSort = (group) => {
-    if (group === 'default') return setSort('default')
-    if (group === 'date') return setSort(sort === 'oldest' ? 'recent' : sort === 'recent' ? 'oldest' : 'recent')
-    return setSort(sort === 'za' ? 'az' : sort === 'az' ? 'za' : 'az')
+  const sortBy = sort === 'recent' || sort === 'oldest' ? 'date' : sort === 'az' || sort === 'za' ? 'name' : 'default'
+  const sortAsc = sort === 'oldest' || sort === 'az'
+
+  const handleSortBy = (by) => {
+    if (by === 'default') setSort('default')
+    else if (by === 'date') setSort('recent')
+    else setSort('az')
   }
 
-  const isDateActive = sort === 'recent' || sort === 'oldest'
-  const isNameActive = sort === 'az' || sort === 'za'
+  const toggleDir = () => {
+    if (sortBy === 'date') setSort(sort === 'recent' ? 'oldest' : 'recent')
+    else if (sortBy === 'name') setSort(sort === 'az' ? 'za' : 'az')
+  }
 
   return (
     <main className="page-wrap">
@@ -136,15 +141,18 @@ function ProjectsView({ navigate, openProject, filter, setFilter, sort, setSort 
           </button>
         ))}
         <span className="filter-spacer" />
-        <button className={'sort-pill' + (sort === 'default' ? ' active' : '')} onClick={() => handleSort('default')}>
-          Par défaut
-        </button>
-        <button className={'sort-pill' + (isDateActive ? ' active' : '')} onClick={() => handleSort('date')}>
-          Période {isDateActive && (sort === 'oldest' ? <span className="sort-arrow">▲</span> : <span className="sort-arrow">▼</span>)}
-        </button>
-        <button className={'sort-pill' + (isNameActive ? ' active' : '')} onClick={() => handleSort('name')}>
-          Nom {isNameActive && (sort === 'za' ? <span className="sort-arrow">▲</span> : <span className="sort-arrow">▼</span>)}
-        </button>
+        <div className="sort-group">
+          <select className="sort-select" value={sortBy} onChange={(e) => handleSortBy(e.target.value)} aria-label="Trier par">
+            <option value="default">Par défaut</option>
+            <option value="date">Période</option>
+            <option value="name">Nom</option>
+          </select>
+          {sortBy !== 'default' && (
+            <button className="sort-dir-btn" onClick={toggleDir} aria-label={sortAsc ? 'Ordre décroissant' : 'Ordre croissant'}>
+              {sortAsc ? '▲' : '▼'}
+            </button>
+          )}
+        </div>
         <span className="filter-result">{shown.length} projet{shown.length > 1 ? 's' : ''}</span>
       </div>
 
