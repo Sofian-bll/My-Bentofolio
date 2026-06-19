@@ -62,8 +62,33 @@ function Badge({ label, color, children }) {
 function Chip({ label, variant = 'outline', children }) {
   return <span className={'chip chip--' + variant}>{children || label}</span>;
 }
-function TechTag({ label, tech }) {
-  return <span className={'tag t-' + (tech || 'default')}>{label}</span>;
+export function contrastText(hex) {
+  if (!hex || !/^#[0-9a-fA-F]{6}$/.test(hex)) return '#fff'
+  const r = parseInt(hex.slice(1, 3), 16)
+  const g = parseInt(hex.slice(3, 5), 16)
+  const b = parseInt(hex.slice(5, 7), 16)
+  return (0.299 * r + 0.587 * g + 0.114 * b) > 160 ? '#1a1a1a' : '#fff'
+}
+
+function paletteLookup(tech) {
+  const p = DATA.skillPalette.find((s) => {
+    const slug = s.label.toLowerCase().replace(/\s+/g, '')
+    return s.label === tech || slug === tech?.toLowerCase()
+  })
+  return p || null
+}
+
+function TechTag({ label, tech, color }) {
+  if (color !== undefined) {
+    if (color === null) return <span className="tag t-soft">{label}</span>
+    return <span className="tag" style={{ background: color, color: contrastText(color) }}>{label}</span>
+  }
+  const found = paletteLookup(tech)
+  if (found) {
+    if (found.color === null) return <span className="tag t-soft">{label}</span>
+    return <span className="tag" style={{ background: found.color, color: contrastText(found.color) }}>{label}</span>
+  }
+  return <span className={'tag t-' + (tech || 'default')}>{label}</span>
 }
 
 function SectionTitle({ title, children }) {

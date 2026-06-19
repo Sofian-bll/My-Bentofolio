@@ -3,7 +3,7 @@
    2-column layout: left controls + right preview
    ============================================= */
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { Icon, TechTag, CatGlyph } from './ui.jsx'
+import { Icon, TechTag, CatGlyph, contrastText } from './ui.jsx'
 import { DATA, APP_CONFIG } from './data.js'
 import { clearAdminSaveOverrides, saveConfigToDisk } from './admin-save.js'
 import { saveProjectToContent, deleteProjectFromContent } from './admin-project-save.js'
@@ -23,7 +23,7 @@ function slugify(s) {
     .replace(/['']/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'projet'
 }
 
-function buildConfig(projects, socialLinks, photo, appearance, cv, contact, experiences, profile) {
+function buildConfig(projects, socialLinks, photo, appearance, cv, contact, experiences, profile, skillPalette) {
   const featuredIds = new Set(cv?.featured || [])
   const projWithFeatured = projects.map(p => ({...p, featured: featuredIds.has(p.id)}))
   return {
@@ -35,6 +35,7 @@ function buildConfig(projects, socialLinks, photo, appearance, cv, contact, expe
     contact: contact || {},
     experiences: experiences || [],
     profile: profile || {},
+    skillPalette: skillPalette || [],
   }
 }
 
@@ -47,11 +48,12 @@ function useConfigState() {
   const [contact, setContact] = useState(() => ({...APP_CONFIG.contact}))
   const [experiences, setExperiences] = useState(() => [...(APP_CONFIG.experiences || [])])
   const [profile, setProfile] = useState(() => ({ ...(APP_CONFIG.profile || {}) }))
+  const [skillPalette, setSkillPalette] = useState(() => [...(APP_CONFIG.skillPalette || [])])
 
-  const config = buildConfig(projects, socialLinks, photo, appearance, cv, contact, experiences, profile)
+  const config = buildConfig(projects, socialLinks, photo, appearance, cv, contact, experiences, profile, skillPalette)
 
   return { projects, setProjects, socialLinks, setSocialLinks, photo, setPhoto,
-    appearance, setAppearance, cv, setCv, contact, setContact, experiences, setExperiences, profile, setProfile, config }
+    appearance, setAppearance, cv, setCv, contact, setContact, experiences, setExperiences, profile, setProfile, skillPalette, setSkillPalette, config }
 }
 
 function syncLivePreview(cfg) {
@@ -168,7 +170,7 @@ function FocalPointControl({ label, hint, photo, value, fallback, aspectRatio, o
 /* ─── MAIN DASHBOARD ─── */
 function DashboardView({ navigate, showToast, onLogout }) {
   const { projects, setProjects, socialLinks, setSocialLinks, photo, setPhoto,
-    appearance, setAppearance, cv, setCv, contact, setContact, experiences, setExperiences, profile, setProfile, config } = useConfigState()
+    appearance, setAppearance, cv, setCv, contact, setContact, experiences, setExperiences, profile, setProfile, skillPalette, setSkillPalette, config } = useConfigState()
 
   const [section, setSection] = useState('projets')
   const [previewPage, setPreviewPage] = useState('/')
@@ -223,11 +225,11 @@ function DashboardView({ navigate, showToast, onLogout }) {
           ? projects.map(p => p.id === draftProject.id ? draftProject : p)
           : [...projects, draftProject]
       }
-      const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, experiences, profile)
+      const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, experiences, profile, skillPalette)
       syncLivePreview(cfg)
       setPreviewKey(k => k + 1)
     }, 300)
-  }, [projects, socialLinks, photo, appearance, cv, contact, experiences, profile, draftProject])
+  }, [projects, socialLinks, photo, appearance, cv, contact, experiences, profile, skillPalette, draftProject])
 
   const handleSave = useCallback(async () => {
     setSaving(true)
@@ -238,7 +240,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
         ? projects.map(p => p.id === draftProject.id ? draftProject : p)
         : [...projects, draftProject]
     }
-    const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, experiences, profile)
+    const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, experiences, profile, skillPalette)
     const { projects: _proj, ...cfgForDisk } = cfg
     const result = await saveConfigToDisk(cfgForDisk)
     if (result.ok) {
@@ -252,7 +254,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
       showToast(`Sauvegarde echouee — ${result.error || 'dev uniquement'}`)
     }
     setSaving(false)
-  }, [projects, socialLinks, photo, appearance, cv, contact, experiences, profile, draftProject, showToast, setProjects])
+  }, [projects, socialLinks, photo, appearance, cv, contact, experiences, profile, skillPalette, draftProject, showToast, setProjects])
 
   const previewNavigate = useCallback((path) => {
     setPreviewPage(path)
@@ -323,6 +325,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
           {section === 'profil'    && <ProfileSection    profile={profile} setProfile={setProfile} showToast={showToast} />}
           {section === 'experiences' && <ExperiencesSection experiences={experiences} setExperiences={setExperiences} showToast={showToast} />}
           {section === 'backup'    && <BackupSection     config={config} showToast={showToast}/>}
+          {section === 'competences' && <PaletteSection skillPalette={skillPalette} setSkillPalette={setSkillPalette}/>}
         </div>
       </main>
 
@@ -353,6 +356,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
 const SECTIONS = [
   { id: 'projets',      label: 'Projets',      icon: 'grid' },
   { id: 'experiences',  label: 'Experiences',  icon: 'briefcase' },
+  { id: 'competences', label: 'Competences',   icon: 'star' },
   { id: 'apparence',    label: 'Apparence',    icon: 'sparkle' },
   { id: 'cv',        label: 'CV',        icon: 'cv' },
   { id: 'contact',   label: 'Contact',   icon: 'mail' },
@@ -934,6 +938,115 @@ function ProjectsSection({ projects, setProjects, showToast, onDraftChange, setP
 }
 
 /* ─── BACKUP ─── */
+function PaletteSection({ skillPalette, setSkillPalette }) {
+  const [newLabel, setNewLabel] = useState('')
+  const [newColor, setNewColor] = useState('#6366f1')
+  const [newIsSoft, setNewIsSoft] = useState(false)
+  const [editingId, setEditingId] = useState(null)
+  const [editLabel, setEditLabel] = useState('')
+  const [editColor, setEditColor] = useState('')
+  const [editIsSoft, setEditIsSoft] = useState(false)
+
+  const add = () => {
+    if (!newLabel.trim()) return
+    const id = 'c_' + Date.now()
+    setSkillPalette(prev => [...prev, { id, label: newLabel.trim(), color: newIsSoft ? null : newColor }])
+    setNewLabel(''); setNewColor('#6366f1'); setNewIsSoft(false)
+  }
+
+  const remove = (id) => setSkillPalette(prev => prev.filter(s => s.id !== id))
+
+  const startEdit = (s) => {
+    setEditingId(s.id); setEditLabel(s.label); setEditColor(s.color || '#6366f1'); setEditIsSoft(!s.color)
+  }
+
+  const saveEdit = () => {
+    if (!editLabel.trim()) { setEditingId(null); return }
+    setSkillPalette(prev => prev.map(s => s.id === editingId ? { ...s, label: editLabel.trim(), color: editIsSoft ? null : editColor } : s))
+    setEditingId(null)
+  }
+
+  const techs = skillPalette.filter(s => s.color)
+  const softs = skillPalette.filter(s => !s.color)
+
+  return (
+    <div className="ds-section">
+      <h2 className="ds-title">Competences</h2>
+      <p className="ds-sub">Palette de couleurs et labels des pills de competences techniques et soft skills.</p>
+
+      <div className="ds-card">
+        <h3 className="ds-card-title">Competences techniques</h3>
+        <div className="pal-grid">
+          {techs.map(s => (
+            <div key={s.id} className={'pal-pill-wrapper' + (editingId === s.id ? ' editing' : '')}>
+              {editingId === s.id ? (
+                <div className="pal-edit-popup">
+                  <div className="pal-edit-row">
+                    <input className="input" value={editLabel} onChange={e => setEditLabel(e.target.value)} placeholder="Label" autoFocus
+                      onKeyDown={e => { if (e.key === 'Enter') saveEdit(); if (e.key === 'Escape') setEditingId(null) }} />
+                    <input type="color" className="pal-color-input" value={editColor} onChange={e => setEditColor(e.target.value)} />
+                  </div>
+                  <div className="pal-edit-actions">
+                    <button className="btn btn--brand" style={{flex:1}} onClick={saveEdit}>Enregistrer</button>
+                    <button className="btn btn--ghost" onClick={() => setEditingId(null)}>Annuler</button>
+                  </div>
+                </div>
+              ) : (
+                <button className="pal-pill" style={{ background: s.color, color: contrastText(s.color) }} onClick={() => startEdit(s)}>
+                  {s.label}
+                  <span className="pal-pill-del" onClick={(e) => { e.stopPropagation(); remove(s.id) }} title="Supprimer"><Icon name="x" size={10} /></span>
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+        <div className="pal-add-row" style={{marginTop:'16px'}}>
+          <input className="input" value={newLabel} onChange={e => setNewLabel(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); add() } }}
+            placeholder="Label" style={{flex:2}} />
+          <input type="color" className="pal-color-input" value={newColor} onChange={e => setNewColor(e.target.value)} disabled={newIsSoft} />
+          <label className="pal-soft-check"><input type="checkbox" checked={newIsSoft} onChange={e => setNewIsSoft(e.target.checked)} /> Soft</label>
+          <button className="btn btn--brand" onClick={add} style={{flex:1}}>Ajouter</button>
+        </div>
+      </div>
+
+      <div className="ds-card">
+        <h3 className="ds-card-title">Soft Skills</h3>
+        <div className="pal-grid">
+          {softs.map(s => (
+            <div key={s.id} className={'pal-pill-wrapper' + (editingId === s.id ? ' editing' : '')}>
+              {editingId === s.id ? (
+                <div className="pal-edit-popup">
+                  <div className="pal-edit-row">
+                    <input className="input" value={editLabel} onChange={e => setEditLabel(e.target.value)} placeholder="Label" autoFocus
+                      onKeyDown={e => { if (e.key === 'Enter') saveEdit(); if (e.key === 'Escape') setEditingId(null) }} />
+                  </div>
+                  <div className="pal-edit-actions">
+                    <button className="btn btn--brand" style={{flex:1}} onClick={saveEdit}>Enregistrer</button>
+                    <button className="btn btn--ghost" onClick={() => setEditingId(null)}>Annuler</button>
+                  </div>
+                </div>
+              ) : (
+                <button className="pal-pill pal-pill--soft" onClick={() => startEdit(s)}>
+                  {s.label}
+                  <span className="pal-pill-del" onClick={(e) => { e.stopPropagation(); remove(s.id) }} title="Supprimer"><Icon name="x" size={10} /></span>
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+        <div className="pal-add-row" style={{marginTop:'16px'}}>
+          <input className="input" value={newLabel} onChange={e => setNewLabel(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); add() } }}
+            placeholder="Label" style={{flex:2}} />
+          <label className="pal-soft-check"><input type="checkbox" checked={newIsSoft} onChange={e => setNewIsSoft(e.target.checked)} /> Soft</label>
+          <button className="btn btn--brand" onClick={add} style={{flex:1}}>Ajouter</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function BackupSection({ config, showToast }) {
   const [importText, setImportText] = useState('')
   const handleExport = () => {

@@ -1551,3 +1551,139 @@ html.is-resizing * {
   gap: 8px;
   margin-top: 12px;
 }
+
+/* ─── Palette Section ─── */
+.pal-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s5);
+}
+.pal-section-title {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+.pal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 8px;
+}
+.pal-pill-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.pal-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  min-height: 36px;
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.pal-pill:hover {
+  transform: scale(1.04);
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+.pal-pill--soft {
+  background: var(--bg-inset);
+  color: var(--text);
+  border: 1px solid var(--border-sub);
+}
+.pal-pill-del {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-zinc-800);
+  color: #fff;
+  border: none;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.pal-pill-wrapper:hover .pal-pill-del {
+  opacity: 1;
+}
+.pal-edit-row {
+  display: flex;
+  gap: 8px;
+  align-items: end;
+  padding: 10px;
+  background: var(--bg-inset);
+  border-radius: var(--radius-md);
+  margin-top: 6px;
+}
+.pal-edit-row .input {
+  flex: 1;
+  min-width: 0;
+}
+.pal-color-input {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  padding: 2px;
+  background: var(--bg-card);
+}
+.pal-edit-actions {
+  display: flex;
+  gap: 4px;
+}
+.pal-add-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 8px 0;
+}
+.pal-add-row .input {
+  flex: 1;
+  min-width: 0;
+}
+.pal-soft-check {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-2);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.pal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease);
+}
+.pal-btn:hover {
+  border-color: var(--text-2);
+  color: var(--text);
+}

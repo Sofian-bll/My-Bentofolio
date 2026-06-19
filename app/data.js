@@ -50,6 +50,8 @@ const formations = profile.formations || []
 
 const interests = profile.interests || []
 
+const skillPalette = appConfig.skillPalette || []
+
 const categories = {
   dev:        { label: 'Dev',        color: 'var(--cat-dev)',        glyph: 'code' },
   webdesign:  { label: 'Webdesign',  color: 'var(--cat-webdesign)',  glyph: 'layout' },
@@ -70,7 +72,7 @@ appConfig.projects = projects
 
 export const DATA = {
   personalInfo, contactInfos, socialLinks, skillGroups, formations, interests,
-  categories, projects, experiences, profile, sectionLabels,
+  categories, projects, experiences, profile, sectionLabels, skillPalette,
 }
 
 export const APP_CONFIG = appConfig
