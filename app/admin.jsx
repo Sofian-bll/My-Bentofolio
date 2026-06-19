@@ -758,12 +758,21 @@ function ProjectForm({ init, onSave, onCancel, showToast, onDraftChange, setPrev
             ))}
           </div>
         </div>
-        <div className="ds-field">
-          <label className="ds-label">Rôle · Début · Fin</label>
-          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:'8px',marginTop:'6px'}}>
-            <input className="input" value={f.role} onChange={e => set('role', e.target.value)} placeholder="Solo" />
-            <input type="date" className="input" value={f.startDate || ''} onChange={e => set('startDate', e.target.value)} />
-            <input type="date" className="input" value={f.endDate || ''} onChange={e => set('endDate', e.target.value)} />
+        <div className="ds-field" style={{gridColumn:'1/-1'}}>
+          <label className="ds-label">Période</label>
+          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:'10px',marginTop:'6px',background:'var(--bg-inset)',borderRadius:'var(--radius-md)',padding:'12px'}}>
+            <div style={{display:'flex',flexDirection:'column',gap:'3px'}}>
+              <span style={{fontSize:'11px',fontWeight:600,color:'var(--text-2)',textTransform:'uppercase'}}>Rôle</span>
+              <input className="input" value={f.role} onChange={e => set('role', e.target.value)} placeholder="Solo" />
+            </div>
+            <div style={{display:'flex',flexDirection:'column',gap:'3px'}}>
+              <span style={{fontSize:'11px',fontWeight:600,color:'var(--text-2)',textTransform:'uppercase'}}>Début</span>
+              <input type="date" className="input" value={f.startDate || ''} onChange={e => set('startDate', e.target.value)} />
+            </div>
+            <div style={{display:'flex',flexDirection:'column',gap:'3px'}}>
+              <span style={{fontSize:'11px',fontWeight:600,color:'var(--text-2)',textTransform:'uppercase'}}>Fin</span>
+              <input type="date" className="input" value={f.endDate || ''} onChange={e => set('endDate', e.target.value)} />
+            </div>
           </div>
         </div>
         <div className="ds-field" style={{gridColumn:'1/-1'}}>
