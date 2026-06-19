@@ -628,7 +628,7 @@ function LinksSection({ socialLinks, setSocialLinks, showToast }) {
 }
 
 /* ─── PROJECTS CRUD ─── */
-const EMPTY_P = { name:'', categories:['dev'], featured:true, role:'', period:'', duration:'', description:'', caseStudy:'', caseStudyBlocks:[], demoUrl:'', repoUrl:'', techs:[], highlights:['','',''] }
+const EMPTY_P = { name:'', categories:['dev'], featured:true, role:'', startDate:'', endDate:'', description:'', caseStudy:'', caseStudyBlocks:[], demoUrl:'', repoUrl:'', techs:[], highlights:['','',''] }
 
 function ProjectForm({ init, onSave, onCancel, showToast, onDraftChange, setPreviewPage }) {
   const [f, setF] = useState(init ? {...init, highlights:(init.highlights||['','',''])} : EMPTY_P)
@@ -759,11 +759,11 @@ function ProjectForm({ init, onSave, onCancel, showToast, onDraftChange, setPrev
           </div>
         </div>
         <div className="ds-field">
-          <label className="ds-label">Rôle · Période · Durée</label>
+          <label className="ds-label">Rôle · Début · Fin</label>
           <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:'8px',marginTop:'6px'}}>
             <input className="input" value={f.role} onChange={e => set('role', e.target.value)} placeholder="Solo" />
-            <input className="input" value={f.period} onChange={e => set('period', e.target.value)} placeholder="2025" />
-            <input className="input" value={f.duration} onChange={e => set('duration', e.target.value)} placeholder="3 sem." />
+            <input type="date" className="input" value={f.startDate || ''} onChange={e => set('startDate', e.target.value)} />
+            <input type="date" className="input" value={f.endDate || ''} onChange={e => set('endDate', e.target.value)} />
           </div>
         </div>
         <div className="ds-field" style={{gridColumn:'1/-1'}}>

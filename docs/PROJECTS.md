@@ -42,8 +42,8 @@ Every project folder contains a `project.json` with the following fields:
 | `featured`      | `boolean`  | No       | Whether the project appears on the CV page                |
 | `techs`         | `array`    | Yes      | Array of `{ label: string, tech: string }`               |
 | `role`          | `string`   | No       | Role on the project (e.g. `"Solo"`, `"Binôme"`)           |
-| `period`        | `string`   | No       | Time period (e.g. `"2026"`)                               |
-| `duration`      | `string`   | No       | Duration (e.g. `"3 sem."`, `"En cours"`)                  |
+| `startDate`     | `string`   | No       | Start date ISO (e.g. `"2025-03-15"`)                       |
+| `endDate`       | `string`   | No       | End date ISO or `null` if ongoing                         |
 | `description`   | `string`   | No       | Short markdown description                                |
 | `highlights`    | `string[]` | No       | Bullet points of key achievements                         |
 | `demoUrl`       | `string`   | No       | URL to live demo (empty if none)                          |
@@ -64,8 +64,8 @@ Full example:
     { "label": "OpenSSH", "tech": "linux" }
   ],
   "role": "Solo",
-  "period": "2026",
-  "duration": "En cours",
+  "startDate": "2026-01-01",
+  "endDate": null,
   "description": "CLI Bash zéro dépendance pour créer, organiser et révoquer des clés SSH.",
   "highlights": [
     "CLI Bash zéro dépendance — create, list, grant, revoke en une commande",
@@ -93,11 +93,6 @@ Description du contexte du projet. Pourquoi il existe, quel problème il résout
 - Point fort 1
 - Point fort 2
 - Point fort 3
-
-## Stack
-
-- Technologie 1
-- Technologie 2
 
 ## Architecture
 

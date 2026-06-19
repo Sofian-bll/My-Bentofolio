@@ -39,9 +39,9 @@ describe('getProjectGalleryState', () => {
 
 describe('sortProjects', () => {
   const items = [
-    { id: 'zoo', name: 'zoo', period: '2024' },
-    { id: 'alpha', name: 'alpha', period: '2026' },
-    { id: 'mid', name: 'mid', period: '2025' },
+    { id: 'zoo', name: 'zoo', startDate: '2024-03-01' },
+    { id: 'alpha', name: 'alpha', startDate: '2026-01-15' },
+    { id: 'mid', name: 'mid', startDate: '2025-06-01' },
   ]
 
   test('default preserves original order', () => {
@@ -56,31 +56,27 @@ describe('sortProjects', () => {
     expect(sortProjects(items, 'za').map((p) => p.id)).toEqual(['zoo', 'mid', 'alpha'])
   })
 
-  test('recent sorts by period newest first', () => {
+  test('recent sorts by startDate newest first', () => {
     expect(sortProjects(items, 'recent').map((p) => p.id)).toEqual(['alpha', 'mid', 'zoo'])
   })
 
-  test('recent falls back to name when periods equal', () => {
-    const sameYear = [
-      { id: 'b', name: 'b', period: '2025' },
-      { id: 'a', name: 'a', period: '2025' },
-    ]
-    expect(sortProjects(sameYear, 'recent').map((p) => p.id)).toEqual(['a', 'b'])
+  test('oldest sorts by startDate oldest first', () => {
+    expect(sortProjects(items, 'oldest').map((p) => p.id)).toEqual(['zoo', 'mid', 'alpha'])
   })
 
-  test('recent parses range periods like "2022 – 2024"', () => {
-    const ranges = [
-      { id: 'old', name: 'old', period: '2020 – 2022' },
-      { id: 'new', name: 'new', period: '2024 – 2026' },
+  test('recent falls back to name when dates equal', () => {
+    const sameDate = [
+      { id: 'b', name: 'b', startDate: '2025-01-01' },
+      { id: 'a', name: 'a', startDate: '2025-01-01' },
     ]
-    expect(sortProjects(ranges, 'recent').map((p) => p.id)).toEqual(['new', 'old'])
+    expect(sortProjects(sameDate, 'recent').map((p) => p.id)).toEqual(['a', 'b'])
   })
 
-  test('missing period sorts last', () => {
+  test('missing startDate sorts last', () => {
     const mixed = [
-      { id: 'a', name: 'a', period: '2025' },
-      { id: 'b', name: 'b', period: undefined },
-      { id: 'c', name: 'c', period: '2023' },
+      { id: 'a', name: 'a', startDate: '2025-01-01' },
+      { id: 'b', name: 'b', startDate: undefined },
+      { id: 'c', name: 'c', startDate: '2023-06-01' },
     ]
     expect(sortProjects(mixed, 'recent').map((p) => p.id)).toEqual(['a', 'c', 'b'])
   })
@@ -88,9 +84,9 @@ describe('sortProjects', () => {
 
 describe('getProjectGalleryState with sort', () => {
   const projs = [
-    { id: 'z', name: 'z', categories: ['dev'], period: '2026' },
-    { id: 'a', name: 'a', categories: ['dev'], period: '2024' },
-    { id: 'm', name: 'm', categories: ['dev'], period: '2025' },
+    { id: 'z', name: 'z', categories: ['dev'], startDate: '2026-01-01' },
+    { id: 'a', name: 'a', categories: ['dev'], startDate: '2024-01-01' },
+    { id: 'm', name: 'm', categories: ['dev'], startDate: '2025-01-01' },
   ]
   const cats = { dev: { label: 'Dev' } }
 
@@ -102,5 +98,10 @@ describe('getProjectGalleryState with sort', () => {
   test('all filter with az sort', () => {
     const state = getProjectGalleryState({ projects: projs, categories: cats, filter: 'all', sort: 'az' })
     expect(state.shown.map((p) => p.id)).toEqual(['a', 'm', 'z'])
+  })
+
+  test('recent + filter works together', () => {
+    const state = getProjectGalleryState({ projects: projs, categories: cats, filter: 'dev', sort: 'recent' })
+    expect(state.shown.map((p) => p.id)).toEqual(['z', 'm', 'a'])
   })
 })

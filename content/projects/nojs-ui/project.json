@@ -17,8 +17,6 @@
     }
   ],
   "role": "Solo",
-  "period": "2025",
-  "duration": "En cours",
   "description": "Composants UI sans JavaScript — bibliothèque générée par IA, approche minimaliste et performante.",
   "highlights": [
     "Composants UI fonctionnels sans JavaScript côté client.",
@@ -27,5 +25,7 @@
   ],
   "demoUrl": "",
   "repoUrl": "https://github.com/Sofian-bll/NoJS-Ui",
-  "image": ""
+  "image": "",
+  "startDate": "2025-01-01",
+  "endDate": null
 }

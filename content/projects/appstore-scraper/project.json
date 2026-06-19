@@ -12,8 +12,6 @@
     }
   ],
   "role": "Solo",
-  "period": "2025",
-  "duration": "Quelques jours",
   "description": "Scraper de l’App Store Apple — comparaison de prix multi-régions pour trouver le tarif le plus bas.",
   "highlights": [
     "Scraping multi-régions de l’App Store Apple.",
@@ -22,5 +20,7 @@
   ],
   "demoUrl": "",
   "repoUrl": "https://github.com/Sofian-bll/AppStore-Scraper",
-  "image": ""
+  "image": "",
+  "startDate": "2025-01-01",
+  "endDate": null
 }

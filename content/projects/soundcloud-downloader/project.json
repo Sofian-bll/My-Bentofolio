@@ -12,8 +12,6 @@
     }
   ],
   "role": "Solo",
-  "period": "2025",
-  "duration": "Quelques jours",
   "description": "Téléchargeur de playlists SoundCloud en WAV — extraction propre par playlist.",
   "highlights": [
     "Téléchargement par playlist complète en WAV.",
@@ -22,5 +20,7 @@
   ],
   "demoUrl": "",
   "repoUrl": "https://github.com/Sofian-bll/Soundcloud_Wav_Playlist",
-  "image": ""
+  "image": "",
+  "startDate": "2025-01-01",
+  "endDate": null
 }

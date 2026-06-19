@@ -25,8 +25,6 @@
     }
   ],
   "role": "Équipe",
-  "period": "2026",
-  "duration": "3 sem.",
   "description": "Pipeline CI/CD complet — PR Gates, tests E2E Playwright, rapports Allure, GitHub Pages.",
   "highlights": [
     "Pipeline PR Gate avec tests Playwright et rapports Allure.",
@@ -35,5 +33,7 @@
   ],
   "demoUrl": "https://jeuvideops.github.io/jeuvideops/",
   "repoUrl": "https://github.com/jeuvideops/jeuvideops",
-  "image": ""
+  "image": "",
+  "startDate": "2026-01-01",
+  "endDate": null
 }

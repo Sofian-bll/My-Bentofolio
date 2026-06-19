@@ -106,6 +106,15 @@ function ProjectsView({ navigate, openProject, filter, setFilter, sort, setSort 
   const { projects, categories } = DATA;
   const { counts, catKeys, activeFilter, shown } = getProjectGalleryState({ projects, categories, filter, sort });
 
+  const handleSort = (group) => {
+    if (group === 'default') return setSort('default')
+    if (group === 'date') return setSort(sort === 'oldest' ? 'recent' : sort === 'recent' ? 'oldest' : 'recent')
+    return setSort(sort === 'za' ? 'az' : sort === 'az' ? 'za' : 'az')
+  }
+
+  const isDateActive = sort === 'recent' || sort === 'oldest'
+  const isNameActive = sort === 'az' || sort === 'za'
+
   return (
     <main className="page-wrap">
       <button className="back-link" onClick={() => navigate('/')}><Icon name="arrowLeft" size={16} /> Retour au portfolio</button>
@@ -127,12 +136,15 @@ function ProjectsView({ navigate, openProject, filter, setFilter, sort, setSort 
           </button>
         ))}
         <span className="filter-spacer" />
-        <select className="sort-select" value={sort} onChange={(e) => setSort(e.target.value)} aria-label="Trier les projets">
-          <option value="default">Par défaut</option>
-          <option value="recent">Récents → Anciens</option>
-          <option value="az">A → Z</option>
-          <option value="za">Z → A</option>
-        </select>
+        <button className={'sort-pill' + (sort === 'default' ? ' active' : '')} onClick={() => handleSort('default')}>
+          Par défaut
+        </button>
+        <button className={'sort-pill' + (isDateActive ? ' active' : '')} onClick={() => handleSort('date')}>
+          Période {isDateActive && (sort === 'oldest' ? <span className="sort-arrow">▲</span> : <span className="sort-arrow">▼</span>)}
+        </button>
+        <button className={'sort-pill' + (isNameActive ? ' active' : '')} onClick={() => handleSort('name')}>
+          Nom {isNameActive && (sort === 'za' ? <span className="sort-arrow">▲</span> : <span className="sort-arrow">▼</span>)}
+        </button>
         <span className="filter-result">{shown.length} projet{shown.length > 1 ? 's' : ''}</span>
       </div>
 

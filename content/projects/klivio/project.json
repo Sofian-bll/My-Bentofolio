@@ -16,8 +16,6 @@
     }
   ],
   "role": "Solo",
-  "period": "2025",
-  "duration": "1 sem.",
   "description": "Landing page SaaS, intégration pixel-perfect en Tailwind.",
   "highlights": [
     "Landing page SaaS intégrée en pixel-perfect.",
@@ -26,5 +24,7 @@
   ],
   "demoUrl": "https://sofian-bll.github.io/klivio-tailwind/",
   "repoUrl": "https://github.com/Sofian-bll/klivio-tailwind",
-  "image": ""
+  "image": "",
+  "startDate": "2025-01-01",
+  "endDate": null
 }

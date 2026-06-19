@@ -25,8 +25,6 @@
       }
     ],
     "role": "Binôme",
-    "period": "2025",
-    "duration": "3 sem.",
     "description": "Réseau social full-stack — API REST Laravel, auth Sanctum, relations SQL, tests unitaires.",
     "highlights": [
       "API REST sécurisée par tokens Sanctum (auth, fil d’actualité).",
@@ -36,6 +34,8 @@
     "demoUrl": "",
     "repoUrl": "https://github.com/Sofian-bll",
     "image": "",
+    "startDate": "2025-01-01",
+    "endDate": null,
     "caseStudy": "## Contexte\n\nRéseau social complet : authentification par tokens Sanctum, fil d’actualité, relations many-to-many (follows, likes), et une suite de tests unitaires couvrant les endpoints critiques. Frontend Vue 3 avec composants shadcn-vue.\n\n## Points clés\n\n- API REST sécurisée par tokens Sanctum (auth, fil d’actualité).\n- Relations many-to-many (follows, likes) sous MySQL avec tests.\n- Architecture full-stack Laravel + Vue 3 pensée pour scaler.\n\n## Stack\n\n- Laravel\n- Sanctum\n- MySQL\n- Vue 3\n\n![Décris cette image](media/projects/connect-in/1781873051510.jpeg)\n"
   },
   {
@@ -60,8 +60,6 @@
       }
     ],
     "role": "Binôme",
-    "period": "2026",
-    "duration": "3 sem.",
     "description": "Réseau social — réécriture complète de Connect’IN en Java avec le même frontend Vue 3.",
     "highlights": [
       "Migration complète du backend Laravel vers Java.",
@@ -71,6 +69,8 @@
     "demoUrl": "",
     "repoUrl": "https://github.com/Sofian-bll",
     "image": "",
+    "startDate": "2026-01-01",
+    "endDate": null,
     "caseStudy": "## Contexte\n\nDeuxième itération du réseau social Connect’IN, porté de Laravel (PHP) vers Java. Fonctionnalités identiques (authentification, fil d’actualité, follows, likes) réimplémentées dans une stack Java + Vue 3.\n\n## Points clés\n\n- Migration complète du backend Laravel vers Java.\n- Mêmes fonctionnalités : auth, follows, likes, fil d’actualité.\n- Architecture fullstack Java + Vue 3.\n\n## Stack\n\n- Java\n- Vue 3\n- MySQL\n"
   },
   {
@@ -95,8 +95,6 @@
       }
     ],
     "role": "Solo",
-    "period": "2025",
-    "duration": "2 sem.",
     "description": "Framework MVC maison from scratch — SoftDeletes, anti-chevauchement, back-office cinéma.",
     "highlights": [
       "Framework MVC complet développé sans aucune dépendance externe.",
@@ -106,6 +104,8 @@
     "demoUrl": "",
     "repoUrl": "https://github.com/Sofian-bll",
     "image": "",
+    "startDate": "2025-01-01",
+    "endDate": null,
     "caseStudy": "## Contexte\n\nBack-office de gestion de séances de cinéma avec un framework MVC conçu from scratch.\nAucune dépendance — routing, ORM, templating, SoftDeletes et algorithme anti-chevauchement des séances par salle.\n\n## Points clés\n\n- Framework MVC complet développé sans aucune dépendance externe.\n- Suppression logique (SoftDeletes) et algorithme anti-chevauchement.\n- Frontend Vue 3 + Tailwind, back-office de gestion de séances.\n\n## Stack\n\n- PHP MVC\n- MySQL\n- Vue 3\n"
   },
   {
@@ -122,8 +122,6 @@
       }
     ],
     "role": "Solo",
-    "period": "2025",
-    "duration": "2 sem.",
     "description": "Design Patterns, Génériques, Réflexion, framework de test maison.",
     "highlights": [
       "Design patterns classiques (Factory, Observer, Strategy…).",
@@ -133,6 +131,8 @@
     "demoUrl": "",
     "repoUrl": "https://github.com/Sofian-bll",
     "image": "",
+    "startDate": "2025-01-01",
+    "endDate": null,
     "caseStudy": "## Contexte\n\nBootcamp intensif Java : implémentation de design patterns classiques, programmation générique, introspection par réflexion, et un framework de test maison complet.\n\n## Points clés\n\n- Design patterns classiques (Factory, Observer, Strategy…).\n- Programmation générique avec introspection par réflexion.\n- Framework de test unitaire construit de A à Z.\n\n## Stack\n\n- Java SE\n"
   },
   {
@@ -153,8 +153,6 @@
       }
     ],
     "role": "Indépendant",
-    "period": "2022 – 2024",
-    "duration": "2 ans",
     "description": "Sites e-commerce et vitrines haut de gamme, Shopify × Framer.",
     "highlights": [
       "Sites vitrines et e-commerce haut de gamme conçus et intégrés.",
@@ -164,6 +162,8 @@
     "demoUrl": "",
     "repoUrl": "",
     "image": "",
+    "startDate": "2022-01-01",
+    "endDate": "2024-12-31",
     "caseStudy": "## Contexte\n\nDeux ans d’activité freelance : conception et intégration de sites vitrines et e-commerce haut de gamme. Direction artistique, prototypage Framer, et boutiques Shopify sur-mesure.\n\n## Points clés\n\n- Sites vitrines et e-commerce haut de gamme conçus et intégrés.\n- Direction artistique et prototypage sous Framer.\n- Boutiques Shopify sur-mesure livrées sur 2 ans d’activité.\n\n## Stack\n\n- Framer\n- Shopify\n"
   },
   {
@@ -184,8 +184,6 @@
       }
     ],
     "role": "Solo",
-    "period": "2025",
-    "duration": "1 sem.",
     "description": "Landing page SaaS, intégration pixel-perfect en Tailwind.",
     "highlights": [
       "Landing page SaaS intégrée en pixel-perfect.",
@@ -195,6 +193,8 @@
     "demoUrl": "https://sofian-bll.github.io/klivio-tailwind/",
     "repoUrl": "https://github.com/Sofian-bll/klivio-tailwind",
     "image": "",
+    "startDate": "2025-01-01",
+    "endDate": null,
     "caseStudy": "## Contexte\n\nLanding page d’un produit SaaS fictif, du design à l’intégration. Exercice de fidélité maquette → code et de système d’espacement cohérent en Tailwind.\n\n## Points clés\n\n- Landing page SaaS intégrée en pixel-perfect.\n- Système d’espacement cohérent en Tailwind.\n- Fidélité maquette → code maximale.\n\n## Stack\n\n- Tailwind\n- HTML/CSS\n"
   },
   {
@@ -215,8 +215,6 @@
       }
     ],
     "role": "Solo",
-    "period": "2026",
-    "duration": "En cours",
     "description": "CLI Bash zéro dépendance pour créer, organiser et révoquer des clés SSH.",
     "highlights": [
       "CLI Bash zéro dépendance — create, list, grant, revoke en une commande",
@@ -226,6 +224,8 @@
     "demoUrl": "",
     "repoUrl": "https://github.com/Sofian-bll/sshk",
     "image": "media/projects/sshk/1781890494073.png",
+    "startDate": "2026-01-01",
+    "endDate": null,
     "caseStudy": "## Contexte\n\nJ'ai un TDAH, ce qui rend l'organisation compliquée au quotidien. Les fichiers qui s'accumulent, les configurations qui dérivent — très vite, c'est le chaos.\n\nRécemment, j'ai converti deux vieux PC en serveurs maison (un NAS et un serveur applicatif). Entre les ratés, les conflits et les réinstallations successives, je me retrouvais à devoir recréer et redéployer mes clés SSH à chaque fois. Quelle clé pour quelle machine ? L'empreinte est-elle la bonne ? L'accès tient-il encore ? Autant de vérifications manuelles qui me sortaient du flow.\n\n`~/.ssh` était devenu un fourre-tout incompréhensible. Il me fallait un outil minimal, qui range sans casser ce qui existe déjà.\n\n![sshk list](media/projects/sshk/sshk-list.png)\n\n## Process\n\nMa méthode actuelle : je fournis l'idée et une première version, je m'appuie sur l'IA pour accélérer l'implémentation, puis j'itère. Pour sshk, je suis parti d'une contrainte forte — ne pas imposer une nouvelle architecture, mais se glisser proprement dans ce qui existe déjà (`~/.ssh/config`, `authorized_keys`). Pas de daemon, pas de format propriétaire, pas de runtime exotique. Uniquement Bash et OpenSSH, déjà présents sur n'importe quelle machine Unix.\n\n## Difficultés rencontrées\n\n- **Compatibilité multiplateforme** — le script doit tourner sur macOS et Linux sans ajustement. Les commandes `stat` diffèrent entre BSD et GNU, `pbcopy` côtoie `wl-copy` et `xclip` pour le presse-papier. Autant de micro-différences à gérer.\n- **Intégration non destructive** — le vrai défi, c'est de ne rien casser. Le script ne modifie jamais le `~/.ssh/config` existant : il ajoute des snippets dans `config.d/`, charge à l'utilisateur de les inclure s'il le veut.\n- **Résister à la surcouche** — en Bash, chaque nouvelle fonctionnalité devient vite un nid à bugs. J'ai tenu la ligne : 7 commandes, 549 lignes, pas plus.\n\n![sshk show](media/projects/sshk/sshk-show.png)\n\n## Stack\n\n- Bash pur — zéro dépendance, un fichier auditable en dix minutes\n- OpenSSH — `ssh-keygen`, `ssh`, `ssh-copy-id`\n- GitHub Pages — landing page en un seul fichier HTML, Tailwind en CDN\n\n![sshk help](media/projects/sshk/sshk-help.png)\n\n## Ce dont je suis fier\n\n- **`sshk copy`** — copier une clé publique dans le presse-papier en une commande, quel que soit l'OS. Tellement évident que je ne comprends pas pourquoi ça n'existait pas.\n- **`sshk grant`** — automatise le `ssh-copy-id` et range proprement la clé dans `authorized_keys.d/` sur la machine distante. Avant, c'était cinq commandes manuelles.\n- **L'absence totale de dépendances** — un seul script Bash de 549 lignes, lisible, modifiable, forkable en deux clics.\n\n## Si c'était à refaire\n\nMême approche. Le projet est fonctionnel et propre, mais il mériterait plus de rodage pour traquer les cas limites avant d'être qualifié « production ready ». Peut-être une suite de tests automatisés avec des conteneurs SSH jetables.\n"
   },
   {
@@ -259,8 +259,6 @@
       }
     ],
     "role": "Solo",
-    "period": "2026",
-    "duration": "En cours",
     "description": "Secrets Manager local-first avec dashboard web. Chiffrement SOPS + Age, injection GitOps des .env, et synchronisation Git depuis l'interface.",
     "highlights": [
       "Coffre-fort central : secrets globaux + par projet, chiffrés en Age",
@@ -270,6 +268,8 @@
     "demoUrl": "https://sofian-bll.github.io/Rage-UI/",
     "repoUrl": "https://github.com/Sofian-bll/Rage-UI",
     "image": "media/projects/rage-ui/1781879615927.png",
+    "startDate": "2026-01-01",
+    "endDate": null,
     "caseStudy": "## Contexte\n\nAvec mon homelab qui grossit (15+ services Docker), je copiais-collais mes tokens API et mots de passe DB à la main dans chaque `.env`. Une rotation de clé ? Il fallait traquer 10 fichiers. Pire : impossible de versionner proprement sans exposer des secrets en clair.\n\nRage UI résout ça avec un pattern simple : un coffre-fort chiffré, des templates avec placeholders, et une injection automatique. Le tout pilotable depuis un dashboard web React, sans toucher au terminal.\n\n## Points clés\n\n- **Stockage chiffré** — SOPS + Age. Les secrets sont dans des `.enc.json`, versionnables dans Git sans risque\n- **Deux niveaux de secrets** — `global/` pour les tokens partagés (CF_API_TOKEN, GitHub PAT…), `projet/` pour les secrets spécifiques\n- **Injection par template** — un `.env.template` avec `{{GLOBAL.CF_API_TOKEN}}` et `{{DB_PASSWORD}}` → `POST /api/inject/:project` génère le `.env` final\n- **API REST** — Bun + Express en backend. Routes publiques (lecture), routes protégées par API key (écriture, injection, sync Git)\n- **Interface web React** — dashboard pour visualiser, éditer, injecter et `git push` depuis le navigateur\n- **Docker-ready** — Dockerfile et docker-compose.yml fournis, volumes pour la clé Age et le répertoire projets\n\n## Architecture\n\n```\nPOST /api/secrets/:project ──→ Écrit le .enc.json ──→ SOPS/Age chiffre\nPOST /api/inject/:project ──→ Lit global + projet ──→ Remplit .env.template → .env\nPOST /api/git/sync      ──→ git add -A && git commit && git push\n```\n\n```\nPROJECTS_DIR/\n├── global/secrets.enc.json\n├── pokedex/.env.template + secrets.enc.json\n└── api_meteo/.env.template\n```\n\nLe backend (Bun + Express) expose 6 routes. Le frontend (Vite + React) consomme l'API et affiche un dashboard avec la liste des projets, l'éditeur de secrets, et les actions (inject, sync).\n\n## Stack\n\n- React (frontend)\n- Bun + Express (backend API)\n- SOPS + Age (chiffrement)\n- Docker (déploiement)\n- Git (versionnement des secrets chiffrés)\n\n## Leçons apprises\n\n- **SOPS + Age c'est sous-coté** — plus simple que Vault, plus secure que `.env` en clair, le meilleur ratio simplicité/sécurité pour un homelab\n- **Séparer secrets globaux et locaux évite la duplication** — un token CF_API_TOKEN dans `global/` est injecté dans 6 projets sans le dupliquer\n- **L'API key protège l'écriture** — les routes GET sont open (utile en local), les POST nécessitent un header `x-api-key`. Suffisant pour du local-first.\n\n![Logo Rage UI](media/projects/rage-ui/1781879615927.png)\n"
   },
   {
@@ -290,8 +290,6 @@
       }
     ],
     "role": "Équipe (3)",
-    "period": "2025",
-    "duration": "4 jours",
     "description": "Chatbot intelligent pour Epitech — design system, authentification, générateur de cartes.",
     "highlights": [
       "Chatbot interactif avec design system sur mesure.",
@@ -301,6 +299,8 @@
     "demoUrl": "https://sofian-bll.github.io/Epitalk/",
     "repoUrl": "https://github.com/Sofian-bll/Epitalk",
     "image": "",
+    "startDate": "2025-01-01",
+    "endDate": null,
     "caseStudy": "## Contexte\n\nProjet web interactif réalisé en équipe de 3 en 4 jours pour centraliser l’accès aux informations Epitech. Développement du chatbot et design system. Déploiement continu avec 2 releases taguées.\n\n## Points clés\n\n- Chatbot interactif avec design system sur mesure.\n- Système d’authentification complet.\n- 2 releases (v1.0, v1.1), démo live sur GitHub Pages.\n\n## Stack\n\n- JavaScript\n- Node.js\n"
   },
   {
@@ -330,8 +330,6 @@
       }
     ],
     "role": "Équipe",
-    "period": "2026",
-    "duration": "3 sem.",
     "description": "Pipeline CI/CD complet — PR Gates, tests E2E Playwright, rapports Allure, GitHub Pages.",
     "highlights": [
       "Pipeline PR Gate avec tests Playwright et rapports Allure.",
@@ -341,6 +339,8 @@
     "demoUrl": "https://jeuvideops.github.io/jeuvideops/",
     "repoUrl": "https://github.com/jeuvideops/jeuvideops",
     "image": "",
+    "startDate": "2026-01-01",
+    "endDate": null,
     "caseStudy": "## Contexte\n\nProjet DevOps/DevSecOps complet : pipeline CI/CD automatisé avec gates de PR, tests E2E Playwright, rapports Allure, et déploiement continu sur GitHub Pages. Automatiser plus pour travailler moins.\n\n## Points clés\n\n- Pipeline PR Gate avec tests Playwright et rapports Allure.\n- Déploiement automatique de la plateforme sur GitHub Pages.\n- Badges CI visibles, workflow DevSecOps complet.\n\n## Stack\n\n- Docker\n- CI/CD\n- Playwright\n- Allure\n"
   },
   {
@@ -357,8 +357,6 @@
       }
     ],
     "role": "Solo",
-    "period": "2025",
-    "duration": "Quelques jours",
     "description": "Scraper de l’App Store Apple — comparaison de prix multi-régions pour trouver le tarif le plus bas.",
     "highlights": [
       "Scraping multi-régions de l’App Store Apple.",
@@ -368,6 +366,8 @@
     "demoUrl": "",
     "repoUrl": "https://github.com/Sofian-bll/AppStore-Scraper",
     "image": "",
+    "startDate": "2025-01-01",
+    "endDate": null,
     "caseStudy": "## Contexte\n\nOutil Python de scraping de l’App Store Apple permettant de comparer les prix d’une application à travers toutes les régions et d’identifier le tarif le plus avantageux.\n\n## Points clés\n\n- Scraping multi-régions de l’App Store Apple.\n- Comparaison automatique des prix par pays.\n- Format exportable pour analyse.\n\n## Stack\n\n- Python\n"
   },
   {
@@ -384,8 +384,6 @@
       }
     ],
     "role": "Solo",
-    "period": "2025",
-    "duration": "Quelques jours",
     "description": "Téléchargeur de playlists SoundCloud en WAV — extraction propre par playlist.",
     "highlights": [
       "Téléchargement par playlist complète en WAV.",
@@ -395,6 +393,8 @@
     "demoUrl": "",
     "repoUrl": "https://github.com/Sofian-bll/Soundcloud_Wav_Playlist",
     "image": "",
+    "startDate": "2025-01-01",
+    "endDate": null,
     "caseStudy": "## Contexte\n\nScript Python pour télécharger des playlists SoundCloud entières au format WAV. Utilitaire pratique pour DJs et producteurs souhaitant archiver leurs sets en haute qualité.\n\n## Points clés\n\n- Téléchargement par playlist complète en WAV.\n- Interface CLI simple et efficace.\n- Conversion propre pour qualité maximale.\n\n## Stack\n\n- Python\n"
   },
   {
@@ -415,8 +415,6 @@
       }
     ],
     "role": "Solo",
-    "period": "2025",
-    "duration": "Quelques jours",
     "description": "Patch binaire du framework macOS SidecarCore — reverse engineering et modification bas niveau.",
     "highlights": [
       "Recherche automatique de signatures machine dans le binaire.",
@@ -426,6 +424,8 @@
     "demoUrl": "",
     "repoUrl": "https://github.com/Sofian-bll/SidecarPatcher",
     "image": "",
+    "startDate": "2025-01-01",
+    "endDate": null,
     "caseStudy": "## Contexte\n\nUtilitaire en ligne de commande appliquant un patch binaire minimaliste au framework macOS SidecarCore pour désactiver la vérification de compatibilité. Reverse engineering éducatif — recherche de signatures, patch assembleur, sauvegarde.\n\n## Points clés\n\n- Recherche automatique de signatures machine dans le binaire.\n- Patch assembleur (MOV EAX, 1; RET) avec backup automatique.\n- Projet éducatif de reverse engineering bas niveau.\n\n## Stack\n\n- Python\n- Reverse\n"
   },
   {
@@ -452,8 +452,6 @@
       }
     ],
     "role": "Solo",
-    "period": "2026",
-    "duration": "En cours",
     "description": "Animation 3D interactive — pipeline créatif complet de Photoshop à Three.js en passant par Blender.",
     "highlights": [
       "Pipeline créatif : Photoshop → After Effects → Blender → Three.js.",
@@ -463,6 +461,8 @@
     "demoUrl": "",
     "repoUrl": "",
     "image": "",
+    "startDate": "2026-01-01",
+    "endDate": null,
     "caseStudy": "## Contexte\n\nProjet créatif mêlant design graphique (Photoshop, After Effects), modélisation 3D (Blender, IA générative Google 3D) et développement web (Three.js) pour créer une animation 3D interactive d’un hippocampe.\n\n## Points clés\n\n- Pipeline créatif : Photoshop → After Effects → Blender → Three.js.\n- Modèle 3D généré par IA Google puis affiné dans Blender.\n- Animation interactive et rendu temps réel dans le navigateur.\n\n## Stack\n\n- Three.js\n- Blender\n- After Effects\n"
   },
   {
@@ -484,8 +484,6 @@
       }
     ],
     "role": "Solo",
-    "period": "2025",
-    "duration": "En cours",
     "description": "Composants UI sans JavaScript — bibliothèque générée par IA, approche minimaliste et performante.",
     "highlights": [
       "Composants UI fonctionnels sans JavaScript côté client.",
@@ -495,6 +493,8 @@
     "demoUrl": "",
     "repoUrl": "https://github.com/Sofian-bll/NoJS-Ui",
     "image": "",
+    "startDate": "2025-01-01",
+    "endDate": null,
     "caseStudy": "## Contexte\n\nExpérimentation d’une bibliothèque de composants UI générés par IA ne nécessitant aucun JavaScript côté client. Une approche radicale de la performance web.\n\n## Points clés\n\n- Composants UI fonctionnels sans JavaScript côté client.\n- Génération de code par Gemini AI.\n- Approche radicale de performance web.\n\n## Stack\n\n- TypeScript\n- Gemini AI\n"
   },
   {
@@ -516,8 +516,6 @@
       }
     ],
     "role": "Solo",
-    "period": "2026",
-    "duration": "En cours",
     "description": "Pipeline automatisé de traitement média — worker pool en Go, watcher, orchestré via n8n.",
     "highlights": [
       "Architecture worker pool en Go pour traitement parallèle.",
@@ -527,6 +525,8 @@
     "demoUrl": "",
     "repoUrl": "",
     "image": "",
+    "startDate": "2026-01-01",
+    "endDate": null,
     "caseStudy": "## Contexte\n\nPipeline de traitement média automatisé combinant un worker pool en Go, un watcher de fichiers pour le déclenchement, et n8n pour l’orchestration des workflows de bout en bout.\n\n## Points clés\n\n- Architecture worker pool en Go pour traitement parallèle.\n- Watcher de fichiers pour déclenchement automatique.\n- Orchestration des workflows via n8n.\n\n## Stack\n\n- Go\n- n8n\n"
   }
 ]

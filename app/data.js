@@ -11,6 +11,7 @@ import {
   resolveAppConfig,
   applyLiveConfig,
 } from './config-runtime.js'
+import { computeProjectDates } from './project-dates.js'
 
 const codeProjects = indexProjects
 
@@ -64,6 +65,7 @@ const categories = {
 const sectionLabels = profile.sectionLabels || {}
 
 const projects = markFeaturedProjects(appConfig.projects || [], appConfig.cv?.featured)
+  .map(computeProjectDates)
 appConfig.projects = projects
 
 export const DATA = {

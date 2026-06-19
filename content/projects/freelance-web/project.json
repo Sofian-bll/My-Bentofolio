@@ -16,8 +16,6 @@
     }
   ],
   "role": "Indépendant",
-  "period": "2022 – 2024",
-  "duration": "2 ans",
   "description": "Sites e-commerce et vitrines haut de gamme, Shopify × Framer.",
   "highlights": [
     "Sites vitrines et e-commerce haut de gamme conçus et intégrés.",
@@ -26,5 +24,7 @@
   ],
   "demoUrl": "",
   "repoUrl": "",
-  "image": ""
+  "image": "",
+  "startDate": "2022-01-01",
+  "endDate": "2024-12-31"
 }

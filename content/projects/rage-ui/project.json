@@ -1,18 +1,34 @@
 {
   "id": "rage-ui",
   "name": "Rage-UI",
-  "categories": ["tooling", "devops"],
+  "categories": [
+    "tooling",
+    "devops"
+  ],
   "featured": true,
   "techs": [
-    { "label": "React", "tech": "js" },
-    { "label": "Bun", "tech": "node" },
-    { "label": "SOPS", "tech": "sops" },
-    { "label": "Age", "tech": "linux" },
-    { "label": "Docker", "tech": "docker" }
+    {
+      "label": "React",
+      "tech": "js"
+    },
+    {
+      "label": "Bun",
+      "tech": "node"
+    },
+    {
+      "label": "SOPS",
+      "tech": "sops"
+    },
+    {
+      "label": "Age",
+      "tech": "linux"
+    },
+    {
+      "label": "Docker",
+      "tech": "docker"
+    }
   ],
   "role": "Solo",
-  "period": "2026",
-  "duration": "En cours",
   "description": "Secrets Manager local-first avec dashboard web. Chiffrement SOPS + Age, injection GitOps des .env, et synchronisation Git depuis l'interface.",
   "highlights": [
     "Coffre-fort central : secrets globaux + par projet, chiffrés en Age",
@@ -21,5 +37,7 @@
   ],
   "demoUrl": "https://sofian-bll.github.io/Rage-UI/",
   "repoUrl": "https://github.com/Sofian-bll/Rage-UI",
-  "image": "media/projects/rage-ui/1781879615927.png"
+  "image": "media/projects/rage-ui/1781879615927.png",
+  "startDate": "2026-01-01",
+  "endDate": null
 }

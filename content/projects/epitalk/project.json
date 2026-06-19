@@ -16,8 +16,6 @@
     }
   ],
   "role": "Équipe (3)",
-  "period": "2025",
-  "duration": "4 jours",
   "description": "Chatbot intelligent pour Epitech — design system, authentification, générateur de cartes.",
   "highlights": [
     "Chatbot interactif avec design system sur mesure.",
@@ -26,5 +24,7 @@
   ],
   "demoUrl": "https://sofian-bll.github.io/Epitalk/",
   "repoUrl": "https://github.com/Sofian-bll/Epitalk",
-  "image": ""
+  "image": "",
+  "startDate": "2025-01-01",
+  "endDate": null
 }

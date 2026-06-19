@@ -12,8 +12,6 @@
     }
   ],
   "role": "Solo",
-  "period": "2025",
-  "duration": "2 sem.",
   "description": "Design Patterns, Génériques, Réflexion, framework de test maison.",
   "highlights": [
     "Design patterns classiques (Factory, Observer, Strategy…).",
@@ -22,5 +20,7 @@
   ],
   "demoUrl": "",
   "repoUrl": "https://github.com/Sofian-bll",
-  "image": ""
+  "image": "",
+  "startDate": "2025-01-01",
+  "endDate": null
 }

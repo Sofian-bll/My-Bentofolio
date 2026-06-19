@@ -16,8 +16,6 @@
     }
   ],
   "role": "Solo",
-  "period": "2026",
-  "duration": "En cours",
   "description": "CLI Bash zéro dépendance pour créer, organiser et révoquer des clés SSH.",
   "highlights": [
     "CLI Bash zéro dépendance — create, list, grant, revoke en une commande",
@@ -26,5 +24,7 @@
   ],
   "demoUrl": "",
   "repoUrl": "https://github.com/Sofian-bll/sshk",
-  "image": "media/projects/sshk/1781890494073.png"
+  "image": "media/projects/sshk/1781890494073.png",
+  "startDate": "2026-01-01",
+  "endDate": null
 }

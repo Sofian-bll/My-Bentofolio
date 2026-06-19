@@ -22,8 +22,6 @@
     }
   ],
   "role": "Solo",
-  "period": "2026",
-  "duration": "En cours",
   "description": "Animation 3D interactive — pipeline créatif complet de Photoshop à Three.js en passant par Blender.",
   "highlights": [
     "Pipeline créatif : Photoshop → After Effects → Blender → Three.js.",
@@ -32,5 +30,7 @@
   ],
   "demoUrl": "",
   "repoUrl": "",
-  "image": ""
+  "image": "",
+  "startDate": "2026-01-01",
+  "endDate": null
 }

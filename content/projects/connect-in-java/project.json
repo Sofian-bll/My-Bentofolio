@@ -20,8 +20,6 @@
     }
   ],
   "role": "Binôme",
-  "period": "2026",
-  "duration": "3 sem.",
   "description": "Réseau social — réécriture complète de Connect’IN en Java avec le même frontend Vue 3.",
   "highlights": [
     "Migration complète du backend Laravel vers Java.",
@@ -30,5 +28,7 @@
   ],
   "demoUrl": "",
   "repoUrl": "https://github.com/Sofian-bll",
-  "image": ""
+  "image": "",
+  "startDate": "2026-01-01",
+  "endDate": null
 }

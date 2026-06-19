@@ -16,8 +16,6 @@
     }
   ],
   "role": "Solo",
-  "period": "2025",
-  "duration": "Quelques jours",
   "description": "Patch binaire du framework macOS SidecarCore — reverse engineering et modification bas niveau.",
   "highlights": [
     "Recherche automatique de signatures machine dans le binaire.",
@@ -26,5 +24,7 @@
   ],
   "demoUrl": "",
   "repoUrl": "https://github.com/Sofian-bll/SidecarPatcher",
-  "image": ""
+  "image": "",
+  "startDate": "2025-01-01",
+  "endDate": null
 }

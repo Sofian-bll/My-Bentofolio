@@ -20,8 +20,6 @@
     }
   ],
   "role": "Solo",
-  "period": "2025",
-  "duration": "2 sem.",
   "description": "Framework MVC maison from scratch — SoftDeletes, anti-chevauchement, back-office cinéma.",
   "highlights": [
     "Framework MVC complet développé sans aucune dépendance externe.",
@@ -30,5 +28,7 @@
   ],
   "demoUrl": "",
   "repoUrl": "https://github.com/Sofian-bll",
-  "image": ""
+  "image": "",
+  "startDate": "2025-01-01",
+  "endDate": null
 }

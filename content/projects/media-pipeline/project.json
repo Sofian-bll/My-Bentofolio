@@ -17,8 +17,6 @@
     }
   ],
   "role": "Solo",
-  "period": "2026",
-  "duration": "En cours",
   "description": "Pipeline automatisé de traitement média — worker pool en Go, watcher, orchestré via n8n.",
   "highlights": [
     "Architecture worker pool en Go pour traitement parallèle.",
@@ -27,5 +25,7 @@
   ],
   "demoUrl": "",
   "repoUrl": "",
-  "image": ""
+  "image": "",
+  "startDate": "2026-01-01",
+  "endDate": null
 }

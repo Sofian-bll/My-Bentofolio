@@ -4,16 +4,12 @@ export function projectCategoryIds(project) {
   return project.category ? [project.category] : []
 }
 
-function latestYear(period) {
-  if (!period) return 0
-  const years = [...period.matchAll(/\d{4}/g)].map(Number)
-  return years.length ? Math.max(...years) : 0
-}
-
 export function sortProjects(projects, sort) {
   const list = [...projects]
   if (sort === 'recent') {
-    list.sort((a, b) => latestYear(b.period) - latestYear(a.period) || a.name.localeCompare(b.name))
+    list.sort((a, b) => (b.startDate || '').localeCompare(a.startDate || '') || a.name.localeCompare(b.name))
+  } else if (sort === 'oldest') {
+    list.sort((a, b) => (a.startDate || '').localeCompare(b.startDate || '') || a.name.localeCompare(b.name))
   } else if (sort === 'az') {
     list.sort((a, b) => a.name.localeCompare(b.name))
   } else if (sort === 'za') {
