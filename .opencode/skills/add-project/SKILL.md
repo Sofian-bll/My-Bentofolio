@@ -64,7 +64,9 @@ Show the resolved techs with their colors.
 
 Ask for a one-sentence description (required, under 150 chars).
 
-Ask for 3 highlights (optional). Keep them short, factual, no emojis (the list already uses bullet points).
+Ask for up to 3 highlights (optional). Show a preview. Keep them short, factual, no emojis (the list already uses bullet points).
+
+**NEVER auto-generate highlights. NEVER silently empty existing highlights.** If the user doesn't provide any, ask again: "Pas de highlights du tout ?" before leaving the array empty.
 
 ### Step 7: URLs
 
@@ -75,9 +77,11 @@ Ask: "Un repo GitHub ?" (repoUrl, optional).
 
 Ask: "Tu veux une étude de cas ? (oui/non)"
 
-If yes, guide the user through: Contexte (why this project exists), Process (how it was built), Difficultés (what was hard), Fiertés (what they're proud of), Si c'était à refaire.
+If yes, ask the user for EACH section they want to include (Contexte, Process, Difficultés, Fiertés, Si c'était à refaire). Wait for them to provide the content — you are a scribe formatting their words, not the author.
 
-Format as markdown with `##` headings. **Do NOT include a `## Stack` section** — the stack is rendered via tech pills separately. **Never fabricate content** — if the user doesn't provide it, don't invent it.
+**NEVER write case study content yourself. NEVER fabricate. NEVER empty existing content without explicit approval.** If the user says no, set caseStudy to "".
+
+Format as markdown with `##` headings. **Do NOT include a `## Stack` section** — the stack is rendered via tech pills separately.
 
 ### Step 9: Final review
 
@@ -152,5 +156,7 @@ Important:
 | Fabricate highlights or case study content | User may not agree, facts may be wrong | Ask the user, leave empty if they skip |
 | Include `## Stack` in case study | Stack is rendered via tech pills, duplication is noise | Skip it |
 | Use category names that aren't in the valid list | "tools" is not valid, only "tooling" is | Validate against the list |
+| Empties highlights without asking | User may want to keep existing content | Ask the user what highlights they want, show a preview before finalizing |
+| Writes case study content without user input | User may not agree with fabricated story | Ask for EACH section, wait for content, format only |
 | Overwrite existing project without warning | Existing data may be correct | Check if ID exists first, warn the user |
 | Build the JSON manually in a `writeFileSync` | Wrong structure, missing validation | Use the script — it validates everything |
