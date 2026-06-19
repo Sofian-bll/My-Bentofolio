@@ -317,13 +317,13 @@ function DashboardView({ navigate, showToast, onLogout }) {
       </aside>
       <main className={'dash-main' + (mainWidth ? '' : ' is-auto')} style={mainWidth ? { width: mainWidth } : undefined}>
         <div className="dash-content">
-          {section === 'projets'   && <ProjectsSection   projects={projects} setProjects={setProjects} showToast={showToast} onDraftChange={setDraftProject} setPreviewPage={setPreviewPage}/>}
+          {section === 'projets'   && <ProjectsSection   projects={projects} setProjects={setProjects} skillPalette={skillPalette} showToast={showToast} onDraftChange={setDraftProject} setPreviewPage={setPreviewPage}/>}
           {section === 'apparence' && <AppearanceSection appearance={appearance} setAppearance={setAppearance} photo={photo}/>}
           {section === 'cv'        && <CvSection         cv={cv} setCv={setCv} projects={projects} photo={photo} setPhoto={setPhoto} showToast={showToast}/>}
           {section === 'contact'   && <ContactSection    contact={contact} setContact={setContact}/>}
           {section === 'liens'     && <LinksSection      socialLinks={socialLinks} setSocialLinks={setSocialLinks} showToast={showToast}/>}
-          {section === 'profil'    && <ProfileSection    profile={profile} setProfile={setProfile} showToast={showToast} />}
-          {section === 'experiences' && <ExperiencesSection experiences={experiences} setExperiences={setExperiences} showToast={showToast} />}
+          {section === 'profil'    && <ProfileSection    profile={profile} setProfile={setProfile} skillPalette={skillPalette} showToast={showToast} />}
+          {section === 'experiences' && <ExperiencesSection experiences={experiences} setExperiences={setExperiences} skillPalette={skillPalette} showToast={showToast} />}
           {section === 'backup'    && <BackupSection     config={config} showToast={showToast}/>}
           {section === 'competences' && <PaletteSection skillPalette={skillPalette} setSkillPalette={setSkillPalette}/>}
         </div>
@@ -634,20 +634,54 @@ function LinksSection({ socialLinks, setSocialLinks, showToast }) {
 /* ─── PROJECTS CRUD ─── */
 const EMPTY_P = { name:'', categories:['dev'], featured:true, role:'', startDate:'', endDate:'', description:'', caseStudy:'', caseStudyBlocks:[], demoUrl:'', repoUrl:'', techs:[], highlights:['','',''] }
 
-function ProjectForm({ init, onSave, onCancel, showToast, onDraftChange, setPreviewPage }) {
+function SkillQuickPick({ palette, onPick }) {
+  const techs = (palette || []).filter(s => s.color)
+  const softs = (palette || []).filter(s => !s.color)
+  return (
+    <>
+      {techs.length > 0 && (
+        <div className="pal-grid" style={{marginBottom:'6px'}}>
+          {techs.map(sk => (
+            <button key={sk.id} className="pal-pill" style={{'--c':sk.color}} onClick={() => onPick(sk)} title={sk.label}>
+              {sk.label}
+            </button>
+          ))}
+        </div>
+      )}
+      {softs.length > 0 && (
+        <div className="pal-grid">
+          {softs.map(sk => (
+            <button key={sk.id} className="pal-pill pal-pill--soft" onClick={() => onPick(sk)}>
+              {sk.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </>
+  )
+}
+
+function ProjectForm({ init, onSave, onCancel, showToast, onDraftChange, setPreviewPage, skillPalette }) {
   const [f, setF] = useState(init ? {...init, highlights:(init.highlights||['','',''])} : EMPTY_P)
-  const [tLabel, setTL] = useState('')
-  const [tKey, setTK] = useState('default')
   const [uploading, setUploading] = useState(false)
   const [caseImageUploading, setCaseImageUploading] = useState(false)
+  const [customLabel, setCustomLabel] = useState('')
+  const [customColor, setCustomColor] = useState('#6366f1')
   const set = (k, v) => setF(p => ({...p, [k]: v}))
   const toggleCat = (k) => setF(p => {
     const has = p.categories.includes(k)
     const next = has ? p.categories.filter(x => x !== k) : [...p.categories, k]
     return {...p, categories: next.length ? next : p.categories}
   })
-  const addTech = () => { if (!tLabel.trim()) return; set('techs', [...f.techs, {label: tLabel.trim(), tech: tKey}]); setTL('') }
   const setHl = (i, v) => setF(p => { const h = [...(p.highlights || ['','',''])]; h[i] = v; return {...p, highlights: h} })
+  const pickSkill = (sk) => {
+    set('techs', [...f.techs, { label: sk.label, tech: sk.id || sk.tech, color: sk.color }])
+  }
+  const addCustomTech = () => {
+    if (!customLabel.trim()) return
+    set('techs', [...f.techs, { label: customLabel.trim(), tech: 'default', color: customColor }])
+    setCustomLabel('')
+  }
 
   const uploadImage = async (file) => {
     if (!file || !file.type.startsWith('image/')) {
@@ -845,18 +879,17 @@ function ProjectForm({ init, onSave, onCancel, showToast, onDraftChange, setPrev
             <div className="tech-added" style={{marginBottom:'8px'}}>
               {f.techs.map((t, i) => (
                 <span key={i} className="tech-added-tag">
-                  <TechTag label={t.label} tech={t.tech}/>
+                  <TechTag label={t.label} tech={t.tech} color={t.color}/>
                   <button onClick={() => set('techs', f.techs.filter((_, j) => j !== i))}><Icon name="x" size={11}/></button>
                 </span>
               ))}
             </div>
           )}
-          <div className="tech-add-row">
-            <input className="input" value={tLabel} onChange={e => setTL(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addTech() } }} placeholder="Label" />
-            <select className="select" value={tKey} onChange={e => setTK(e.target.value)}>
-              {TECH_KEYS.map(k => <option key={k} value={k}>{k}</option>)}
-            </select>
-            <button className="btn btn--ghost" onClick={addTech}><Icon name="plus" size={14}/></button>
+          <SkillQuickPick palette={skillPalette} onPick={pickSkill} />
+          <div className="tech-add-row" style={{marginTop:'8px'}}>
+            <input className="input" value={customLabel} onChange={e => setCustomLabel(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addCustomTech() } }} placeholder="Label personnalisé" />
+            <input type="color" className="pal-color-input" value={customColor} onChange={e => setCustomColor(e.target.value)} />
+            <button className="btn btn--ghost" onClick={addCustomTech}><Icon name="plus" size={14}/></button>
           </div>
         </div>
         <div className="ds-field"><label className="ds-label">Lien démo</label>
@@ -874,7 +907,7 @@ function ProjectForm({ init, onSave, onCancel, showToast, onDraftChange, setPrev
   )
 }
 
-function ProjectsSection({ projects, setProjects, showToast, onDraftChange, setPreviewPage }) {
+function ProjectsSection({ projects, setProjects, skillPalette, showToast, onDraftChange, setPreviewPage }) {
   const [editing, setEditing] = useState(null)
   const handleSave = async (proj) => {
     const next = editing === 'new' ? [...projects, proj] : projects.map(p => p.id === proj.id ? proj : p)
@@ -910,7 +943,7 @@ function ProjectsSection({ projects, setProjects, showToast, onDraftChange, setP
     <div className="ds-section">
       <button className="back-link" style={{marginBottom:'var(--s2)'}} onClick={handleCancel}><Icon name="arrowLeft" size={14}/> Retour à la liste</button>
       <h2 className="ds-title">{editing === 'new' ? 'Ajouter un projet' : 'Modifier — ' + editing.name}</h2>
-      <ProjectForm init={editing === 'new' ? null : editing} onSave={handleSave} onCancel={handleCancel} showToast={showToast} onDraftChange={onDraftChange} setPreviewPage={setPreviewPage}/>
+      <ProjectForm init={editing === 'new' ? null : editing} onSave={handleSave} onCancel={handleCancel} showToast={showToast} onDraftChange={onDraftChange} setPreviewPage={setPreviewPage} skillPalette={skillPalette}/>
     </div>
   )
   return (
@@ -1089,7 +1122,7 @@ function BackupSection({ config, showToast }) {
 }
 
 /* ─── PROFILE ─── */
-function ProfileSection({ profile, setProfile, showToast }) {
+function ProfileSection({ profile, setProfile, skillPalette, showToast }) {
   const set = (k, v) => setProfile(p => ({ ...p, [k]: v }))
   const setAlt = (k, v) => setProfile(p => ({ ...p, alternance: { ...(p.alternance || {}), [k]: v } }))
 
@@ -1258,17 +1291,21 @@ function ProfileSection({ profile, setProfile, showToast }) {
                   next[gi] = { ...next[gi], skills }
                   set('skillGroups', next)
                 }} placeholder="Label (ex: PHP / Laravel)" style={{ flex: 1 }} />
-                <select className="select" value={sk.tech || 'default'} onChange={e => {
-                  const next = [...(profile.skillGroups || [])]
-                  const skills = [...(next[gi].skills || [])]
-                  skills[si] = { ...skills[si], tech: e.target.value }
-                  next[gi] = { ...next[gi], skills }
-                  set('skillGroups', next)
-                }} style={{ width: '110px' }}>
-                  {['laravel','vue','java','go','tailwind','shadcn','mysql','docker','git','linux','bash','nvim','figma','framer','python','rag','n8n','blender','three','js','ts','shopify','ae','illustrator','default','soft','node','sops'].map(k => (
-                    <option key={k} value={k}>{k}</option>
+                <div style={{display:'flex',flexWrap:'wrap',gap:'4px',maxWidth:'200px'}}>
+                  {(skillPalette || []).map(pk => (
+                    <button key={pk.id} className={'pal-pill' + (pk.color ? '' : ' pal-pill--soft') + ((sk.tech === pk.id) ? ' active' : '')}
+                      style={pk.color ? {'--c':pk.color} : {}}
+                      onClick={() => {
+                        const next = [...(profile.skillGroups || [])]
+                        const skills = [...(next[gi].skills || [])]
+                        skills[si] = { ...skills[si], tech: pk.id, color: pk.color || undefined }
+                        next[gi] = { ...next[gi], skills }
+                        set('skillGroups', next)
+                      }} title={pk.label}>
+                      {pk.label}
+                    </button>
                   ))}
-                </select>
+                </div>
                 <button className="icon-btn" onClick={() => {
                   const next = [...(profile.skillGroups || [])]
                   next[gi] = { ...next[gi], skills: (next[gi].skills || []).filter((_, j) => j !== si) }
@@ -1377,16 +1414,17 @@ function ProfileSection({ profile, setProfile, showToast }) {
 }
 
 /* ─── EXPERIENCES ─── */
-function ExperiencesSection({ experiences, setExperiences, showToast }) {
+function ExperiencesSection({ experiences, setExperiences, skillPalette, showToast }) {
   const [editing, setEditing] = useState(null)
   const EMPTY = { title:'', company:'', location:'', period:'', description:'', highlights:['','',''], techs:[], featured:true }
   const [f, setF] = useState(EMPTY)
-  const [tLabel, setTL] = useState('')
-  const [tKey, setTK] = useState('default')
+  const [customLabel, setCustomLabel] = useState('')
+  const [customColor, setCustomColor] = useState('#6366f1')
 
   const set = (k, v) => setF(p => ({ ...p, [k]: v }))
   const setHl = (i, v) => setF(p => { const h = [...(p.highlights || ['','',''])]; h[i] = v; return { ...p, highlights: h } })
-  const addTech = () => { if (!tLabel.trim()) return; set('techs', [...f.techs, { label: tLabel.trim(), tech: tKey }]); setTL('') }
+  const pickSkill = (sk) => { set('techs', [...f.techs, { label: sk.label, tech: sk.id || sk.tech, color: sk.color }]) }
+  const addCustomTech = () => { if (!customLabel.trim()) return; set('techs', [...f.techs, { label: customLabel.trim(), tech: 'default', color: customColor }]); setCustomLabel('') }
 
   const startEdit = (exp) => { setEditing(exp); setF(exp ? { ...exp } : EMPTY) }
   const handleCancel = () => setEditing(null)
@@ -1449,18 +1487,17 @@ function ExperiencesSection({ experiences, setExperiences, showToast }) {
               <div className="tech-added" style={{marginBottom:'8px'}}>
                 {f.techs.map((t, i) => (
                   <span key={i} className="tech-added-tag">
-                    <TechTag label={t.label} tech={t.tech}/>
+                    <TechTag label={t.label} tech={t.tech} color={t.color}/>
                     <button onClick={() => set('techs', f.techs.filter((_, j) => j !== i))}><Icon name="x" size={11}/></button>
                   </span>
                 ))}
               </div>
             )}
-            <div className="tech-add-row">
-              <input className="input" value={tLabel} onChange={e => setTL(e.target.value)} placeholder="Label" />
-              <select className="select" value={tKey} onChange={e => setTK(e.target.value)}>
-                {['laravel','vue','java','js','ts','tailwind','mysql','docker','git','linux','bash','default'].map(k => <option key={k} value={k}>{k}</option>)}
-              </select>
-              <button className="btn btn--ghost" onClick={addTech}><Icon name="plus" size={14}/></button>
+            <SkillQuickPick palette={skillPalette} onPick={pickSkill} />
+            <div className="tech-add-row" style={{marginTop:'8px'}}>
+              <input className="input" value={customLabel} onChange={e => setCustomLabel(e.target.value)} placeholder="Label personnalisé" />
+              <input type="color" className="pal-color-input" value={customColor} onChange={e => setCustomColor(e.target.value)} />
+              <button className="btn btn--ghost" onClick={addCustomTech}><Icon name="plus" size={14}/></button>
             </div>
           </div>
         </div>
