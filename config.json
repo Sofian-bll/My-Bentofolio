@@ -54,9 +54,18 @@
         "Gestion de projet créatif et technique"
       ],
       "techs": [
-        { "label": "Créativité", "tech": "soft" },
-        { "label": "Gestion de projet", "tech": "soft" },
-        { "label": "FL Studio", "tech": "default" }
+        {
+          "label": "Créativité",
+          "tech": "soft"
+        },
+        {
+          "label": "Gestion de projet",
+          "tech": "soft"
+        },
+        {
+          "label": "FL Studio",
+          "tech": "default"
+        }
       ],
       "featured": true
     },
@@ -72,9 +81,18 @@
         "Satisfaction utilisateur et suivi client"
       ],
       "techs": [
-        { "label": "Diagnostic", "tech": "soft" },
-        { "label": "Rigueur", "tech": "soft" },
-        { "label": "Relation client", "tech": "soft" }
+        {
+          "label": "Diagnostic",
+          "tech": "soft"
+        },
+        {
+          "label": "Rigueur",
+          "tech": "soft"
+        },
+        {
+          "label": "Relation client",
+          "tech": "soft"
+        }
       ],
       "featured": false
     },
@@ -91,11 +109,26 @@
         "Suivi des KPIs et optimisation des campagnes"
       ],
       "techs": [
-        { "label": "Figma", "tech": "figma" },
-        { "label": "Facebook Ads", "tech": "default" },
-        { "label": "TikTok Ads", "tech": "default" },
-        { "label": "Création de contenu", "tech": "soft" },
-        { "label": "Stratégie digitale", "tech": "soft" }
+        {
+          "label": "Figma",
+          "tech": "figma"
+        },
+        {
+          "label": "Facebook Ads",
+          "tech": "default"
+        },
+        {
+          "label": "TikTok Ads",
+          "tech": "default"
+        },
+        {
+          "label": "Création de contenu",
+          "tech": "soft"
+        },
+        {
+          "label": "Stratégie digitale",
+          "tech": "soft"
+        }
       ],
       "featured": false
     },
@@ -112,11 +145,26 @@
         "Optimisation des campagnes d'acquisition"
       ],
       "techs": [
-        { "label": "Figma", "tech": "figma" },
-        { "label": "Facebook Ads", "tech": "default" },
-        { "label": "TikTok Ads", "tech": "default" },
-        { "label": "Création de contenu", "tech": "soft" },
-        { "label": "Stratégie digitale", "tech": "soft" }
+        {
+          "label": "Figma",
+          "tech": "figma"
+        },
+        {
+          "label": "Facebook Ads",
+          "tech": "default"
+        },
+        {
+          "label": "TikTok Ads",
+          "tech": "default"
+        },
+        {
+          "label": "Création de contenu",
+          "tech": "soft"
+        },
+        {
+          "label": "Stratégie digitale",
+          "tech": "soft"
+        }
       ],
       "featured": false
     },
@@ -133,9 +181,18 @@
         "Suivi satisfaction et fidélisation"
       ],
       "techs": [
-        { "label": "Prospection", "tech": "soft" },
-        { "label": "Négociation", "tech": "soft" },
-        { "label": "Relation client", "tech": "soft" }
+        {
+          "label": "Prospection",
+          "tech": "soft"
+        },
+        {
+          "label": "Négociation",
+          "tech": "soft"
+        },
+        {
+          "label": "Relation client",
+          "tech": "soft"
+        }
       ],
       "featured": false
     },
@@ -151,9 +208,18 @@
         "Gestion du matériel son et lumière"
       ],
       "techs": [
-        { "label": "Travail d'équipe", "tech": "soft" },
-        { "label": "Rigueur", "tech": "soft" },
-        { "label": "Gestion du stress", "tech": "soft" }
+        {
+          "label": "Travail d'équipe",
+          "tech": "soft"
+        },
+        {
+          "label": "Rigueur",
+          "tech": "soft"
+        },
+        {
+          "label": "Gestion du stress",
+          "tech": "soft"
+        }
       ],
       "featured": false
     },
@@ -169,8 +235,14 @@
         "Travail en équipe et respect des délais"
       ],
       "techs": [
-        { "label": "Travail d'équipe", "tech": "soft" },
-        { "label": "Respect des consignes", "tech": "soft" }
+        {
+          "label": "Travail d'équipe",
+          "tech": "soft"
+        },
+        {
+          "label": "Respect des consignes",
+          "tech": "soft"
+        }
       ],
       "featured": false
     },
@@ -186,9 +258,18 @@
         "Gestion des stocks et relation client"
       ],
       "techs": [
-        { "label": "Organisation", "tech": "soft" },
-        { "label": "Relation client", "tech": "soft" },
-        { "label": "Gestion des stocks", "tech": "soft" }
+        {
+          "label": "Organisation",
+          "tech": "soft"
+        },
+        {
+          "label": "Relation client",
+          "tech": "soft"
+        },
+        {
+          "label": "Gestion des stocks",
+          "tech": "soft"
+        }
       ],
       "featured": false
     },
@@ -204,9 +285,18 @@
         "Fidélisation client et suivi performances"
       ],
       "techs": [
-        { "label": "Prospection", "tech": "soft" },
-        { "label": "Vente", "tech": "soft" },
-        { "label": "Relation client", "tech": "soft" }
+        {
+          "label": "Prospection",
+          "tech": "soft"
+        },
+        {
+          "label": "Vente",
+          "tech": "soft"
+        },
+        {
+          "label": "Relation client",
+          "tech": "soft"
+        }
       ],
       "featured": false
     },
@@ -222,9 +312,18 @@
         "Management d'équipe et normes d'hygiène"
       ],
       "techs": [
-        { "label": "Management d'équipe", "tech": "soft" },
-        { "label": "Relation client", "tech": "soft" },
-        { "label": "Hygiène HACCP", "tech": "soft" }
+        {
+          "label": "Management d'équipe",
+          "tech": "soft"
+        },
+        {
+          "label": "Relation client",
+          "tech": "soft"
+        },
+        {
+          "label": "Hygiène HACCP",
+          "tech": "soft"
+        }
       ],
       "featured": false
     },
@@ -240,8 +339,14 @@
         "Gestion caisse et approvisionnement"
       ],
       "techs": [
-        { "label": "Vente", "tech": "soft" },
-        { "label": "Relation client", "tech": "soft" }
+        {
+          "label": "Vente",
+          "tech": "soft"
+        },
+        {
+          "label": "Relation client",
+          "tech": "soft"
+        }
       ],
       "featured": false
     },
@@ -257,9 +362,18 @@
         "Relation client et respect des délais"
       ],
       "techs": [
-        { "label": "Autonomie", "tech": "soft" },
-        { "label": "Ponctualité", "tech": "soft" },
-        { "label": "Relation client", "tech": "soft" }
+        {
+          "label": "Autonomie",
+          "tech": "soft"
+        },
+        {
+          "label": "Ponctualité",
+          "tech": "soft"
+        },
+        {
+          "label": "Relation client",
+          "tech": "soft"
+        }
       ],
       "featured": false
     },
@@ -275,8 +389,14 @@
         "Polyvalence cuisine, caisse et livraison"
       ],
       "techs": [
-        { "label": "Polyvalence", "tech": "soft" },
-        { "label": "Gestion du temps", "tech": "soft" }
+        {
+          "label": "Polyvalence",
+          "tech": "soft"
+        },
+        {
+          "label": "Gestion du temps",
+          "tech": "soft"
+        }
       ],
       "featured": false
     },
@@ -292,9 +412,18 @@
         "Gestion des litiges et optimisation process"
       ],
       "techs": [
-        { "label": "Organisation", "tech": "soft" },
-        { "label": "Rigueur", "tech": "soft" },
-        { "label": "Logistique", "tech": "soft" }
+        {
+          "label": "Organisation",
+          "tech": "soft"
+        },
+        {
+          "label": "Rigueur",
+          "tech": "soft"
+        },
+        {
+          "label": "Logistique",
+          "tech": "soft"
+        }
       ],
       "featured": false
     },
@@ -311,10 +440,22 @@
         "Première expérience tech — 8 ans de pratique"
       ],
       "techs": [
-        { "label": "Diagnostic", "tech": "soft" },
-        { "label": "Autonomie", "tech": "soft" },
-        { "label": "Rigueur", "tech": "soft" },
-        { "label": "Service client", "tech": "soft" }
+        {
+          "label": "Diagnostic",
+          "tech": "soft"
+        },
+        {
+          "label": "Autonomie",
+          "tech": "soft"
+        },
+        {
+          "label": "Rigueur",
+          "tech": "soft"
+        },
+        {
+          "label": "Service client",
+          "tech": "soft"
+        }
       ],
       "featured": true
     }

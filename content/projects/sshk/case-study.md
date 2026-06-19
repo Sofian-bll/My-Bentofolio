@@ -6,7 +6,7 @@ Récemment, j'ai converti deux vieux PC en serveurs maison (un NAS et un serveur
 
 `~/.ssh` était devenu un fourre-tout incompréhensible. Il me fallait un outil minimal, qui range sans casser ce qui existe déjà.
 
-![sshk list — avant/après](media/projects/sshk/sshk-list.png)
+![sshk list](media/projects/sshk/sshk-list.png)
 
 ## Process
 
@@ -18,7 +18,7 @@ Ma méthode actuelle : je fournis l'idée et une première version, je m'appuie 
 - **Intégration non destructive** — le vrai défi, c'est de ne rien casser. Le script ne modifie jamais le `~/.ssh/config` existant : il ajoute des snippets dans `config.d/`, charge à l'utilisateur de les inclure s'il le veut.
 - **Résister à la surcouche** — en Bash, chaque nouvelle fonctionnalité devient vite un nid à bugs. J'ai tenu la ligne : 7 commandes, 549 lignes, pas plus.
 
-![sshk show — détail d'une identité](media/projects/sshk/sshk-show.png)
+![sshk show](media/projects/sshk/sshk-show.png)
 
 ## Stack
 
@@ -26,7 +26,7 @@ Ma méthode actuelle : je fournis l'idée et une première version, je m'appuie 
 - OpenSSH — `ssh-keygen`, `ssh`, `ssh-copy-id`
 - GitHub Pages — landing page en un seul fichier HTML, Tailwind en CDN
 
-![sshk help — toutes les commandes](media/projects/sshk/sshk-help.png)
+![sshk help](media/projects/sshk/sshk-help.png)
 
 ## Ce dont je suis fier
 

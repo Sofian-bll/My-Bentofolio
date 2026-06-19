@@ -1,4 +1,4 @@
-import type { Plugin, ViteDevServer } from 'vite'
+import type { Plugin, ViteDevServer, HmrContext, ResolvedConfig } from 'vite'
 import { writeFileSync, readFileSync, mkdirSync, existsSync, rmSync } from 'fs'
 import { resolve, join } from 'path'
 
@@ -142,6 +142,20 @@ const MAX_UPLOAD_SIZE = 10_000_000
 export function adminPlugin(): Plugin {
   return {
     name: 'bentofolio-admin',
+
+    configResolved(config: ResolvedConfig) {
+      buildProjectIndex(config.root)
+    },
+
+    handleHotUpdate({ file, server }: HmrContext) {
+      const projectsDir = resolve(server.config.root, 'content', 'projects')
+      const indexJson = resolve(server.config.root, 'content', 'projects', 'index.json')
+      if (file === indexJson) return
+      if (file.startsWith(projectsDir + '/') || file === resolve(server.config.root, 'content', 'projects', 'order.json')) {
+        buildProjectIndex(server.config.root)
+      }
+    },
+
     configureServer(server: ViteDevServer) {
       server.middlewares.use('/api/admin/save', (req, res, next) => {
         if (req.method !== 'POST') return next()

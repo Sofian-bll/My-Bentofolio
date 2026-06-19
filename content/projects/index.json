@@ -225,8 +225,8 @@
     ],
     "demoUrl": "",
     "repoUrl": "https://github.com/Sofian-bll/sshk",
-    "image": "sshk-mockup.svg",
-    "caseStudy": "## Contexte\n\nUtilitaire CLI en Bash pur pour centraliser la gestion des clés SSH. Chaque commande mappe une action (create, list, grant, revoke) avec une arborescence prévisible par projet et serveur. Zéro dépendance, installation en un curl pipe, compatible tout Unix.\n\n## Points clés\n\n- CLI Bash zéro dépendance — create, list, grant, revoke en une commande\n- Arborescence prévisible par projet/serveur, rotation de clés simplifiée\n- Installation curl | bash, compatible Linux/macOS sans runtime externe\n\n## Stack\n\n- Bash\n- OpenSSH\n"
+    "image": "media/projects/sshk/1781890494073.png",
+    "caseStudy": "## Contexte\n\nJ'ai un TDAH, ce qui rend l'organisation compliquée au quotidien. Les fichiers qui s'accumulent, les configurations qui dérivent — très vite, c'est le chaos.\n\nRécemment, j'ai converti deux vieux PC en serveurs maison (un NAS et un serveur applicatif). Entre les ratés, les conflits et les réinstallations successives, je me retrouvais à devoir recréer et redéployer mes clés SSH à chaque fois. Quelle clé pour quelle machine ? L'empreinte est-elle la bonne ? L'accès tient-il encore ? Autant de vérifications manuelles qui me sortaient du flow.\n\n`~/.ssh` était devenu un fourre-tout incompréhensible. Il me fallait un outil minimal, qui range sans casser ce qui existe déjà.\n\n![sshk list](media/projects/sshk/sshk-list.png)\n\n## Process\n\nMa méthode actuelle : je fournis l'idée et une première version, je m'appuie sur l'IA pour accélérer l'implémentation, puis j'itère. Pour sshk, je suis parti d'une contrainte forte — ne pas imposer une nouvelle architecture, mais se glisser proprement dans ce qui existe déjà (`~/.ssh/config`, `authorized_keys`). Pas de daemon, pas de format propriétaire, pas de runtime exotique. Uniquement Bash et OpenSSH, déjà présents sur n'importe quelle machine Unix.\n\n## Difficultés rencontrées\n\n- **Compatibilité multiplateforme** — le script doit tourner sur macOS et Linux sans ajustement. Les commandes `stat` diffèrent entre BSD et GNU, `pbcopy` côtoie `wl-copy` et `xclip` pour le presse-papier. Autant de micro-différences à gérer.\n- **Intégration non destructive** — le vrai défi, c'est de ne rien casser. Le script ne modifie jamais le `~/.ssh/config` existant : il ajoute des snippets dans `config.d/`, charge à l'utilisateur de les inclure s'il le veut.\n- **Résister à la surcouche** — en Bash, chaque nouvelle fonctionnalité devient vite un nid à bugs. J'ai tenu la ligne : 7 commandes, 549 lignes, pas plus.\n\n![sshk show](media/projects/sshk/sshk-show.png)\n\n## Stack\n\n- Bash pur — zéro dépendance, un fichier auditable en dix minutes\n- OpenSSH — `ssh-keygen`, `ssh`, `ssh-copy-id`\n- GitHub Pages — landing page en un seul fichier HTML, Tailwind en CDN\n\n![sshk help](media/projects/sshk/sshk-help.png)\n\n## Ce dont je suis fier\n\n- **`sshk copy`** — copier une clé publique dans le presse-papier en une commande, quel que soit l'OS. Tellement évident que je ne comprends pas pourquoi ça n'existait pas.\n- **`sshk grant`** — automatise le `ssh-copy-id` et range proprement la clé dans `authorized_keys.d/` sur la machine distante. Avant, c'était cinq commandes manuelles.\n- **L'absence totale de dépendances** — un seul script Bash de 549 lignes, lisible, modifiable, forkable en deux clics.\n\n## Si c'était à refaire\n\nMême approche. Le projet est fonctionnel et propre, mais il mériterait plus de rodage pour traquer les cas limites avant d'être qualifié « production ready ». Peut-être une suite de tests automatisés avec des conteneurs SSH jetables.\n"
   },
   {
     "id": "rage-ui",
@@ -238,31 +238,39 @@
     "featured": true,
     "techs": [
       {
-        "label": "JavaScript",
+        "label": "React",
         "tech": "js"
       },
       {
+        "label": "Bun",
+        "tech": "node"
+      },
+      {
         "label": "SOPS",
-        "tech": "docker"
+        "tech": "sops"
       },
       {
         "label": "Age",
         "tech": "linux"
+      },
+      {
+        "label": "Docker",
+        "tech": "docker"
       }
     ],
     "role": "Solo",
     "period": "2026",
     "duration": "En cours",
-    "description": "Secrets Manager local-first — chiffrement SOPS + Age, injection GitOps, interface web.",
+    "description": "Secrets Manager local-first avec dashboard web. Chiffrement SOPS + Age, injection GitOps des .env, et synchronisation Git depuis l'interface.",
     "highlights": [
-      "Coffre-fort central pour secrets globaux et par projet.",
-      "Injection automatique via templates .env.template → .env.",
-      "Interface web pour gestion et injection en un clic."
+      "Coffre-fort central : secrets globaux + par projet, chiffrés en Age",
+      "Injection automatique : .env.template + {{PLACEHOLDERS}} → .env généré",
+      "Interface React pour gérer, injecter et versionner ses secrets sans terminal"
     ],
-    "demoUrl": "",
+    "demoUrl": "https://sofian-bll.github.io/Rage-UI/",
     "repoUrl": "https://github.com/Sofian-bll/Rage-UI",
-    "image": "",
-    "caseStudy": "## Contexte\n\nManager de secrets local-first avec interface web. Chiffrement SOPS + Age, organisation en coffre-fort global et templates par projet. Un changement de token ? Une seule modification, injection partout.\n\n## Points clés\n\n- Coffre-fort central pour secrets globaux et par projet.\n- Injection automatique via templates .env.template → .env.\n- Interface web pour gestion et injection en un clic.\n\n## Stack\n\n- JavaScript\n- SOPS\n- Age\n\n![Logo rage UI](media/projects/rage-ui/1781879615927.png)\n"
+    "image": "media/projects/rage-ui/1781879615927.png",
+    "caseStudy": "## Contexte\n\nAvec mon homelab qui grossit (15+ services Docker), je copiais-collais mes tokens API et mots de passe DB à la main dans chaque `.env`. Une rotation de clé ? Il fallait traquer 10 fichiers. Pire : impossible de versionner proprement sans exposer des secrets en clair.\n\nRage UI résout ça avec un pattern simple : un coffre-fort chiffré, des templates avec placeholders, et une injection automatique. Le tout pilotable depuis un dashboard web React, sans toucher au terminal.\n\n## Points clés\n\n- **Stockage chiffré** — SOPS + Age. Les secrets sont dans des `.enc.json`, versionnables dans Git sans risque\n- **Deux niveaux de secrets** — `global/` pour les tokens partagés (CF_API_TOKEN, GitHub PAT…), `projet/` pour les secrets spécifiques\n- **Injection par template** — un `.env.template` avec `{{GLOBAL.CF_API_TOKEN}}` et `{{DB_PASSWORD}}` → `POST /api/inject/:project` génère le `.env` final\n- **API REST** — Bun + Express en backend. Routes publiques (lecture), routes protégées par API key (écriture, injection, sync Git)\n- **Interface web React** — dashboard pour visualiser, éditer, injecter et `git push` depuis le navigateur\n- **Docker-ready** — Dockerfile et docker-compose.yml fournis, volumes pour la clé Age et le répertoire projets\n\n## Architecture\n\n```\nPOST /api/secrets/:project ──→ Écrit le .enc.json ──→ SOPS/Age chiffre\nPOST /api/inject/:project ──→ Lit global + projet ──→ Remplit .env.template → .env\nPOST /api/git/sync      ──→ git add -A && git commit && git push\n```\n\n```\nPROJECTS_DIR/\n├── global/secrets.enc.json\n├── pokedex/.env.template + secrets.enc.json\n└── api_meteo/.env.template\n```\n\nLe backend (Bun + Express) expose 6 routes. Le frontend (Vite + React) consomme l'API et affiche un dashboard avec la liste des projets, l'éditeur de secrets, et les actions (inject, sync).\n\n## Stack\n\n- React (frontend)\n- Bun + Express (backend API)\n- SOPS + Age (chiffrement)\n- Docker (déploiement)\n- Git (versionnement des secrets chiffrés)\n\n## Leçons apprises\n\n- **SOPS + Age c'est sous-coté** — plus simple que Vault, plus secure que `.env` en clair, le meilleur ratio simplicité/sécurité pour un homelab\n- **Séparer secrets globaux et locaux évite la duplication** — un token CF_API_TOKEN dans `global/` est injecté dans 6 projets sans le dupliquer\n- **L'API key protège l'écriture** — les routes GET sont open (utile en local), les POST nécessitent un header `x-api-key`. Suffisant pour du local-first.\n\n![Logo Rage UI](media/projects/rage-ui/1781879615927.png)\n"
   },
   {
     "id": "epitalk",
