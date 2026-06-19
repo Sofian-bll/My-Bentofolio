@@ -145,6 +145,8 @@ test.describe('Bentofolio - Admin UX', () => {
     await page.click('button[type="submit"]');
     await page.waitForSelector('.dashboard-v5', { timeout: 5000 });
 
+    await expect(page.locator('.ds-sub').filter({ hasText: 'content/projects' })).toBeVisible({ timeout: 2000 });
+
     await page.locator('.ds-proj-row').first().locator('[title="Modifier"]').click();
     await expect(page.locator('.ds-title')).toContainText('Modifier');
     await expect(page.getByText('Insérer image étude de cas')).toBeVisible();

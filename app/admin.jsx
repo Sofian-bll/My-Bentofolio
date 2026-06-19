@@ -6,6 +6,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { Icon, TechTag, CatGlyph } from './ui.jsx'
 import { DATA, APP_CONFIG } from './data.js'
 import { clearAdminSaveOverrides, saveConfigToDisk } from './admin-save.js'
+import { saveProjectToContent, deleteProjectFromContent } from './admin-project-save.js'
 import { applyLiveConfig, resolveImageSrc } from './config-runtime.js'
 import { HomeView } from './home.jsx'
 import { ProjectsView, ProjectDetailView } from './projects.jsx'
@@ -238,7 +239,8 @@ function DashboardView({ navigate, showToast, onLogout }) {
         : [...projects, draftProject]
     }
     const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, experiences, profile)
-    const result = await saveConfigToDisk(cfg)
+    const { projects: _proj, ...cfgForDisk } = cfg
+    const result = await saveConfigToDisk(cfgForDisk)
     if (result.ok) {
       try { clearAdminSaveOverrides(window.localStorage) } catch {}
       showToast('Sauvegarde sur le disque — pret pour le build')
@@ -861,21 +863,31 @@ function ProjectForm({ init, onSave, onCancel, showToast, onDraftChange, setPrev
 
 function ProjectsSection({ projects, setProjects, showToast, onDraftChange, setPreviewPage }) {
   const [editing, setEditing] = useState(null)
-  const handleSave = (proj) => {
+  const handleSave = async (proj) => {
     const next = editing === 'new' ? [...projects, proj] : projects.map(p => p.id === proj.id ? proj : p)
     setProjects(next)
     setEditing(null)
     onDraftChange(null)
-    showToast(editing === 'new' ? 'Projet ajouté' : 'Projet mis à jour')
+    try {
+      const result = await saveProjectToContent(proj)
+      showToast(`Projet sauvegardé dans content/projects/${result.id}/`)
+    } catch (err) {
+      showToast(`Sauvegarde du projet échouée — ${err.message || ''}`)
+    }
   }
   const handleCancel = () => {
     setEditing(null)
     onDraftChange(null)
   }
-  const del = (id) => {
+  const del = async (id) => {
     if (!window.confirm('Supprimer ce projet ?')) return
     setProjects(projects.filter(p => p.id !== id))
-    showToast('Projet supprimé')
+    try {
+      await deleteProjectFromContent(id)
+      showToast(`Projet supprimé de content/projects/${id}/`)
+    } catch (err) {
+      showToast(`Suppression échouée — ${err.message || ''}`)
+    }
   }
   const startEdit = (pr) => {
     setEditing(pr)
@@ -891,7 +903,7 @@ function ProjectsSection({ projects, setProjects, showToast, onDraftChange, setP
   return (
     <div className="ds-section">
       <div className="ds-section-head">
-        <div><h2 className="ds-title">Projets <span className="ds-count">{projects.length}</span></h2><p className="ds-sub">Ajoute, modifie ou retire des projets.</p></div>
+        <div><h2 className="ds-title">Projets <span className="ds-count">{projects.length}</span></h2><p className="ds-sub">Ajoute, modifie ou retire des projets. Sauvegardes dans <code>content/projects/&lt;id&gt;/project.json</code> et <code>case-study.md</code>.</p></div>
         <button className="btn btn--brand" onClick={() => setEditing('new')}><Icon name="plus" size={14}/> Ajouter</button>
       </div>
       <div className="ds-proj-list">
