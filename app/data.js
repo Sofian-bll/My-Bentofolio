@@ -1,8 +1,8 @@
 /* =============================================
-   BENTOFOLIO — DATA (ES module, v5: config.json)
+   BENTOFOLIO — DATA (ES module)
    ============================================= */
 import baseConfig from '../config.json'
-import { projects as codeProjects } from '../content/projects.js'
+import indexProjects from '../content/projects/index.json'
 import {
   getBrowserStorage,
   getRuntimeConfigFromMessage,
@@ -12,9 +12,11 @@ import {
   applyLiveConfig,
 } from './config-runtime.js'
 
+const codeProjects = indexProjects
+
 const sourceConfig = {
   ...baseConfig,
-  projects: codeProjects.length ? codeProjects : baseConfig.projects,
+  projects: codeProjects,
 }
 
 const appConfig = resolveAppConfig(

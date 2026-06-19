@@ -1,0 +1,524 @@
+[
+  {
+    "id": "connect-in",
+    "name": "Connect'IN",
+    "categories": [
+      "dev"
+    ],
+    "featured": true,
+    "techs": [
+      {
+        "label": "Laravel",
+        "tech": "laravel"
+      },
+      {
+        "label": "Sanctum",
+        "tech": "laravel"
+      },
+      {
+        "label": "MySQL",
+        "tech": "mysql"
+      },
+      {
+        "label": "Vue 3",
+        "tech": "vue"
+      }
+    ],
+    "role": "Binôme",
+    "period": "2025",
+    "duration": "3 sem.",
+    "description": "Réseau social full-stack — API REST Laravel, auth Sanctum, relations SQL, tests unitaires.",
+    "highlights": [
+      "API REST sécurisée par tokens Sanctum (auth, fil d’actualité).",
+      "Relations many-to-many (follows, likes) sous MySQL avec tests.",
+      "Architecture full-stack Laravel + Vue 3 pensée pour scaler."
+    ],
+    "demoUrl": "",
+    "repoUrl": "https://github.com/Sofian-bll",
+    "image": "",
+    "caseStudy": "## Contexte\n\nRéseau social complet : authentification par tokens Sanctum, fil d’actualité, relations many-to-many (follows, likes), et une suite de tests unitaires couvrant les endpoints critiques. Frontend Vue 3 avec composants shadcn-vue.\n\n## Points clés\n\n- API REST sécurisée par tokens Sanctum (auth, fil d’actualité).\n- Relations many-to-many (follows, likes) sous MySQL avec tests.\n- Architecture full-stack Laravel + Vue 3 pensée pour scaler.\n\n## Stack\n\n- Laravel\n- Sanctum\n- MySQL\n- Vue 3\n\n![Décris cette image](media/projects/connect-in/1781873051510.jpeg)\n"
+  },
+  {
+    "id": "connect-in-java",
+    "name": "Connect'IN V2",
+    "categories": [
+      "dev"
+    ],
+    "featured": true,
+    "techs": [
+      {
+        "label": "Java",
+        "tech": "java"
+      },
+      {
+        "label": "Vue 3",
+        "tech": "vue"
+      },
+      {
+        "label": "MySQL",
+        "tech": "mysql"
+      }
+    ],
+    "role": "Binôme",
+    "period": "2026",
+    "duration": "3 sem.",
+    "description": "Réseau social — réécriture complète de Connect’IN en Java avec le même frontend Vue 3.",
+    "highlights": [
+      "Migration complète du backend Laravel vers Java.",
+      "Mêmes fonctionnalités : auth, follows, likes, fil d’actualité.",
+      "Architecture fullstack Java + Vue 3."
+    ],
+    "demoUrl": "",
+    "repoUrl": "https://github.com/Sofian-bll",
+    "image": "",
+    "caseStudy": "## Contexte\n\nDeuxième itération du réseau social Connect’IN, porté de Laravel (PHP) vers Java. Fonctionnalités identiques (authentification, fil d’actualité, follows, likes) réimplémentées dans une stack Java + Vue 3.\n\n## Points clés\n\n- Migration complète du backend Laravel vers Java.\n- Mêmes fonctionnalités : auth, follows, likes, fil d’actualité.\n- Architecture fullstack Java + Vue 3.\n\n## Stack\n\n- Java\n- Vue 3\n- MySQL\n"
+  },
+  {
+    "id": "my-cinema",
+    "name": "My Cinema",
+    "categories": [
+      "dev"
+    ],
+    "featured": false,
+    "techs": [
+      {
+        "label": "PHP MVC",
+        "tech": "rag"
+      },
+      {
+        "label": "MySQL",
+        "tech": "mysql"
+      },
+      {
+        "label": "Vue 3",
+        "tech": "vue"
+      }
+    ],
+    "role": "Solo",
+    "period": "2025",
+    "duration": "2 sem.",
+    "description": "Framework MVC maison from scratch — SoftDeletes, anti-chevauchement, back-office cinéma.",
+    "highlights": [
+      "Framework MVC complet développé sans aucune dépendance externe.",
+      "Suppression logique (SoftDeletes) et algorithme anti-chevauchement.",
+      "Frontend Vue 3 + Tailwind, back-office de gestion de séances."
+    ],
+    "demoUrl": "",
+    "repoUrl": "https://github.com/Sofian-bll",
+    "image": "",
+    "caseStudy": "## Contexte\n\nBack-office de gestion de séances de cinéma avec un framework MVC conçu from scratch.\nAucune dépendance — routing, ORM, templating, SoftDeletes et algorithme anti-chevauchement des séances par salle.\n\n## Points clés\n\n- Framework MVC complet développé sans aucune dépendance externe.\n- Suppression logique (SoftDeletes) et algorithme anti-chevauchement.\n- Frontend Vue 3 + Tailwind, back-office de gestion de séances.\n\n## Stack\n\n- PHP MVC\n- MySQL\n- Vue 3\n"
+  },
+  {
+    "id": "piscine-java",
+    "name": "Piscine Java",
+    "categories": [
+      "dev"
+    ],
+    "featured": false,
+    "techs": [
+      {
+        "label": "Java SE",
+        "tech": "java"
+      }
+    ],
+    "role": "Solo",
+    "period": "2025",
+    "duration": "2 sem.",
+    "description": "Design Patterns, Génériques, Réflexion, framework de test maison.",
+    "highlights": [
+      "Design patterns classiques (Factory, Observer, Strategy…).",
+      "Programmation générique avec introspection par réflexion.",
+      "Framework de test unitaire construit de A à Z."
+    ],
+    "demoUrl": "",
+    "repoUrl": "https://github.com/Sofian-bll",
+    "image": "",
+    "caseStudy": "## Contexte\n\nBootcamp intensif Java : implémentation de design patterns classiques, programmation générique, introspection par réflexion, et un framework de test maison complet.\n\n## Points clés\n\n- Design patterns classiques (Factory, Observer, Strategy…).\n- Programmation générique avec introspection par réflexion.\n- Framework de test unitaire construit de A à Z.\n\n## Stack\n\n- Java SE\n"
+  },
+  {
+    "id": "freelance-web",
+    "name": "Freelance Web",
+    "categories": [
+      "dev"
+    ],
+    "featured": false,
+    "techs": [
+      {
+        "label": "Framer",
+        "tech": "framer"
+      },
+      {
+        "label": "Shopify",
+        "tech": "shopify"
+      }
+    ],
+    "role": "Indépendant",
+    "period": "2022 – 2024",
+    "duration": "2 ans",
+    "description": "Sites e-commerce et vitrines haut de gamme, Shopify × Framer.",
+    "highlights": [
+      "Sites vitrines et e-commerce haut de gamme conçus et intégrés.",
+      "Direction artistique et prototypage sous Framer.",
+      "Boutiques Shopify sur-mesure livrées sur 2 ans d’activité."
+    ],
+    "demoUrl": "",
+    "repoUrl": "",
+    "image": "",
+    "caseStudy": "## Contexte\n\nDeux ans d’activité freelance : conception et intégration de sites vitrines et e-commerce haut de gamme. Direction artistique, prototypage Framer, et boutiques Shopify sur-mesure.\n\n## Points clés\n\n- Sites vitrines et e-commerce haut de gamme conçus et intégrés.\n- Direction artistique et prototypage sous Framer.\n- Boutiques Shopify sur-mesure livrées sur 2 ans d’activité.\n\n## Stack\n\n- Framer\n- Shopify\n"
+  },
+  {
+    "id": "klivio",
+    "name": "Klivio",
+    "categories": [
+      "webdesign"
+    ],
+    "featured": false,
+    "techs": [
+      {
+        "label": "Tailwind",
+        "tech": "tailwind"
+      },
+      {
+        "label": "HTML/CSS",
+        "tech": "default"
+      }
+    ],
+    "role": "Solo",
+    "period": "2025",
+    "duration": "1 sem.",
+    "description": "Landing page SaaS, intégration pixel-perfect en Tailwind.",
+    "highlights": [
+      "Landing page SaaS intégrée en pixel-perfect.",
+      "Système d’espacement cohérent en Tailwind.",
+      "Fidélité maquette → code maximale."
+    ],
+    "demoUrl": "https://sofian-bll.github.io/klivio-tailwind/",
+    "repoUrl": "https://github.com/Sofian-bll/klivio-tailwind",
+    "image": "",
+    "caseStudy": "## Contexte\n\nLanding page d’un produit SaaS fictif, du design à l’intégration. Exercice de fidélité maquette → code et de système d’espacement cohérent en Tailwind.\n\n## Points clés\n\n- Landing page SaaS intégrée en pixel-perfect.\n- Système d’espacement cohérent en Tailwind.\n- Fidélité maquette → code maximale.\n\n## Stack\n\n- Tailwind\n- HTML/CSS\n"
+  },
+  {
+    "id": "sshk",
+    "name": "sshk",
+    "categories": [
+      "tooling"
+    ],
+    "featured": true,
+    "techs": [
+      {
+        "label": "Bash",
+        "tech": "bash"
+      },
+      {
+        "label": "OpenSSH",
+        "tech": "linux"
+      }
+    ],
+    "role": "Solo",
+    "period": "2026",
+    "duration": "En cours",
+    "description": "CLI Bash zéro dépendance pour créer, organiser et révoquer des clés SSH.",
+    "highlights": [
+      "CLI Bash zéro dépendance — create, list, grant, revoke en une commande",
+      "Arborescence prévisible par projet/serveur, rotation de clés simplifiée",
+      "Installation curl | bash, compatible Linux/macOS sans runtime externe"
+    ],
+    "demoUrl": "",
+    "repoUrl": "https://github.com/Sofian-bll/sshk",
+    "image": "sshk-mockup.svg",
+    "caseStudy": "## Contexte\n\nUtilitaire CLI en Bash pur pour centraliser la gestion des clés SSH. Chaque commande mappe une action (create, list, grant, revoke) avec une arborescence prévisible par projet et serveur. Zéro dépendance, installation en un curl pipe, compatible tout Unix.\n\n## Points clés\n\n- CLI Bash zéro dépendance — create, list, grant, revoke en une commande\n- Arborescence prévisible par projet/serveur, rotation de clés simplifiée\n- Installation curl | bash, compatible Linux/macOS sans runtime externe\n\n## Stack\n\n- Bash\n- OpenSSH\n"
+  },
+  {
+    "id": "rage-ui",
+    "name": "Rage-UI",
+    "categories": [
+      "tooling",
+      "devops"
+    ],
+    "featured": true,
+    "techs": [
+      {
+        "label": "JavaScript",
+        "tech": "js"
+      },
+      {
+        "label": "SOPS",
+        "tech": "docker"
+      },
+      {
+        "label": "Age",
+        "tech": "linux"
+      }
+    ],
+    "role": "Solo",
+    "period": "2026",
+    "duration": "En cours",
+    "description": "Secrets Manager local-first — chiffrement SOPS + Age, injection GitOps, interface web.",
+    "highlights": [
+      "Coffre-fort central pour secrets globaux et par projet.",
+      "Injection automatique via templates .env.template → .env.",
+      "Interface web pour gestion et injection en un clic."
+    ],
+    "demoUrl": "",
+    "repoUrl": "https://github.com/Sofian-bll/Rage-UI",
+    "image": "",
+    "caseStudy": "## Contexte\n\nManager de secrets local-first avec interface web. Chiffrement SOPS + Age, organisation en coffre-fort global et templates par projet. Un changement de token ? Une seule modification, injection partout.\n\n## Points clés\n\n- Coffre-fort central pour secrets globaux et par projet.\n- Injection automatique via templates .env.template → .env.\n- Interface web pour gestion et injection en un clic.\n\n## Stack\n\n- JavaScript\n- SOPS\n- Age\n"
+  },
+  {
+    "id": "epitalk",
+    "name": "Epitalk",
+    "categories": [
+      "dev"
+    ],
+    "featured": false,
+    "techs": [
+      {
+        "label": "JavaScript",
+        "tech": "js"
+      },
+      {
+        "label": "Node.js",
+        "tech": "node"
+      }
+    ],
+    "role": "Équipe (3)",
+    "period": "2025",
+    "duration": "4 jours",
+    "description": "Chatbot intelligent pour Epitech — design system, authentification, générateur de cartes.",
+    "highlights": [
+      "Chatbot interactif avec design system sur mesure.",
+      "Système d’authentification complet.",
+      "2 releases (v1.0, v1.1), démo live sur GitHub Pages."
+    ],
+    "demoUrl": "https://sofian-bll.github.io/Epitalk/",
+    "repoUrl": "https://github.com/Sofian-bll/Epitalk",
+    "image": "",
+    "caseStudy": "## Contexte\n\nProjet web interactif réalisé en équipe de 3 en 4 jours pour centraliser l’accès aux informations Epitech. Développement du chatbot et design system. Déploiement continu avec 2 releases taguées.\n\n## Points clés\n\n- Chatbot interactif avec design system sur mesure.\n- Système d’authentification complet.\n- 2 releases (v1.0, v1.1), démo live sur GitHub Pages.\n\n## Stack\n\n- JavaScript\n- Node.js\n"
+  },
+  {
+    "id": "jeuvideops",
+    "name": "JeuVideOps",
+    "categories": [
+      "devops",
+      "dev"
+    ],
+    "featured": false,
+    "techs": [
+      {
+        "label": "Docker",
+        "tech": "docker"
+      },
+      {
+        "label": "CI/CD",
+        "tech": "git"
+      },
+      {
+        "label": "Playwright",
+        "tech": "python"
+      },
+      {
+        "label": "Allure",
+        "tech": "default"
+      }
+    ],
+    "role": "Équipe",
+    "period": "2026",
+    "duration": "3 sem.",
+    "description": "Pipeline CI/CD complet — PR Gates, tests E2E Playwright, rapports Allure, GitHub Pages.",
+    "highlights": [
+      "Pipeline PR Gate avec tests Playwright et rapports Allure.",
+      "Déploiement automatique de la plateforme sur GitHub Pages.",
+      "Badges CI visibles, workflow DevSecOps complet."
+    ],
+    "demoUrl": "https://jeuvideops.github.io/jeuvideops/",
+    "repoUrl": "https://github.com/jeuvideops/jeuvideops",
+    "image": "",
+    "caseStudy": "## Contexte\n\nProjet DevOps/DevSecOps complet : pipeline CI/CD automatisé avec gates de PR, tests E2E Playwright, rapports Allure, et déploiement continu sur GitHub Pages. Automatiser plus pour travailler moins.\n\n## Points clés\n\n- Pipeline PR Gate avec tests Playwright et rapports Allure.\n- Déploiement automatique de la plateforme sur GitHub Pages.\n- Badges CI visibles, workflow DevSecOps complet.\n\n## Stack\n\n- Docker\n- CI/CD\n- Playwright\n- Allure\n"
+  },
+  {
+    "id": "appstore-scraper",
+    "name": "AppStore Scraper",
+    "categories": [
+      "tooling"
+    ],
+    "featured": false,
+    "techs": [
+      {
+        "label": "Python",
+        "tech": "python"
+      }
+    ],
+    "role": "Solo",
+    "period": "2025",
+    "duration": "Quelques jours",
+    "description": "Scraper de l’App Store Apple — comparaison de prix multi-régions pour trouver le tarif le plus bas.",
+    "highlights": [
+      "Scraping multi-régions de l’App Store Apple.",
+      "Comparaison automatique des prix par pays.",
+      "Format exportable pour analyse."
+    ],
+    "demoUrl": "",
+    "repoUrl": "https://github.com/Sofian-bll/AppStore-Scraper",
+    "image": "",
+    "caseStudy": "## Contexte\n\nOutil Python de scraping de l’App Store Apple permettant de comparer les prix d’une application à travers toutes les régions et d’identifier le tarif le plus avantageux.\n\n## Points clés\n\n- Scraping multi-régions de l’App Store Apple.\n- Comparaison automatique des prix par pays.\n- Format exportable pour analyse.\n\n## Stack\n\n- Python\n"
+  },
+  {
+    "id": "soundcloud-downloader",
+    "name": "Soundcloud DL",
+    "categories": [
+      "tooling"
+    ],
+    "featured": false,
+    "techs": [
+      {
+        "label": "Python",
+        "tech": "python"
+      }
+    ],
+    "role": "Solo",
+    "period": "2025",
+    "duration": "Quelques jours",
+    "description": "Téléchargeur de playlists SoundCloud en WAV — extraction propre par playlist.",
+    "highlights": [
+      "Téléchargement par playlist complète en WAV.",
+      "Interface CLI simple et efficace.",
+      "Conversion propre pour qualité maximale."
+    ],
+    "demoUrl": "",
+    "repoUrl": "https://github.com/Sofian-bll/Soundcloud_Wav_Playlist",
+    "image": "",
+    "caseStudy": "## Contexte\n\nScript Python pour télécharger des playlists SoundCloud entières au format WAV. Utilitaire pratique pour DJs et producteurs souhaitant archiver leurs sets en haute qualité.\n\n## Points clés\n\n- Téléchargement par playlist complète en WAV.\n- Interface CLI simple et efficace.\n- Conversion propre pour qualité maximale.\n\n## Stack\n\n- Python\n"
+  },
+  {
+    "id": "sidecar-patcher",
+    "name": "SidecarPatcher",
+    "categories": [
+      "tooling"
+    ],
+    "featured": false,
+    "techs": [
+      {
+        "label": "Python",
+        "tech": "python"
+      },
+      {
+        "label": "Reverse",
+        "tech": "bash"
+      }
+    ],
+    "role": "Solo",
+    "period": "2025",
+    "duration": "Quelques jours",
+    "description": "Patch binaire du framework macOS SidecarCore — reverse engineering et modification bas niveau.",
+    "highlights": [
+      "Recherche automatique de signatures machine dans le binaire.",
+      "Patch assembleur (MOV EAX, 1; RET) avec backup automatique.",
+      "Projet éducatif de reverse engineering bas niveau."
+    ],
+    "demoUrl": "",
+    "repoUrl": "https://github.com/Sofian-bll/SidecarPatcher",
+    "image": "",
+    "caseStudy": "## Contexte\n\nUtilitaire en ligne de commande appliquant un patch binaire minimaliste au framework macOS SidecarCore pour désactiver la vérification de compatibilité. Reverse engineering éducatif — recherche de signatures, patch assembleur, sauvegarde.\n\n## Points clés\n\n- Recherche automatique de signatures machine dans le binaire.\n- Patch assembleur (MOV EAX, 1; RET) avec backup automatique.\n- Projet éducatif de reverse engineering bas niveau.\n\n## Stack\n\n- Python\n- Reverse\n"
+  },
+  {
+    "id": "seahorse-3d",
+    "name": "Seahorse 3D",
+    "categories": [
+      "3d",
+      "animation",
+      "webdesign"
+    ],
+    "featured": false,
+    "techs": [
+      {
+        "label": "Three.js",
+        "tech": "three"
+      },
+      {
+        "label": "Blender",
+        "tech": "blender"
+      },
+      {
+        "label": "After Effects",
+        "tech": "ae"
+      }
+    ],
+    "role": "Solo",
+    "period": "2026",
+    "duration": "En cours",
+    "description": "Animation 3D interactive — pipeline créatif complet de Photoshop à Three.js en passant par Blender.",
+    "highlights": [
+      "Pipeline créatif : Photoshop → After Effects → Blender → Three.js.",
+      "Modèle 3D généré par IA Google puis affiné dans Blender.",
+      "Animation interactive et rendu temps réel dans le navigateur."
+    ],
+    "demoUrl": "",
+    "repoUrl": "",
+    "image": "",
+    "caseStudy": "## Contexte\n\nProjet créatif mêlant design graphique (Photoshop, After Effects), modélisation 3D (Blender, IA générative Google 3D) et développement web (Three.js) pour créer une animation 3D interactive d’un hippocampe.\n\n## Points clés\n\n- Pipeline créatif : Photoshop → After Effects → Blender → Three.js.\n- Modèle 3D généré par IA Google puis affiné dans Blender.\n- Animation interactive et rendu temps réel dans le navigateur.\n\n## Stack\n\n- Three.js\n- Blender\n- After Effects\n"
+  },
+  {
+    "id": "nojs-ui",
+    "name": "NoJS-UI",
+    "categories": [
+      "dev",
+      "webdesign"
+    ],
+    "featured": false,
+    "techs": [
+      {
+        "label": "TypeScript",
+        "tech": "ts"
+      },
+      {
+        "label": "Gemini AI",
+        "tech": "rag"
+      }
+    ],
+    "role": "Solo",
+    "period": "2025",
+    "duration": "En cours",
+    "description": "Composants UI sans JavaScript — bibliothèque générée par IA, approche minimaliste et performante.",
+    "highlights": [
+      "Composants UI fonctionnels sans JavaScript côté client.",
+      "Génération de code par Gemini AI.",
+      "Approche radicale de performance web."
+    ],
+    "demoUrl": "",
+    "repoUrl": "https://github.com/Sofian-bll/NoJS-Ui",
+    "image": "",
+    "caseStudy": "## Contexte\n\nExpérimentation d’une bibliothèque de composants UI générés par IA ne nécessitant aucun JavaScript côté client. Une approche radicale de la performance web.\n\n## Points clés\n\n- Composants UI fonctionnels sans JavaScript côté client.\n- Génération de code par Gemini AI.\n- Approche radicale de performance web.\n\n## Stack\n\n- TypeScript\n- Gemini AI\n"
+  },
+  {
+    "id": "media-pipeline",
+    "name": "Media Pipeline",
+    "categories": [
+      "tooling",
+      "dev"
+    ],
+    "featured": false,
+    "techs": [
+      {
+        "label": "Go",
+        "tech": "go"
+      },
+      {
+        "label": "n8n",
+        "tech": "n8n"
+      }
+    ],
+    "role": "Solo",
+    "period": "2026",
+    "duration": "En cours",
+    "description": "Pipeline automatisé de traitement média — worker pool en Go, watcher, orchestré via n8n.",
+    "highlights": [
+      "Architecture worker pool en Go pour traitement parallèle.",
+      "Watcher de fichiers pour déclenchement automatique.",
+      "Orchestration des workflows via n8n."
+    ],
+    "demoUrl": "",
+    "repoUrl": "",
+    "image": "",
+    "caseStudy": "## Contexte\n\nPipeline de traitement média automatisé combinant un worker pool en Go, un watcher de fichiers pour le déclenchement, et n8n pour l’orchestration des workflows de bout en bout.\n\n## Points clés\n\n- Architecture worker pool en Go pour traitement parallèle.\n- Watcher de fichiers pour déclenchement automatique.\n- Orchestration des workflows via n8n.\n\n## Stack\n\n- Go\n- n8n\n"
+  }
+]
