@@ -3,7 +3,6 @@
   "connect-in-java",
   "my-cinema",
   "piscine-java",
-  "freelance-web",
   "klivio",
   "sshk",
   "rage-ui",
@@ -16,5 +15,6 @@
   "media-pipeline",
   "og-image-v2",
   "pplx-web-query",
-  "scpdl-wav"
+  "scpdl-wav",
+  "sidecarpatcher"
 ]

@@ -17,17 +17,17 @@
   ],
   "techs": [
     {
-      "label": "JavaScript",
-      "tech": "javascript",
-      "color": "#f7df1e"
+      "label": "Node.js",
+      "tech": "nodejs",
+      "color": "#5FA04E"
     },
     {
-      "label": "TypeScript",
-      "tech": "typescript",
-      "color": "#3178c6"
+      "label": "Playwright",
+      "tech": "playwright",
+      "color": "#45BA4B"
     }
   ],
   "demoUrl": "https://sofian-bll.github.io/pplx-web-query/",
   "repoUrl": "https://github.com/Sofian-bll/pplx-web-query",
-  "image": "media/projects/pplx-web-query/screenshot.png"
+  "image": "media/projects/pplx-web-query/og-image.png"
 }

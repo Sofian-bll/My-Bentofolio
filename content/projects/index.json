@@ -136,37 +136,6 @@
     "caseStudy": "## Contexte\n\nBootcamp intensif Java : implémentation de design patterns classiques, programmation générique, introspection par réflexion, et un framework de test maison complet.\n\n## Points clés\n\n- Design patterns classiques (Factory, Observer, Strategy…).\n- Programmation générique avec introspection par réflexion.\n- Framework de test unitaire construit de A à Z.\n\n## Stack\n\n- Java SE\n"
   },
   {
-    "id": "freelance-web",
-    "name": "Freelance Web",
-    "categories": [
-      "dev"
-    ],
-    "featured": false,
-    "techs": [
-      {
-        "label": "Framer",
-        "tech": "framer"
-      },
-      {
-        "label": "Shopify",
-        "tech": "shopify"
-      }
-    ],
-    "role": "Indépendant",
-    "description": "Sites e-commerce et vitrines haut de gamme, Shopify × Framer.",
-    "highlights": [
-      "Sites vitrines et e-commerce haut de gamme conçus et intégrés.",
-      "Direction artistique et prototypage sous Framer.",
-      "Boutiques Shopify sur-mesure livrées sur 2 ans d’activité."
-    ],
-    "demoUrl": "",
-    "repoUrl": "",
-    "image": "",
-    "startDate": "2022-01-01",
-    "endDate": "2024-12-31",
-    "caseStudy": "## Contexte\n\nDeux ans d’activité freelance : conception et intégration de sites vitrines et e-commerce haut de gamme. Direction artistique, prototypage Framer, et boutiques Shopify sur-mesure.\n\n## Points clés\n\n- Sites vitrines et e-commerce haut de gamme conçus et intégrés.\n- Direction artistique et prototypage sous Framer.\n- Boutiques Shopify sur-mesure livrées sur 2 ans d’activité.\n\n## Stack\n\n- Framer\n- Shopify\n"
-  },
-  {
     "id": "klivio",
     "name": "Klivio",
     "categories": [
@@ -569,20 +538,20 @@
     ],
     "techs": [
       {
-        "label": "JavaScript",
-        "tech": "javascript",
-        "color": "#f7df1e"
+        "label": "Node.js",
+        "tech": "nodejs",
+        "color": "#5FA04E"
       },
       {
-        "label": "TypeScript",
-        "tech": "typescript",
-        "color": "#3178c6"
+        "label": "Playwright",
+        "tech": "playwright",
+        "color": "#45BA4B"
       }
     ],
     "demoUrl": "https://sofian-bll.github.io/pplx-web-query/",
     "repoUrl": "https://github.com/Sofian-bll/pplx-web-query",
-    "image": "media/projects/pplx-web-query/screenshot.png",
-    "caseStudy": ""
+    "image": "media/projects/pplx-web-query/og-image.png",
+    "caseStudy": "## Contexte\n\nJ'étais abonné à Perplexity Pro, qui incluait 10$ de crédits API chaque mois. Je les utilisais avec OpenCode pour toutes mes recherches — c'était fluide et efficace. Puis Perplexity a supprimé ces crédits sans préavis. Résultat : retour au navigateur manuel pour chaque recherche, un vrai retour en arrière. À ce moment-là j'étais à Bordeaux, en train de structurer mon architecture personnelle, et j'avais besoin de recherches fréquentes — le workflow manuel n'était tout simplement pas viable.\n\nQuelques semaines plus tôt, j'avais découvert Playwright à la Web@cadémie, dans le cadre du projet DevOps [Jeux Vidéops](./#/projet/jeuvideops) où on avait monté une pipeline CLI complète. J'avais été marqué par le fait que Playwright peut enregistrer des actions humaines via `npx playwright codegen` et les transformer en script. Le déclic : et si je pouvais automatiser une session Perplexity complète ?\n\n## Process\n\nJ'ai construit le skill en deux temps. D'abord, enregistrement du flux avec `codegen` : navigation, soumission de query, attente de réponse, clic sur \"Copy\". Ensuite, scriptage du polling intelligent : une boucle vérifie régulièrement l'apparition du bouton \"Copy\", avec un cooldown entre l'apparition et la copie (le bouton apparaît visuellement avant que la réponse soit finalisée dans le DOM). Une fois la réponse dans le clipboard : export Markdown + sortie stdout + fermeture Chromium.\n\nJ'ai ajouté 3 retries automatiques (clipboard vide, réponse trop lente), et isolé proprement stderr pour les logs / stdout pour l'output, pour que le skill soit pipe-friendly avec n'importe quel agent.\n\n## Difficultés\n\n- **Cloudflare anti-bot** : dès que Playwright touchait le site, Cloudflare détectait l'automatisation et bloquait l'accès au compte Pro. J'ai testé cookies, user agents, headers — rien n'a marché\n- **Timing du bouton Copy** : il apparaît avant que Perplexity ait fini de streamer la réponse → fallait un délai post-apparition calibré\n- **Intervalles de polling** : trouver le bon équilibre entre réactivité et risque de rate-limiting\n\n## Fiertés\n\n- Zéro API key, zéro compte Pro — juste un navigateur Chromium\n- Compatible OpenCode, Claude Code, Codex CLI avec le même skill\n- Sortie propre (stderr/stdout), intégrable dans n'importe quel pipeline\n- Retry logic qui couvre les edge cases (clipboard vide, timeout)\n\n## Si c'était à refaire\n\n- Ne pas perdre une heure sur le problème Cloudflare — accepter la contrainte plus tôt\n- Poser le mécanisme de polling de façon plus propre dès le départ\n- Globalement : itérer plus vite sur le MVP plutôt que de m'éparpiller\n"
   },
   {
     "id": "scpdl-wav",
@@ -629,5 +598,34 @@
     "period": "2025",
     "duration": "4 mois",
     "caseStudy": "## Contexte\n\nProducteur et DJ, je joue régulièrement sur SoundCloud. Problème récurrent : j'oubliais mon ordi ou ma clé USB, et je les perdais. Refaire mes playlists à la main prenait une heure. Des outils existaient mais trop chers. Je me suis dit : je vais le coder moi-même.\n\n## Process\n\nD'abord, recherche sur comment télécharger depuis SoundCloud → découverte de SCDL, outil open-source qui récupère les pistes en M4A/MP3/OPUS. Ensuite, en tant que DJ, besoin de WAV pour compatibilité maximale sur platines CDJ. FFmpeg décode le flux compressé via le codec natif (AAC, MP3, Opus) et le ré-encode en PCM 16-bit 44.1 kHz stéréo — format standard non compressé. Mutagen préserve ensuite toutes les métadonnées (titre, artiste, cover...) du fichier source.\n\n## Difficultés\n\nLa conversion lossless a été un peu galère à mettre en place correctement.\n\n## Fiertés\n\nLe résultat est méga propre. Ça marche, c'est fiable, c'est rapide.\n\n## Si c'était à refaire\n\nHonnêtement pas grand-chose à changer. Peut-être ajouter un vrai site avec backend pour une utilisation en ligne. Mais pour l'instant c'est déjà cool."
+  },
+  {
+    "id": "sidecarpatcher",
+    "name": "SidecarPatcher",
+    "categories": [
+      "dev",
+      "tools"
+    ],
+    "role": "Solo",
+    "featured": false,
+    "startDate": "2025-09-09",
+    "endDate": null,
+    "description": "Prototype experimental de reactivation de Sidecar sur Mac et iPad non supportes.",
+    "highlights": [
+      "Binary signature scanning — reperage automatique de la fonction de compatibilite dans SidecarCore",
+      "Reverse engineering ARM64 — premiere experience assembleur bas niveau avec Hopper Disassembler",
+      "Zero dependance — Python stdlib uniquement"
+    ],
+    "techs": [
+      {
+        "label": "Python",
+        "tech": "python",
+        "color": "#3776ab"
+      }
+    ],
+    "demoUrl": "https://sofian-bll.github.io/SidecarPatcher/",
+    "repoUrl": "https://github.com/Sofian-bll/SidecarPatcher",
+    "image": "media/projects/sidecarpatcher/og-image.png",
+    "caseStudy": "## Contexte\nJe voulais utiliser Sidecar entre mon Mac et mon iPad Air 2. Sauf qu'Apple a decide que mon matos etait trop vieux — liste noire integree direct dans `SidecarCore.framework`. Pas dev de formation, je debutais en Python, mais j'avais une IA sous le coude et l'envie de comprendre comment ca marchait *vraiment*.\n\n## Process\nJ'ai extrait le binaire du cache DYLD avec `dyld-shared-cache-extractor`, puis j'ai passe des heures dans Hopper Disassembler a lire de l'assembleur ARM64 — les blocs d'instructions, les registres, les comparaisons. Une fois la fonction de verification reperee, j'ai ecrit un script Python qui scanne la signature binaire et applique le patch automatiquement.\n\n## Difficultes\nLe vrai mur : la signature de code. Sous Sequoia, macOS refuse de charger un framework modifie si la signature est invalide. J'ai tout tente — `codesign` ad-hoc, `ldid` avec des entitlements customs — rien n'a marche. C'etait hyper frustrant parce qu'en theorie le patch etait bon, mais Apple verrouille tout. Le cache partage des frameworks complique encore plus la donne depuis Big Sur.\n\n## Fiertes\nJ'ai failli briquer mon MacBook plusieurs fois. Il a survecu. Surtout, j'ai appris un truc de dingue : ce que c'est vraiment l'assembleur, comment un CPU execute des instructions, comment on lit du binaire avec Hopper, comment macOS protege ses frameworks. Tout ca en partant de zero, avec une IA comme binome.\n\n## Si c'etait a refaire\nJe creuserais plus la piste noyau. J'ai essaye OpenCore Patcher — ca permet d'injecter des extensions kernel et d'avoir un kernel macOS modifie — mais j'ai pas reussi a le faire marcher, surement par manque de connaissances. J'ai aussi regarde FeatureUnlock mais j'ai pas trop capte comment il fonctionnait. Si je devais recommencer, je me formerais d'abord sur l'archi kernel de macOS avant de toucher au binaire."
   }
 ]
