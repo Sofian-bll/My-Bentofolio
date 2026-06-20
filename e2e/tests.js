@@ -17,6 +17,31 @@ test.describe('Bentofolio - Public UX', () => {
     await expect(page.locator('.proj-card').first()).toBeVisible();
   });
 
+  test('Projects toolbar keeps filters and sorting in stable zones', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(BASE + '/index.html#/projets');
+    await page.waitForSelector('.proj-gallery', { timeout: 5000 });
+
+    await expect(page.locator('.filter-chips')).toBeVisible();
+    await expect(page.locator('.filter-actions')).toBeVisible();
+    await expect(page.locator('.sort-select')).toBeVisible();
+    await expect(page.locator('.filter-result')).toBeVisible();
+
+    const chipsBox = await page.locator('.filter-chips').boundingBox();
+    const actionsBox = await page.locator('.filter-actions').boundingBox();
+    expect(chipsBox).not.toBeNull();
+    expect(actionsBox).not.toBeNull();
+    expect(actionsBox.x).toBeGreaterThan(chipsBox.x);
+    expect(Math.abs(actionsBox.y - chipsBox.y)).toBeLessThan(24);
+
+    const shellMaxWidths = await page.evaluate(() => ({
+      page: window.getComputedStyle(document.querySelector('.page-wrap')).maxWidth,
+      nav: window.getComputedStyle(document.querySelector('.navbar')).maxWidth,
+      footer: window.getComputedStyle(document.querySelector('.footer-inner')).maxWidth,
+    }));
+    expect(shellMaxWidths).toEqual({ page: '1440px', nav: '1440px', footer: '1440px' });
+  });
+
   test('Experiences page loads', async ({ page }) => {
     await page.goto(BASE + '/index.html#/experiences');
     await page.waitForSelector('.page-title', { timeout: 5000 });
