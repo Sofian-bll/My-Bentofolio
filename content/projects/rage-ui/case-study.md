@@ -30,18 +30,8 @@ PROJECTS_DIR/
 
 Le backend (Bun + Express) expose 6 routes. Le frontend (Vite + React) consomme l'API et affiche un dashboard avec la liste des projets, l'éditeur de secrets, et les actions (inject, sync).
 
-## Stack
-
-- React (frontend)
-- Bun + Express (backend API)
-- SOPS + Age (chiffrement)
-- Docker (déploiement)
-- Git (versionnement des secrets chiffrés)
-
 ## Leçons apprises
 
 - **SOPS + Age c'est sous-coté** — plus simple que Vault, plus secure que `.env` en clair, le meilleur ratio simplicité/sécurité pour un homelab
 - **Séparer secrets globaux et locaux évite la duplication** — un token CF_API_TOKEN dans `global/` est injecté dans 6 projets sans le dupliquer
 - **L'API key protège l'écriture** — les routes GET sont open (utile en local), les POST nécessitent un header `x-api-key`. Suffisant pour du local-first.
-
-![Logo Rage UI](media/projects/rage-ui/1781879615927.png)

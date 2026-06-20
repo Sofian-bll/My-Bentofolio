@@ -199,7 +199,7 @@
   },
   {
     "id": "sshk",
-    "name": "sshk",
+    "name": "SSHK",
     "categories": [
       "dev",
       "tooling"
@@ -238,42 +238,47 @@
       "tooling",
       "devops"
     ],
-    "featured": true,
-    "techs": [
-      {
-        "label": "React",
-        "tech": "js"
-      },
-      {
-        "label": "Bun",
-        "tech": "node"
-      },
-      {
-        "label": "SOPS",
-        "tech": "sops"
-      },
-      {
-        "label": "Age",
-        "tech": "linux"
-      },
-      {
-        "label": "Docker",
-        "tech": "docker"
-      }
-    ],
     "role": "Solo",
+    "featured": true,
+    "startDate": "2026-01-01",
+    "endDate": null,
     "description": "Secrets Manager local-first avec dashboard web. Chiffrement SOPS + Age, injection GitOps des .env, et synchronisation Git depuis l'interface.",
     "highlights": [
       "Coffre-fort central : secrets globaux + par projet, chiffrés en Age",
       "Injection automatique : .env.template + {{PLACEHOLDERS}} → .env généré",
       "Interface React pour gérer, injecter et versionner ses secrets sans terminal"
     ],
+    "techs": [
+      {
+        "label": "React",
+        "tech": "javascript",
+        "color": "#f7df1e"
+      },
+      {
+        "label": "TypeScript",
+        "tech": "typescript",
+        "color": "#3178c6"
+      },
+      {
+        "label": "Bun",
+        "tech": "default",
+        "color": "#fbf0dd"
+      },
+      {
+        "label": "SOPS",
+        "tech": "sops",
+        "color": "#5b21b6"
+      },
+      {
+        "label": "Docker",
+        "tech": "docker",
+        "color": "#2496ed"
+      }
+    ],
     "demoUrl": "https://sofian-bll.github.io/Rage-UI/",
     "repoUrl": "https://github.com/Sofian-bll/Rage-UI",
-    "image": "media/projects/rage-ui/1781879615927.png",
-    "startDate": "2026-01-01",
-    "endDate": null,
-    "caseStudy": "## Contexte\n\nAvec mon homelab qui grossit (15+ services Docker), je copiais-collais mes tokens API et mots de passe DB à la main dans chaque `.env`. Une rotation de clé ? Il fallait traquer 10 fichiers. Pire : impossible de versionner proprement sans exposer des secrets en clair.\n\nRage UI résout ça avec un pattern simple : un coffre-fort chiffré, des templates avec placeholders, et une injection automatique. Le tout pilotable depuis un dashboard web React, sans toucher au terminal.\n\n## Points clés\n\n- **Stockage chiffré** — SOPS + Age. Les secrets sont dans des `.enc.json`, versionnables dans Git sans risque\n- **Deux niveaux de secrets** — `global/` pour les tokens partagés (CF_API_TOKEN, GitHub PAT…), `projet/` pour les secrets spécifiques\n- **Injection par template** — un `.env.template` avec `{{GLOBAL.CF_API_TOKEN}}` et `{{DB_PASSWORD}}` → `POST /api/inject/:project` génère le `.env` final\n- **API REST** — Bun + Express en backend. Routes publiques (lecture), routes protégées par API key (écriture, injection, sync Git)\n- **Interface web React** — dashboard pour visualiser, éditer, injecter et `git push` depuis le navigateur\n- **Docker-ready** — Dockerfile et docker-compose.yml fournis, volumes pour la clé Age et le répertoire projets\n\n## Architecture\n\n```\nPOST /api/secrets/:project ──→ Écrit le .enc.json ──→ SOPS/Age chiffre\nPOST /api/inject/:project ──→ Lit global + projet ──→ Remplit .env.template → .env\nPOST /api/git/sync      ──→ git add -A && git commit && git push\n```\n\n```\nPROJECTS_DIR/\n├── global/secrets.enc.json\n├── pokedex/.env.template + secrets.enc.json\n└── api_meteo/.env.template\n```\n\nLe backend (Bun + Express) expose 6 routes. Le frontend (Vite + React) consomme l'API et affiche un dashboard avec la liste des projets, l'éditeur de secrets, et les actions (inject, sync).\n\n## Stack\n\n- React (frontend)\n- Bun + Express (backend API)\n- SOPS + Age (chiffrement)\n- Docker (déploiement)\n- Git (versionnement des secrets chiffrés)\n\n## Leçons apprises\n\n- **SOPS + Age c'est sous-coté** — plus simple que Vault, plus secure que `.env` en clair, le meilleur ratio simplicité/sécurité pour un homelab\n- **Séparer secrets globaux et locaux évite la duplication** — un token CF_API_TOKEN dans `global/` est injecté dans 6 projets sans le dupliquer\n- **L'API key protège l'écriture** — les routes GET sont open (utile en local), les POST nécessitent un header `x-api-key`. Suffisant pour du local-first.\n\n![Logo Rage UI](media/projects/rage-ui/1781879615927.png)\n"
+    "image": "media/projects/rage-ui/og-image.png",
+    "caseStudy": "## Contexte\n\nAvec mon homelab qui grossit (15+ services Docker), je copiais-collais mes tokens API et mots de passe DB à la main dans chaque `.env`. Une rotation de clé ? Il fallait traquer 10 fichiers. Pire : impossible de versionner proprement sans exposer des secrets en clair.\n\nRage UI résout ça avec un pattern simple : un coffre-fort chiffré, des templates avec placeholders, et une injection automatique. Le tout pilotable depuis un dashboard web React, sans toucher au terminal.\n\n## Points clés\n\n- **Stockage chiffré** — SOPS + Age. Les secrets sont dans des `.enc.json`, versionnables dans Git sans risque\n- **Deux niveaux de secrets** — `global/` pour les tokens partagés (CF_API_TOKEN, GitHub PAT…), `projet/` pour les secrets spécifiques\n- **Injection par template** — un `.env.template` avec `{{GLOBAL.CF_API_TOKEN}}` et `{{DB_PASSWORD}}` → `POST /api/inject/:project` génère le `.env` final\n- **API REST** — Bun + Express en backend. Routes publiques (lecture), routes protégées par API key (écriture, injection, sync Git)\n- **Interface web React** — dashboard pour visualiser, éditer, injecter et `git push` depuis le navigateur\n- **Docker-ready** — Dockerfile et docker-compose.yml fournis, volumes pour la clé Age et le répertoire projets\n\n## Architecture\n\n```\nPOST /api/secrets/:project ──→ Écrit le .enc.json ──→ SOPS/Age chiffre\nPOST /api/inject/:project ──→ Lit global + projet ──→ Remplit .env.template → .env\nPOST /api/git/sync      ──→ git add -A && git commit && git push\n```\n\n```\nPROJECTS_DIR/\n├── global/secrets.enc.json\n├── pokedex/.env.template + secrets.enc.json\n└── api_meteo/.env.template\n```\n\nLe backend (Bun + Express) expose 6 routes. Le frontend (Vite + React) consomme l'API et affiche un dashboard avec la liste des projets, l'éditeur de secrets, et les actions (inject, sync).\n\n## Leçons apprises\n\n- **SOPS + Age c'est sous-coté** — plus simple que Vault, plus secure que `.env` en clair, le meilleur ratio simplicité/sécurité pour un homelab\n- **Séparer secrets globaux et locaux évite la duplication** — un token CF_API_TOKEN dans `global/` est injecté dans 6 projets sans le dupliquer\n- **L'API key protège l'écriture** — les routes GET sont open (utile en local), les POST nécessitent un header `x-api-key`. Suffisant pour du local-first."
   },
   {
     "id": "epitalk",
