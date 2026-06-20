@@ -5,7 +5,7 @@
 /* ─── APP SHELL ─── */
 .app { min-height: 100vh; display: flex; flex-direction: column; }
 .page-wrap {
-  width: 100%; max-width: 1120px; margin: 0 auto;
+  width: 100%; max-width: 1440px; margin: 0 auto;
   padding: 88px var(--s4) var(--s10);
   flex: 1;
 }
@@ -13,7 +13,7 @@
 /* ─── NAVBAR ─── */
 .navbar {
   position: fixed; top: var(--s3); left: 50%; transform: translateX(-50%);
-  width: calc(100% - var(--s6)); max-width: 1120px; height: 56px;
+  width: calc(100% - var(--s6)); max-width: 1440px; height: 56px;
   background: var(--nav-bg); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--border); border-radius: var(--radius-pill);
   z-index: 1000; display: flex; align-items: center;
@@ -44,7 +44,7 @@
 /* ─── FOOTER ─── */
 .app-footer { padding: var(--s8) var(--s4) var(--s6); }
 .footer-inner {
-  max-width: 1120px; margin: 0 auto;
+  max-width: 1440px; margin: 0 auto;
   display: flex; justify-content: space-between; align-items: center; gap: var(--s4);
   flex-wrap: wrap;
   border-top: 1px solid var(--border); padding-top: var(--s5);

@@ -4,8 +4,13 @@
 
 /* ─── PROJECTS PAGE ─── */
 .filter-bar {
-  display: flex; flex-wrap: wrap; gap: var(--s2); align-items: center;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s3); align-items: center;
   margin-bottom: var(--s6);
+}
+.filter-chips {
+  min-width: 0; display: flex; gap: var(--s2); align-items: center;
+  overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: thin;
+  padding-bottom: 2px;
 }
 .filter-chip {
   display: inline-flex; align-items: center; gap: 7px;
@@ -13,15 +18,20 @@
   border: 1px solid var(--border); background: var(--bg-card);
   font-size: var(--text-base); font-weight: 600; color: var(--text-2);
   transition: all var(--dur-fast) var(--ease);
+  flex: 0 0 auto;
 }
 .filter-chip:hover { border-color: var(--text-2); color: var(--text); }
 .filter-chip.active { color: #fff; border-color: transparent; background: var(--fc, var(--accent)); }
 .filter-chip--all.active { background: var(--accent); color: var(--accent-fg); }
 .filter-chip .count { font-size: 11px; opacity: 0.7; font-weight: 700; }
-.filter-spacer { flex: 1; }
+.filter-actions {
+  display: flex; align-items: center; justify-content: flex-end; gap: var(--s2);
+  white-space: nowrap;
+}
 .filter-result { font-size: var(--text-sm); color: var(--text-2); }
 .sort-group {
   display: inline-flex; align-items: center; gap: 4px;
+  flex: 0 0 auto;
 }
 .sort-select {
   appearance: none; background: var(--bg-card); border: 1px solid var(--border);
@@ -43,6 +53,34 @@
   padding: 0;
 }
 .sort-dir-btn:hover { border-color: var(--text-2); color: var(--text); background: var(--bg-inset); }
+
+.filter-toggle {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .filter-bar { grid-template-columns: auto 1fr; gap: var(--s2); }
+  .filter-toggle {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 15px; border-radius: var(--radius-pill);
+    border: 1px solid var(--border); background: var(--bg-card);
+    font-size: var(--text-base); font-weight: 600; color: var(--text-2);
+    cursor: pointer; transition: all var(--dur-fast) var(--ease);
+    flex: 0 0 auto;
+  }
+  .filter-toggle:hover { border-color: var(--text-2); color: var(--text); }
+  .filter-toggle.has-active { border-color: var(--accent); color: var(--accent); }
+  .filter-chips {
+    display: none;
+    grid-column: 1 / -1;
+  }
+  .filter-chips.open {
+    display: flex; flex-wrap: wrap; gap: var(--s2);
+    padding: var(--s2); border-top: 1px solid var(--border);
+    margin-top: var(--s1);
+  }
+  .filter-actions { justify-content: flex-end; }
+}
 
 .proj-gallery {
   display: grid; gap: var(--s4);

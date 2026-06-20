@@ -105,6 +105,8 @@ function ProjectModal({ project, onClose }) {
 function ProjectsView({ navigate, openProject, filter, setFilter, sort, setSort }) {
   const { projects, categories } = DATA;
   const { counts, catKeys, activeFilter, shown } = getProjectGalleryState({ projects, categories, filter, sort });
+  const [filterOpen, setFilterOpen] = useState(false);
+  const handleFilter = (k) => { setFilter(k); setFilterOpen(false); };
 
   const sortBy = sort === 'recent' || sort === 'oldest' ? 'date' : sort === 'az' || sort === 'za' ? 'name' : 'default'
   const sortAsc = sort === 'oldest' || sort === 'az'
@@ -128,32 +130,42 @@ function ProjectsView({ navigate, openProject, filter, setFilter, sort, setSort 
         <p className="page-sub">Projets sélectionnés pour montrer ma progression full-stack, mes choix techniques et ma capacité à livrer des interfaces utiles.</p>
       </div>
 
-      <div className="filter-bar">
-        <button className={'filter-chip filter-chip--all' + (activeFilter === 'all' ? ' active' : '')}
-          style={{ '--fc': 'var(--accent)' }} onClick={() => setFilter('all')}>
-          <Icon name="grid" size={14} /> Tous <span className="count">{projects.length}</span>
+      <div className="filter-bar" aria-label="Filtres et tri des projets">
+        <button
+          className={'filter-toggle' + (activeFilter !== 'all' ? ' has-active' : '')}
+          onClick={() => setFilterOpen(o => !o)}
+          aria-expanded={filterOpen}
+        >
+          <Icon name="filter" size={14} /> Filtres
         </button>
-        {catKeys.map((k) => (
-          <button key={k} className={'filter-chip' + (activeFilter === k ? ' active' : '')}
-            style={{ '--fc': categories[k].color }} onClick={() => setFilter(k)}>
-            <Icon name={categories[k].glyph} size={14} /> {categories[k].label}
-            <span className="count">{counts[k]}</span>
+        <div className={'filter-chips' + (filterOpen ? ' open' : '')} aria-label="Filtrer les projets">
+          <button className={'filter-chip filter-chip--all' + (activeFilter === 'all' ? ' active' : '')}
+            style={{ '--fc': 'var(--accent)' }} onClick={() => handleFilter('all')}>
+            <Icon name="grid" size={14} /> Tous <span className="count">{projects.length}</span>
           </button>
-        ))}
-        <span className="filter-spacer" />
-        <div className="sort-group">
-          <select className="sort-select" value={sortBy} onChange={(e) => handleSortBy(e.target.value)} aria-label="Trier par">
-            <option value="default">Par défaut</option>
-            <option value="date">Période</option>
-            <option value="name">Nom</option>
-          </select>
-          {sortBy !== 'default' && (
-            <button className="sort-dir-btn" onClick={toggleDir} aria-label={sortAsc ? 'Ordre décroissant' : 'Ordre croissant'}>
-              {sortAsc ? '▲' : '▼'}
+          {catKeys.map((k) => (
+            <button key={k} className={'filter-chip' + (activeFilter === k ? ' active' : '')}
+              style={{ '--fc': categories[k].color }} onClick={() => handleFilter(k)}>
+              <Icon name={categories[k].glyph} size={14} /> {categories[k].label}
+              <span className="count">{counts[k]}</span>
             </button>
-          )}
+          ))}
         </div>
-        <span className="filter-result">{shown.length} projet{shown.length > 1 ? 's' : ''}</span>
+        <div className="filter-actions">
+          <span className="filter-result">{shown.length} projet{shown.length > 1 ? 's' : ''}</span>
+          <div className="sort-group">
+            <select className="sort-select" value={sortBy} onChange={(e) => handleSortBy(e.target.value)} aria-label="Trier par">
+              <option value="default">Par défaut</option>
+              <option value="date">Période</option>
+              <option value="name">Nom</option>
+            </select>
+            {sortBy !== 'default' && (
+              <button className="sort-dir-btn" onClick={toggleDir} aria-label={sortAsc ? 'Ordre décroissant' : 'Ordre croissant'}>
+                {sortAsc ? '▲' : '▼'}
+              </button>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="proj-gallery">
