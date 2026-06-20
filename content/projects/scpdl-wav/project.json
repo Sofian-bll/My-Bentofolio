@@ -1,0 +1,43 @@
+{
+  "id": "scpdl-wav",
+  "name": "SCPDL-Wav",
+  "categories": [
+    "dev",
+    "tools"
+  ],
+  "role": "Solo",
+  "featured": false,
+  "startDate": "2025-06-18",
+  "endDate": "2025-10-15",
+  "description": "Télécharge des playlists SoundCloud et les convertit en WAV lossless avec métadonnées préservées.",
+  "highlights": [
+    "Conversion M4A/MP3 → WAV lossless",
+    "Métadonnées préservées automatiquement",
+    "Support : URL, fichier texte, dry-run"
+  ],
+  "techs": [
+    {
+      "label": "Python",
+      "tech": "python",
+      "color": "#3776ab"
+    },
+    {
+      "label": "FFmpeg",
+      "tech": "default",
+      "color": "#007808"
+    },
+    {
+      "label": "Mutagen",
+      "tech": "default",
+      "color": "#888888"
+    },
+    {
+      "label": "scdl",
+      "tech": "default",
+      "color": "#ff5500"
+    }
+  ],
+  "demoUrl": "https://sofian-bll.github.io/scpdl-wav/",
+  "repoUrl": "https://github.com/Sofian-bll/scpdl-wav",
+  "image": "scpdl-wav.png"
+}
