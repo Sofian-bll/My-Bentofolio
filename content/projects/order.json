@@ -10,9 +10,11 @@
   "epitalk",
   "jeuvideops",
   "appstore-scraper",
-  "soundcloud-downloader",
   "sidecar-patcher",
   "seahorse-3d",
   "nojs-ui",
-  "media-pipeline"
+  "media-pipeline",
+  "og-image-v2",
+  "pplx-web-query",
+  "scpdl-wav"
 ]

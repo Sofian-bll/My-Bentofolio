@@ -11,8 +11,15 @@ node_modules
 dist
 dist-ssr
 *.local
+.worktrees/
 chrome/
 .codesign/
+
+# Test outputs
+test-results/
+
+# Skill evaluation scratch data
+.opencode/skills/*/workspace/
 
 # Editor directories and files
 .vscode/*

@@ -222,9 +222,9 @@
       "Arborescence prévisible par projet/serveur, rotation de clés simplifiée",
       "Installation curl | bash, compatible Linux/macOS sans runtime externe"
     ],
-    "demoUrl": "",
+    "demoUrl": "https://sofian-bll.github.io/sshk/",
     "repoUrl": "https://github.com/Sofian-bll/sshk",
-    "image": "media/projects/sshk/1781890494073.png",
+    "image": "media/projects/sshk/1781959174425.png",
     "startDate": "2026-01-01",
     "endDate": null,
     "period": "2026",
@@ -288,23 +288,23 @@
         "tech": "js"
       },
       {
-        "label": "Node.js",
-        "tech": "node"
+        "label": "CSS",
+        "tech": "default"
       }
     ],
     "role": "Équipe (3)",
-    "description": "Chatbot intelligent pour Epitech — design system, authentification, générateur de cartes.",
+    "description": "Projet web interactif au concept ludique — réalisé en équipe de 3 en 4 jours, avec démo live sur GitHub Pages.",
     "highlights": [
-      "Chatbot interactif avec design system sur mesure.",
-      "Système d’authentification complet.",
-      "2 releases (v1.0, v1.1), démo live sur GitHub Pages."
+      "Projet web interactif avec un concept fun et engageant.",
+      "Réalisé en équipe de 3 en seulement 4 jours.",
+      "Démo live déployée sur GitHub Pages."
     ],
     "demoUrl": "https://sofian-bll.github.io/Epitalk/",
     "repoUrl": "https://github.com/Sofian-bll/Epitalk",
     "image": "",
     "startDate": "2025-01-01",
     "endDate": null,
-    "caseStudy": "## Contexte\n\nProjet web interactif réalisé en équipe de 3 en 4 jours pour centraliser l’accès aux informations Epitech. Développement du chatbot et design system. Déploiement continu avec 2 releases taguées.\n\n## Points clés\n\n- Chatbot interactif avec design system sur mesure.\n- Système d’authentification complet.\n- 2 releases (v1.0, v1.1), démo live sur GitHub Pages.\n\n## Stack\n\n- JavaScript\n- Node.js\n"
+    "caseStudy": "## Contexte\n\nProjet web interactif au concept ludique réalisé en équipe de 3 en 4 jours (2025). L'objectif : créer une expérience web engageante et fun, entièrement côté client. Déploiement continu avec démo live sur GitHub Pages.\n\n## Points clés\n\n- Projet web interactif avec un concept fun et engageant.\n- Réalisé en équipe de 3 en seulement 4 jours.\n- Démo live déployée sur GitHub Pages.\n\n## Stack\n\n- JavaScript\n- CSS\n"
   },
   {
     "id": "jeuvideops",
@@ -371,35 +371,8 @@
     ],
     "demoUrl": "https://sofian-bll.github.io/AppStore-Scraper/",
     "repoUrl": "https://github.com/Sofian-bll/AppStore-Scraper",
-    "image": "",
+    "image": "media/projects/appstore-scraper/screenshot.png",
     "caseStudy": "## Contexte\n\nJ'étais fauché, les abonnements commençaient à peser lourd. Certaines apps coûtent 2× moins cher selon le pays de l'App Store, mais vérifier les prix sur 36 storefronts à la main était impensable. J'apprenais Python depuis 2-3 semaines — l'occasion parfaite pour un premier vrai projet.\n\n## Process\n\nLe projet est passé par 3 phases. Phase 1 : un script manuel qui scrapait un seul pays à la fois, 36 runs séparés, casse-pied mais ça marchait. Phase 2 : j'ai branché l'Exchange Rate API pour convertir tous les prix en EUR en temps réel, avec un système de cache pour ne pas saturer l'API. Phase 3 : j'ai fait refactoriser le code par IA pour le rendre plus propre, structuré en couches, avec barre de progression et gestion d'erreurs.\n\n## Difficultés rencontrées\n\n- **Conversion de devises** — 30+ devises, taux qui changent en direct, fallait un cache intelligent pour éviter de re-fetch les mêmes taux 36 fois par run.\n- **Parsing multi-pages** — l'API Apple pagine les résultats, fallait itérer proprement sans exploser le rate limit.\n- **Apprendre Python en même temps** — chaque feature était une double bataille : comprendre le problème ET comprendre le langage. Lent, mais formateur.\n\n## Stack\n\n- Python — requests, pandas\n- Exchange Rate API — conversion EUR temps réel\n- GitHub Pages — landing page en un seul fichier HTML\n\n## Ce dont je suis fier\n\n- **36 pays couverts** — tous les storefronts Apple majeurs, d'un seul run.\n- **Cache des taux de change** — solution simple qui a divisé le temps d'exécution par 3.\n- **Progression réelle** — passer d'un script spaghetti à un outil propre en 3 itérations, tout en apprenant Python from scratch.\n\n## Si c'était à refaire\n\nJe paralléliserais les requêtes vers les différents storefronts pour gagner en vitesse. Et j'ajouterais un export JSON en complément du CSV, pour intégration directe avec d'autres outils.\n"
-  },
-  {
-    "id": "soundcloud-downloader",
-    "name": "Soundcloud DL",
-    "categories": [
-      "tooling"
-    ],
-    "featured": false,
-    "techs": [
-      {
-        "label": "Python",
-        "tech": "python"
-      }
-    ],
-    "role": "Solo",
-    "description": "Téléchargeur de playlists SoundCloud en WAV — extraction propre par playlist.",
-    "highlights": [
-      "Téléchargement par playlist complète en WAV.",
-      "Interface CLI simple et efficace.",
-      "Conversion propre pour qualité maximale."
-    ],
-    "demoUrl": "",
-    "repoUrl": "https://github.com/Sofian-bll/Soundcloud_Wav_Playlist",
-    "image": "",
-    "startDate": "2025-01-01",
-    "endDate": null,
-    "caseStudy": "## Contexte\n\nScript Python pour télécharger des playlists SoundCloud entières au format WAV. Utilitaire pratique pour DJs et producteurs souhaitant archiver leurs sets en haute qualité.\n\n## Points clés\n\n- Téléchargement par playlist complète en WAV.\n- Interface CLI simple et efficace.\n- Conversion propre pour qualité maximale.\n\n## Stack\n\n- Python\n"
   },
   {
     "id": "sidecar-patcher",
@@ -425,9 +398,9 @@
       "Patch assembleur (MOV EAX, 1; RET) avec backup automatique.",
       "Projet éducatif de reverse engineering bas niveau."
     ],
-    "demoUrl": "",
+    "demoUrl": "https://sofian-bll.github.io/SidecarPatcher/",
     "repoUrl": "https://github.com/Sofian-bll/SidecarPatcher",
-    "image": "",
+    "image": "media/projects/sidecar-patcher/screenshot.png",
     "startDate": "2025-01-01",
     "endDate": null,
     "caseStudy": "## Contexte\n\nUtilitaire en ligne de commande appliquant un patch binaire minimaliste au framework macOS SidecarCore pour désactiver la vérification de compatibilité. Reverse engineering éducatif — recherche de signatures, patch assembleur, sauvegarde.\n\n## Points clés\n\n- Recherche automatique de signatures machine dans le binaire.\n- Patch assembleur (MOV EAX, 1; RET) avec backup automatique.\n- Projet éducatif de reverse engineering bas niveau.\n\n## Stack\n\n- Python\n- Reverse\n"
@@ -532,5 +505,124 @@
     "startDate": "2026-01-01",
     "endDate": null,
     "caseStudy": "## Contexte\n\nPipeline de traitement média automatisé combinant un worker pool en Go, un watcher de fichiers pour le déclenchement, et n8n pour l’orchestration des workflows de bout en bout.\n\n## Points clés\n\n- Architecture worker pool en Go pour traitement parallèle.\n- Watcher de fichiers pour déclenchement automatique.\n- Orchestration des workflows via n8n.\n\n## Stack\n\n- Go\n- n8n\n"
+  },
+  {
+    "id": "og-image-v2",
+    "name": "OG Image Generator v2",
+    "categories": [
+      "dev",
+      "tools"
+    ],
+    "role": "Solo",
+    "featured": false,
+    "startDate": "2026-06-06",
+    "endDate": null,
+    "description": "Générateur d'images Open Graph dynamique — 8 templates pour cartes sociales et vaults Obsidian.",
+    "highlights": [
+      "8 templates — Aspiration, Projet Epitech, Machine, Project, Resource, Service, System, Task",
+      "Scripts Obsidian — batch apply OG URLs across entire vault",
+      "Docker-ready — build multi-stage + Docker Compose"
+    ],
+    "techs": [
+      {
+        "label": "Vue 3",
+        "tech": "vue",
+        "color": "#42b883"
+      },
+      {
+        "label": "TypeScript",
+        "tech": "typescript",
+        "color": "#3178c6"
+      },
+      {
+        "label": "Docker",
+        "tech": "docker",
+        "color": "#2496ed"
+      }
+    ],
+    "demoUrl": "https://sofian-bll.github.io/og-image-v2/",
+    "repoUrl": "https://github.com/Sofian-bll/og-image-v2",
+    "image": "media/projects/og-image-v2/screenshot.png",
+    "caseStudy": ""
+  },
+  {
+    "id": "pplx-web-query",
+    "name": "Perplexity WebUI Search",
+    "categories": [
+      "dev",
+      "tools"
+    ],
+    "role": "Solo",
+    "featured": false,
+    "startDate": "2026-05-02",
+    "endDate": null,
+    "description": "Agent Skill — interroge Perplexity via le WebUI avec Playwright, zéro clé API.",
+    "highlights": [
+      "Browser automation — lance Chromium, navigue Perplexity, soumet une query",
+      "Multi-agent — compatible OpenCode, Claude Code, Codex CLI",
+      "Retry logic — handle clipboard, slow responses, transient failures (3 retries)"
+    ],
+    "techs": [
+      {
+        "label": "JavaScript",
+        "tech": "javascript",
+        "color": "#f7df1e"
+      },
+      {
+        "label": "TypeScript",
+        "tech": "typescript",
+        "color": "#3178c6"
+      }
+    ],
+    "demoUrl": "https://sofian-bll.github.io/pplx-web-query/",
+    "repoUrl": "https://github.com/Sofian-bll/pplx-web-query",
+    "image": "media/projects/pplx-web-query/screenshot.png",
+    "caseStudy": ""
+  },
+  {
+    "id": "scpdl-wav",
+    "name": "SCPDL-Wav",
+    "categories": [
+      "dev",
+      "tools"
+    ],
+    "role": "Solo",
+    "featured": false,
+    "startDate": "2025-06-18",
+    "endDate": "2025-10-15",
+    "description": "Télécharge des playlists SoundCloud et les convertit en WAV lossless avec métadonnées préservées.",
+    "highlights": [
+      "Conversion M4A/MP3 → WAV lossless",
+      "Métadonnées préservées automatiquement",
+      "Support : URL, fichier texte, dry-run"
+    ],
+    "techs": [
+      {
+        "label": "Python",
+        "tech": "python",
+        "color": "#3776ab"
+      },
+      {
+        "label": "FFmpeg",
+        "tech": "default",
+        "color": "#007808"
+      },
+      {
+        "label": "Mutagen",
+        "tech": "default",
+        "color": "#888888"
+      },
+      {
+        "label": "scdl",
+        "tech": "default",
+        "color": "#ff5500"
+      }
+    ],
+    "demoUrl": "https://sofian-bll.github.io/scpdl-wav/",
+    "repoUrl": "https://github.com/Sofian-bll/scpdl-wav",
+    "image": "media/projects/scpdl-wav/1781969992144.png",
+    "period": "2025",
+    "duration": "4 mois",
+    "caseStudy": "## Contexte\n\nProducteur et DJ, je joue régulièrement sur SoundCloud. Problème récurrent : j'oubliais mon ordi ou ma clé USB, et je les perdais. Refaire mes playlists à la main prenait une heure. Des outils existaient mais trop chers. Je me suis dit : je vais le coder moi-même.\n\n## Process\n\nD'abord, recherche sur comment télécharger depuis SoundCloud → découverte de SCDL, outil open-source qui récupère les pistes en M4A/MP3/OPUS. Ensuite, en tant que DJ, besoin de WAV pour compatibilité maximale sur platines CDJ. FFmpeg décode le flux compressé via le codec natif (AAC, MP3, Opus) et le ré-encode en PCM 16-bit 44.1 kHz stéréo — format standard non compressé. Mutagen préserve ensuite toutes les métadonnées (titre, artiste, cover...) du fichier source.\n\n## Difficultés\n\nLa conversion lossless a été un peu galère à mettre en place correctement.\n\n## Fiertés\n\nLe résultat est méga propre. Ça marche, c'est fiable, c'est rapide.\n\n## Si c'était à refaire\n\nHonnêtement pas grand-chose à changer. Peut-être ajouter un vrai site avec backend pour une utilisation en ligne. Mais pour l'instant c'est déjà cool."
   }
 ]

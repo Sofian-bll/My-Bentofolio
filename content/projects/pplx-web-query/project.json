@@ -1,0 +1,33 @@
+{
+  "id": "pplx-web-query",
+  "name": "Perplexity WebUI Search",
+  "categories": [
+    "dev",
+    "tools"
+  ],
+  "role": "Solo",
+  "featured": false,
+  "startDate": "2026-05-02",
+  "endDate": null,
+  "description": "Agent Skill — interroge Perplexity via le WebUI avec Playwright, zéro clé API.",
+  "highlights": [
+    "Browser automation — lance Chromium, navigue Perplexity, soumet une query",
+    "Multi-agent — compatible OpenCode, Claude Code, Codex CLI",
+    "Retry logic — handle clipboard, slow responses, transient failures (3 retries)"
+  ],
+  "techs": [
+    {
+      "label": "JavaScript",
+      "tech": "javascript",
+      "color": "#f7df1e"
+    },
+    {
+      "label": "TypeScript",
+      "tech": "typescript",
+      "color": "#3178c6"
+    }
+  ],
+  "demoUrl": "https://sofian-bll.github.io/pplx-web-query/",
+  "repoUrl": "https://github.com/Sofian-bll/pplx-web-query",
+  "image": "media/projects/pplx-web-query/screenshot.png"
+}

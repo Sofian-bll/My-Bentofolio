@@ -1,0 +1,38 @@
+{
+  "id": "og-image-v2",
+  "name": "OG Image Generator v2",
+  "categories": [
+    "dev",
+    "tools"
+  ],
+  "role": "Solo",
+  "featured": false,
+  "startDate": "2026-06-06",
+  "endDate": null,
+  "description": "Générateur d'images Open Graph dynamique — 8 templates pour cartes sociales et vaults Obsidian.",
+  "highlights": [
+    "8 templates — Aspiration, Projet Epitech, Machine, Project, Resource, Service, System, Task",
+    "Scripts Obsidian — batch apply OG URLs across entire vault",
+    "Docker-ready — build multi-stage + Docker Compose"
+  ],
+  "techs": [
+    {
+      "label": "Vue 3",
+      "tech": "vue",
+      "color": "#42b883"
+    },
+    {
+      "label": "TypeScript",
+      "tech": "typescript",
+      "color": "#3178c6"
+    },
+    {
+      "label": "Docker",
+      "tech": "docker",
+      "color": "#2496ed"
+    }
+  ],
+  "demoUrl": "https://sofian-bll.github.io/og-image-v2/",
+  "repoUrl": "https://github.com/Sofian-bll/og-image-v2",
+  "image": "media/projects/og-image-v2/screenshot.png"
+}

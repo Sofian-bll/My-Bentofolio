@@ -22,9 +22,9 @@
     "Patch assembleur (MOV EAX, 1; RET) avec backup automatique.",
     "Projet éducatif de reverse engineering bas niveau."
   ],
-  "demoUrl": "",
+  "demoUrl": "https://sofian-bll.github.io/SidecarPatcher/",
   "repoUrl": "https://github.com/Sofian-bll/SidecarPatcher",
-  "image": "",
+  "image": "media/projects/sidecar-patcher/screenshot.png",
   "startDate": "2025-01-01",
   "endDate": null
 }

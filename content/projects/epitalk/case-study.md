@@ -1,14 +1,14 @@
 ## Contexte
 
-Projet web interactif réalisé en équipe de 3 en 4 jours pour centraliser l’accès aux informations Epitech. Développement du chatbot et design system. Déploiement continu avec 2 releases taguées.
+Projet web interactif au concept ludique réalisé en équipe de 3 en 4 jours (2025). L'objectif : créer une expérience web engageante et fun, entièrement côté client. Déploiement continu avec démo live sur GitHub Pages.
 
 ## Points clés
 
-- Chatbot interactif avec design system sur mesure.
-- Système d’authentification complet.
-- 2 releases (v1.0, v1.1), démo live sur GitHub Pages.
+- Projet web interactif avec un concept fun et engageant.
+- Réalisé en équipe de 3 en seulement 4 jours.
+- Démo live déployée sur GitHub Pages.
 
 ## Stack
 
 - JavaScript
-- Node.js
+- CSS

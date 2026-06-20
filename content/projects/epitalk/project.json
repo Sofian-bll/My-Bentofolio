@@ -11,16 +11,16 @@
       "tech": "js"
     },
     {
-      "label": "Node.js",
-      "tech": "node"
+      "label": "CSS",
+      "tech": "default"
     }
   ],
   "role": "Équipe (3)",
-  "description": "Chatbot intelligent pour Epitech — design system, authentification, générateur de cartes.",
+  "description": "Projet web interactif au concept ludique — réalisé en équipe de 3 en 4 jours, avec démo live sur GitHub Pages.",
   "highlights": [
-    "Chatbot interactif avec design system sur mesure.",
-    "Système d’authentification complet.",
-    "2 releases (v1.0, v1.1), démo live sur GitHub Pages."
+    "Projet web interactif avec un concept fun et engageant.",
+    "Réalisé en équipe de 3 en seulement 4 jours.",
+    "Démo live déployée sur GitHub Pages."
   ],
   "demoUrl": "https://sofian-bll.github.io/Epitalk/",
   "repoUrl": "https://github.com/Sofian-bll/Epitalk",
