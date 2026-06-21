@@ -24,10 +24,10 @@
   },
   "cv": {
     "featured": [
-      "connect-in",
-      "connect-in-java",
       "sshk",
-      "rage-ui"
+      "scpdl-wav",
+      "sidecarpatcher",
+      "my-og-image"
     ],
     "cvPills": "mono",
     "cvPhoto": "moyenne",
@@ -166,7 +166,7 @@
           "tech": "soft"
         }
       ],
-      "featured": false
+      "featured": true
     },
     {
       "id": "ecommerce-independant",
@@ -194,7 +194,7 @@
           "tech": "soft"
         }
       ],
-      "featured": false
+      "featured": true
     },
     {
       "id": "manutentionnaire-techno",

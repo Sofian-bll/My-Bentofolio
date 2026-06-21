@@ -1,0 +1,30 @@
+{
+  "id": "sidecarpatcher",
+  "name": "SidecarPatcher",
+  "categories": [
+    "dev",
+    "tools"
+  ],
+  "role": "Solo",
+  "featured": false,
+  "startDate": "2025-09-09",
+  "endDate": null,
+  "description": "Prototype experimental de reactivation de Sidecar sur Mac et iPad non supportes.",
+  "highlights": [
+    "Binary signature scanning — reperage automatique de la fonction de compatibilite dans SidecarCore",
+    "Reverse engineering ARM64 — premiere experience assembleur bas niveau avec Hopper Disassembler",
+    "Zero dependance — Python stdlib uniquement"
+  ],
+  "techs": [
+    {
+      "label": "Python",
+      "tech": "python",
+      "color": "#3776ab"
+    }
+  ],
+  "demoUrl": "https://sofian-bll.github.io/SidecarPatcher/",
+  "repoUrl": "https://github.com/Sofian-bll/SidecarPatcher",
+  "image": "media/projects/sidecarpatcher/og-image.png",
+  "period": "2025",
+  "duration": "En cours"
+}

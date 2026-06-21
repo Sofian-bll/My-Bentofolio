@@ -1,0 +1,43 @@
+{
+  "id": "my-og-image",
+  "name": "my-og-image",
+  "categories": [
+    "dev",
+    "tools"
+  ],
+  "role": "Solo",
+  "featured": false,
+  "startDate": "2026-06-06",
+  "endDate": null,
+  "description": "Generateur d'images Open Graph dynamique — 8 templates pour cartes sociales et vaults Obsidian.",
+  "highlights": [
+    "8 templates — Aspiration, Projet Epitech, Machine, Project, Resource, Service, System, Task",
+    "Renderer Takumi + Satori — rendu SVG pur, zero headless browser",
+    "Docker-ready — build multi-stage + Docker Compose, deploy en une commande"
+  ],
+  "techs": [
+    {
+      "label": "Nuxt",
+      "tech": "default",
+      "color": "#00DC82"
+    },
+    {
+      "label": "Vue 3",
+      "tech": "vue",
+      "color": "#42b883"
+    },
+    {
+      "label": "TypeScript",
+      "tech": "typescript",
+      "color": "#3178c6"
+    },
+    {
+      "label": "Docker",
+      "tech": "docker",
+      "color": "#2496ed"
+    }
+  ],
+  "demoUrl": "https://sofian-bll.github.io/my-og-image/",
+  "repoUrl": "https://github.com/Sofian-bll/my-og-image",
+  "image": "media/projects/my-og-image/og-image.png"
+}

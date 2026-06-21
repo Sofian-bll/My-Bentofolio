@@ -1,31 +1,28 @@
 {
   "id": "media-pipeline",
   "name": "Media Pipeline",
-  "categories": [
-    "tooling",
-    "dev"
-  ],
+  "categories": ["tooling", "devops"],
   "featured": false,
   "techs": [
-    {
-      "label": "Go",
-      "tech": "go"
-    },
-    {
-      "label": "n8n",
-      "tech": "n8n"
-    }
+    {"label": "TypeScript", "tech": "typescript", "color": "#3178c6"},
+    {"label": "Bun", "tech": "default", "color": "#fbf0df"},
+    {"label": "Docker", "tech": "docker", "color": "#2496ed"},
+    {"label": "n8n", "tech": "n8n", "color": "#ea4b71"},
+    {"label": "ffmpeg", "tech": "default", "color": "#007808"},
+    {"label": "SQLite", "tech": "default", "color": "#003b57"},
+    {"label": "Bash", "tech": "bash", "color": "#3e3e3e"},
+    {"label": "DigitalOcean", "tech": "default", "color": "#0080ff"}
   ],
   "role": "Solo",
-  "description": "Pipeline automatisé de traitement média — worker pool en Go, watcher, orchestré via n8n.",
+  "description": "Automated video transcoding pipeline — NAS folder watcher, Bun REST API with SQLite job queue, SSH Mac worker + DigitalOcean cloud fallback, n8n orchestration, and Discord notifications.",
   "highlights": [
-    "Architecture worker pool en Go pour traitement parallèle.",
-    "Watcher de fichiers pour déclenchement automatique.",
-    "Orchestration des workflows via n8n."
+    "Multi-target worker dispatch: local Mac via SSH with automatic DO droplet fallback",
+    "Deduplicated file watching with MD5 hash tracking and structured job retry logic",
+    "n8n workflow orchestrator gluing watcher, worker pool API, and Discord notifications"
   ],
-  "demoUrl": "",
-  "repoUrl": "",
-  "image": "",
-  "startDate": "2026-01-01",
+  "demoUrl": "https://sofian-bll.github.io/media-pipeline/",
+  "repoUrl": "https://github.com/Sofian-bll/media-pipeline",
+  "image": "media/projects/media-pipeline/og-image.png",
+  "startDate": "2026-06-01",
   "endDate": null
 }

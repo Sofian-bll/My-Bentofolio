@@ -9,12 +9,11 @@
   "epitalk",
   "jeuvideops",
   "appstore-scraper",
-  "sidecar-patcher",
   "seahorse-3d",
   "nojs-ui",
   "media-pipeline",
-  "og-image-v2",
   "pplx-web-query",
   "scpdl-wav",
-  "sidecarpatcher"
+  "sidecarpatcher",
+  "my-og-image"
 ]

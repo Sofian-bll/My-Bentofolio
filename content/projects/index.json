@@ -349,37 +349,6 @@
     "caseStudy": "## Contexte\n\nJ'étais fauché, les abonnements commençaient à peser lourd. Certaines apps coûtent 2× moins cher selon le pays de l'App Store, mais vérifier les prix sur 36 storefronts à la main était impensable. J'apprenais Python depuis 2-3 semaines — l'occasion parfaite pour un premier vrai projet.\n\n## Process\n\nLe projet est passé par 3 phases. Phase 1 : un script manuel qui scrapait un seul pays à la fois, 36 runs séparés, casse-pied mais ça marchait. Phase 2 : j'ai branché l'Exchange Rate API pour convertir tous les prix en EUR en temps réel, avec un système de cache pour ne pas saturer l'API. Phase 3 : j'ai fait refactoriser le code par IA pour le rendre plus propre, structuré en couches, avec barre de progression et gestion d'erreurs.\n\n## Difficultés rencontrées\n\n- **Conversion de devises** — 30+ devises, taux qui changent en direct, fallait un cache intelligent pour éviter de re-fetch les mêmes taux 36 fois par run.\n- **Parsing multi-pages** — l'API Apple pagine les résultats, fallait itérer proprement sans exploser le rate limit.\n- **Apprendre Python en même temps** — chaque feature était une double bataille : comprendre le problème ET comprendre le langage. Lent, mais formateur.\n\n## Stack\n\n- Python — requests, pandas\n- Exchange Rate API — conversion EUR temps réel\n- GitHub Pages — landing page en un seul fichier HTML\n\n## Ce dont je suis fier\n\n- **36 pays couverts** — tous les storefronts Apple majeurs, d'un seul run.\n- **Cache des taux de change** — solution simple qui a divisé le temps d'exécution par 3.\n- **Progression réelle** — passer d'un script spaghetti à un outil propre en 3 itérations, tout en apprenant Python from scratch.\n\n## Si c'était à refaire\n\nJe paralléliserais les requêtes vers les différents storefronts pour gagner en vitesse. Et j'ajouterais un export JSON en complément du CSV, pour intégration directe avec d'autres outils.\n"
   },
   {
-    "id": "sidecar-patcher",
-    "name": "SidecarPatcher",
-    "categories": [
-      "tooling"
-    ],
-    "featured": false,
-    "techs": [
-      {
-        "label": "Python",
-        "tech": "python"
-      },
-      {
-        "label": "Reverse",
-        "tech": "bash"
-      }
-    ],
-    "role": "Solo",
-    "description": "Patch binaire du framework macOS SidecarCore — reverse engineering et modification bas niveau.",
-    "highlights": [
-      "Recherche automatique de signatures machine dans le binaire.",
-      "Patch assembleur (MOV EAX, 1; RET) avec backup automatique.",
-      "Projet éducatif de reverse engineering bas niveau."
-    ],
-    "demoUrl": "https://sofian-bll.github.io/SidecarPatcher/",
-    "repoUrl": "https://github.com/Sofian-bll/SidecarPatcher",
-    "image": "media/projects/sidecar-patcher/screenshot.png",
-    "startDate": "2025-01-01",
-    "endDate": null,
-    "caseStudy": "## Contexte\n\nUtilitaire en ligne de commande appliquant un patch binaire minimaliste au framework macOS SidecarCore pour désactiver la vérification de compatibilité. Reverse engineering éducatif — recherche de signatures, patch assembleur, sauvegarde.\n\n## Points clés\n\n- Recherche automatique de signatures machine dans le binaire.\n- Patch assembleur (MOV EAX, 1; RET) avec backup automatique.\n- Projet éducatif de reverse engineering bas niveau.\n\n## Stack\n\n- Python\n- Reverse\n"
-  },
-  {
     "id": "seahorse-3d",
     "name": "Seahorse 3D",
     "categories": [
@@ -453,70 +422,63 @@
     "name": "Media Pipeline",
     "categories": [
       "tooling",
-      "dev"
+      "devops"
     ],
     "featured": false,
     "techs": [
-      {
-        "label": "Go",
-        "tech": "go"
-      },
-      {
-        "label": "n8n",
-        "tech": "n8n"
-      }
-    ],
-    "role": "Solo",
-    "description": "Pipeline automatisé de traitement média — worker pool en Go, watcher, orchestré via n8n.",
-    "highlights": [
-      "Architecture worker pool en Go pour traitement parallèle.",
-      "Watcher de fichiers pour déclenchement automatique.",
-      "Orchestration des workflows via n8n."
-    ],
-    "demoUrl": "",
-    "repoUrl": "",
-    "image": "",
-    "startDate": "2026-01-01",
-    "endDate": null,
-    "caseStudy": "## Contexte\n\nPipeline de traitement média automatisé combinant un worker pool en Go, un watcher de fichiers pour le déclenchement, et n8n pour l’orchestration des workflows de bout en bout.\n\n## Points clés\n\n- Architecture worker pool en Go pour traitement parallèle.\n- Watcher de fichiers pour déclenchement automatique.\n- Orchestration des workflows via n8n.\n\n## Stack\n\n- Go\n- n8n\n"
-  },
-  {
-    "id": "og-image-v2",
-    "name": "OG Image Generator v2",
-    "categories": [
-      "dev",
-      "tools"
-    ],
-    "role": "Solo",
-    "featured": false,
-    "startDate": "2026-06-06",
-    "endDate": null,
-    "description": "Générateur d'images Open Graph dynamique — 8 templates pour cartes sociales et vaults Obsidian.",
-    "highlights": [
-      "8 templates — Aspiration, Projet Epitech, Machine, Project, Resource, Service, System, Task",
-      "Scripts Obsidian — batch apply OG URLs across entire vault",
-      "Docker-ready — build multi-stage + Docker Compose"
-    ],
-    "techs": [
-      {
-        "label": "Vue 3",
-        "tech": "vue",
-        "color": "#42b883"
-      },
       {
         "label": "TypeScript",
         "tech": "typescript",
         "color": "#3178c6"
       },
       {
+        "label": "Bun",
+        "tech": "default",
+        "color": "#fbf0df"
+      },
+      {
         "label": "Docker",
         "tech": "docker",
         "color": "#2496ed"
+      },
+      {
+        "label": "n8n",
+        "tech": "n8n",
+        "color": "#ea4b71"
+      },
+      {
+        "label": "ffmpeg",
+        "tech": "default",
+        "color": "#007808"
+      },
+      {
+        "label": "SQLite",
+        "tech": "default",
+        "color": "#003b57"
+      },
+      {
+        "label": "Bash",
+        "tech": "bash",
+        "color": "#3e3e3e"
+      },
+      {
+        "label": "DigitalOcean",
+        "tech": "default",
+        "color": "#0080ff"
       }
     ],
-    "demoUrl": "https://sofian-bll.github.io/og-image-v2/",
-    "repoUrl": "https://github.com/Sofian-bll/og-image-v2",
-    "image": "media/projects/og-image-v2/screenshot.png",
+    "role": "Solo",
+    "description": "Automated video transcoding pipeline — NAS folder watcher, Bun REST API with SQLite job queue, SSH Mac worker + DigitalOcean cloud fallback, n8n orchestration, and Discord notifications.",
+    "highlights": [
+      "Multi-target worker dispatch: local Mac via SSH with automatic DO droplet fallback",
+      "Deduplicated file watching with MD5 hash tracking and structured job retry logic",
+      "n8n workflow orchestrator gluing watcher, worker pool API, and Discord notifications"
+    ],
+    "demoUrl": "https://sofian-bll.github.io/media-pipeline/",
+    "repoUrl": "https://github.com/Sofian-bll/media-pipeline",
+    "image": "media/projects/media-pipeline/og-image.png",
+    "startDate": "2026-06-01",
+    "endDate": null,
     "caseStudy": ""
   },
   {
@@ -626,6 +588,52 @@
     "demoUrl": "https://sofian-bll.github.io/SidecarPatcher/",
     "repoUrl": "https://github.com/Sofian-bll/SidecarPatcher",
     "image": "media/projects/sidecarpatcher/og-image.png",
+    "period": "2025",
+    "duration": "En cours",
     "caseStudy": "## Contexte\nJe voulais utiliser Sidecar entre mon Mac et mon iPad Air 2. Sauf qu'Apple a decide que mon matos etait trop vieux — liste noire integree direct dans `SidecarCore.framework`. Pas dev de formation, je debutais en Python, mais j'avais une IA sous le coude et l'envie de comprendre comment ca marchait *vraiment*.\n\n## Process\nJ'ai extrait le binaire du cache DYLD avec `dyld-shared-cache-extractor`, puis j'ai passe des heures dans Hopper Disassembler a lire de l'assembleur ARM64 — les blocs d'instructions, les registres, les comparaisons. Une fois la fonction de verification reperee, j'ai ecrit un script Python qui scanne la signature binaire et applique le patch automatiquement.\n\n## Difficultes\nLe vrai mur : la signature de code. Sous Sequoia, macOS refuse de charger un framework modifie si la signature est invalide. J'ai tout tente — `codesign` ad-hoc, `ldid` avec des entitlements customs — rien n'a marche. C'etait hyper frustrant parce qu'en theorie le patch etait bon, mais Apple verrouille tout. Le cache partage des frameworks complique encore plus la donne depuis Big Sur.\n\n## Fiertes\nJ'ai failli briquer mon MacBook plusieurs fois. Il a survecu. Surtout, j'ai appris un truc de dingue : ce que c'est vraiment l'assembleur, comment un CPU execute des instructions, comment on lit du binaire avec Hopper, comment macOS protege ses frameworks. Tout ca en partant de zero, avec une IA comme binome.\n\n## Si c'etait a refaire\nJe creuserais plus la piste noyau. J'ai essaye OpenCore Patcher — ca permet d'injecter des extensions kernel et d'avoir un kernel macOS modifie — mais j'ai pas reussi a le faire marcher, surement par manque de connaissances. J'ai aussi regarde FeatureUnlock mais j'ai pas trop capte comment il fonctionnait. Si je devais recommencer, je me formerais d'abord sur l'archi kernel de macOS avant de toucher au binaire."
+  },
+  {
+    "id": "my-og-image",
+    "name": "my-og-image",
+    "categories": [
+      "dev",
+      "tools"
+    ],
+    "role": "Solo",
+    "featured": false,
+    "startDate": "2026-06-06",
+    "endDate": null,
+    "description": "Generateur d'images Open Graph dynamique — 8 templates pour cartes sociales et vaults Obsidian.",
+    "highlights": [
+      "8 templates — Aspiration, Projet Epitech, Machine, Project, Resource, Service, System, Task",
+      "Renderer Takumi + Satori — rendu SVG pur, zero headless browser",
+      "Docker-ready — build multi-stage + Docker Compose, deploy en une commande"
+    ],
+    "techs": [
+      {
+        "label": "Nuxt",
+        "tech": "default",
+        "color": "#00DC82"
+      },
+      {
+        "label": "Vue 3",
+        "tech": "vue",
+        "color": "#42b883"
+      },
+      {
+        "label": "TypeScript",
+        "tech": "typescript",
+        "color": "#3178c6"
+      },
+      {
+        "label": "Docker",
+        "tech": "docker",
+        "color": "#2496ed"
+      }
+    ],
+    "demoUrl": "https://sofian-bll.github.io/my-og-image/",
+    "repoUrl": "https://github.com/Sofian-bll/my-og-image",
+    "image": "media/projects/my-og-image/og-image.png",
+    "caseStudy": "## Contexte\n\nJe voulais depuis un moment un generateur d'images OG pour avoir des cartes visuelles sur mes vaults Obsidian — ressources, projets, services, tout. Quelque chose d'assez visuel qui rende bien dans les embeds Twitter, Discord et les apercus de liens.\n\n## Process\n\nJe m'y suis mis un soir et j'ai tout fait propre d'un coup. Plusieurs templates (8 au total), chacun avec son layout, ses couleurs, ses icones. J'ai Dockerise le truc avec un Dockerfile multi-stage et un compose. L'ajout d'un nouveau template est hyper simple — il suffit d'ajouter un fichier `.takumi.vue`. Tout passe par une URL GET : pas besoin de faire un curl ou un appel API complique, je colle juste l'URL de l'image dans Obsidian et ca la genere a la volee au moment du chargement.\n\n## Fiertes\n\nC'est mega clean, les templates sont vraiment beaux, c'est complet. Le systeme d'eyebrow qui decoupe automatiquement les titres, les context pills avec icones Lucide, et le fait que tout soit pilote par config. Aucun build a maintenir — juste l'URL et c'est bon."
   }
 ]
