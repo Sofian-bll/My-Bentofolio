@@ -2,13 +2,15 @@
    BENTOFOLIO — Home (Bento) page (ES module)
    ============================================= */
 import React from 'react';
-import { Icon, Cell, Chip, SectionTitle, TechTag, CatGlyph, Badge } from './ui.jsx';
-import { DATA, primaryCat } from './data.js';
+import { Icon, Cell, Chip, SectionTitle, TechTag, CatGlyph, Badge, ProjectThumb } from './ui.jsx';
+import { DATA, APP_CONFIG, primaryCat } from './data.js';
 import { resolveImageSrc } from './config-runtime.js';
 
 function HomeView({ navigate, openProject }) {
   const { personalInfo: p, contactInfos, socialLinks, skillGroups, formations, interests, projects } = DATA;
-  const preview = projects.slice(0, 3);
+  const visibleProjects = projects.filter(p => p.visible !== false);
+  const homeFeaturedProjects = visibleProjects.filter(p => p.homeFeatured);
+  const preview = (homeFeaturedProjects.length > 0 ? homeFeaturedProjects : visibleProjects).slice(0, 4);
   const contactIcon = { 'Âge': 'star', 'Localisation': 'pin', 'Téléphone': 'phone', 'Email': 'mail' };
 
   return (
@@ -38,7 +40,7 @@ function HomeView({ navigate, openProject }) {
           </div>
           <p className="hero-bio">{p.bio}</p>
           <div className="hero-stats">
-            {DATA.projects.length > 0 && <span><Icon name="grid" size={14} /> <strong>{DATA.projects.length}</strong> projets</span>}
+            {visibleProjects.length > 0 && <span><Icon name="grid" size={14} /> <strong>{visibleProjects.length}</strong> projets</span>}
             {(DATA.experiences || []).length > 0 && <span><Icon name="briefcase" size={14} /> <strong>{(DATA.experiences || []).length}</strong> expériences</span>}
             {DATA.profile?.webExperienceSince && <span><Icon name="star" size={14} /> <strong>{new Date().getFullYear() - DATA.profile.webExperienceSince} ans</strong> d'expérience</span>}
           </div>
@@ -140,6 +142,7 @@ function HomeView({ navigate, openProject }) {
           <div className="proj-preview-grid">
             {preview.map((pr) => (
               <button className="proj-mini" key={pr.id} onClick={() => openProject(pr.id)}>
+                {APP_CONFIG.appearance?.homeShowProjectImages && <ProjectThumb project={pr} ratio="16 / 7" />}
                 <div className="proj-mini-top">
                   <span className="proj-mini-name"><CatGlyph cat={primaryCat(pr)} size={15} /> {pr.name}</span>
                 </div>
