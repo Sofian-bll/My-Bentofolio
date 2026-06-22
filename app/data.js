@@ -66,7 +66,9 @@ const categories = {
 
 const sectionLabels = profile.sectionLabels || {}
 
+const homeFeaturedIds = new Set(appConfig.homeFeatured || [])
 const projects = markFeaturedProjects(appConfig.projects || [], appConfig.cv?.featured)
+  .map(p => ({ ...p, homeFeatured: homeFeaturedIds.has(p.id) }))
   .map(computeProjectDates)
 appConfig.projects = projects
 
