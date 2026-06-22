@@ -6,6 +6,7 @@ import { Icon, TechTag } from './ui.jsx';
 import { DATA, primaryCat } from './data.js';
 import { getFeaturedCvProjects } from './cv-selection.js';
 import { resolveImageSrc } from './config-runtime.js';
+import { CV_PDF_VARIANTS, CV_PDF_DEFAULT, cvPdfUrl } from './cv-pdf-files.js';
 
 /* A4 frame — scales horizontally to fit container width; height is always fixed 297mm */
 function A4Frame({ children }) {
@@ -43,7 +44,8 @@ function CvView({ navigate, showToast, tweaks = {}, setTweak }) {
   const selected = getFeaturedCvProjects(projects);
   const featuredExperiences = experiences.filter(e => e.featured);
 
-  const download = () => {showToast('Boîte d\'impression — choisis « Enregistrer en PDF »');setTimeout(() => window.print(), 350);};
+  const pdfVariant = tweaks.cvPills || CV_PDF_DEFAULT;
+  const pdfHref = cvPdfUrl(pdfVariant);
 
   return (
     <main className="page-wrap">
@@ -70,8 +72,23 @@ function CvView({ navigate, showToast, tweaks = {}, setTweak }) {
 
           {/* Actions — always visible */}
           <div className="cv-panel-actions" style={{ marginTop: 'var(--s4)' }}>
-            <button className="btn btn--brand" onClick={download}><Icon name="download" size={16} /> Télécharger le CV (PDF)</button>
-            <button className="btn btn--ghost" onClick={() => window.print()}><Icon name="cv" size={16} /> Aperçu impression</button>
+            <a className="btn btn--brand" href={pdfHref} download style={{ textDecoration: 'none' }}>
+              <Icon name="download" size={16} /> Télécharger le CV (PDF)
+            </a>
+            <div className="cv-pdf-variants" style={{ display: 'flex', gap: 'var(--s1)', flexWrap: 'wrap' }}>
+              {CV_PDF_VARIANTS.map(v => (
+                <a key={v.id}
+                   className={'cv-style-opt' + (pdfVariant === v.id ? ' on' : '')}
+                   href={cvPdfUrl(v.id)}
+                   download
+                   style={{ textDecoration: 'none', fontSize: '12px', padding: '6px 12px' }}>
+                  {v.label}
+                </a>
+              ))}
+            </div>
+            <button className="btn btn--ghost" onClick={() => window.print()}>
+              <Icon name="cv" size={16} /> Aperçu impression
+            </button>
           </div>
         </aside>
 
