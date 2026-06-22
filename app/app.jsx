@@ -157,7 +157,7 @@ function App() {
   const [route, setRoute] = useState(parseHash());
   const [theme, setTheme] = useState(() => localStorage.getItem(THEME_KEY) || 'light');
   const [filter, setFilter] = useState('all');
-  const [sort, setSort] = useState('default');
+  const [sort, setSort] = useState('recent');
   const [toast, setToast] = useState(null);
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [adminMode, setAdminMode] = useState(() => {
