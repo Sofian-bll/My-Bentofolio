@@ -390,6 +390,26 @@
   .a4-fit > .a4-scaler { transform: none !important; width: auto !important; }
   .a4-page { box-shadow: none !important; margin: 0 auto !important; }
   .mesh-bg { display: none !important; }
+
+  /* PDF export: force background rendering */
+  .a4-page, .a4-page * {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+
+  /* Avoid embedding AppleColorEmoji font in PDF */
+  .cv-int-emoji {
+    display: none !important;
+  }
+
+  /* Activate only if PDF > 2MB: system fonts in print to avoid web font embedding */
+  /* .a4-page {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  }
+  .cv-name, .cv-sec-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  } */
 }
 
 /* Preview mode — hide app shell in iframe */
