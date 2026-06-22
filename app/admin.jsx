@@ -933,8 +933,17 @@ function ProjectsSection({ projects, setProjects, skillPalette, showToast, onDra
       showToast(`Suppression échouée — ${err.message || ''}`)
     }
   }
-  const toggleVisibility = (id) => {
-    setProjects(prev => prev.map(p => p.id === id ? { ...p, visible: p.visible === false ? true : false } : p))
+  const toggleVisibility = async (id) => {
+    const proj = projects.find(p => p.id === id)
+    if (!proj) return
+    const updated = { ...proj, visible: proj.visible !== false ? false : true }
+    setProjects(prev => prev.map(p => p.id === id ? updated : p))
+    try {
+      await saveProjectToContent(updated)
+      showToast(`Visibilite de "${updated.name}" sauvegardee`)
+    } catch (err) {
+      showToast(`Erreur — ${err.message || ''}`)
+    }
   }
   const toggleHomeFeatured = (id) => {
     setHomeFeatured(prev => {

@@ -22,5 +22,9 @@
   "repoUrl": "https://github.com/Sofian-bll",
   "image": "",
   "startDate": "2025-01-01",
-  "endDate": null
+  "endDate": null,
+  "homeFeatured": false,
+  "period": "2025",
+  "duration": "En cours",
+  "visible": false
 }

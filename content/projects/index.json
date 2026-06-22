@@ -121,6 +121,10 @@
     "image": "",
     "startDate": "2025-01-01",
     "endDate": null,
+    "homeFeatured": false,
+    "period": "2025",
+    "duration": "En cours",
+    "visible": false,
     "caseStudy": "## Contexte\n\nBootcamp intensif Java : implémentation de design patterns classiques, programmation générique, introspection par réflexion, et un framework de test maison complet.\n\n## Points clés\n\n- Design patterns classiques (Factory, Observer, Strategy…).\n- Programmation générique avec introspection par réflexion.\n- Framework de test unitaire construit de A à Z.\n\n## Stack\n\n- Java SE\n"
   },
   {
@@ -152,6 +156,10 @@
     "image": "",
     "startDate": "2025-01-01",
     "endDate": null,
+    "homeFeatured": false,
+    "period": "2025",
+    "duration": "En cours",
+    "visible": false,
     "caseStudy": "## Contexte\n\nLanding page d’un produit SaaS fictif, du design à l’intégration. Exercice de fidélité maquette → code et de système d’espacement cohérent en Tailwind.\n\n## Points clés\n\n- Landing page SaaS intégrée en pixel-perfect.\n- Système d’espacement cohérent en Tailwind.\n- Fidélité maquette → code maximale.\n\n## Stack\n\n- Tailwind\n- HTML/CSS\n"
   },
   {
@@ -408,6 +416,10 @@
     "image": "",
     "startDate": "2025-01-01",
     "endDate": null,
+    "homeFeatured": false,
+    "period": "2025",
+    "duration": "En cours",
+    "visible": false,
     "caseStudy": "## Contexte\n\nExpérimentation d’une bibliothèque de composants UI générés par IA ne nécessitant aucun JavaScript côté client. Une approche radicale de la performance web.\n\n## Points clés\n\n- Composants UI fonctionnels sans JavaScript côté client.\n- Génération de code par Gemini AI.\n- Approche radicale de performance web.\n\n## Stack\n\n- TypeScript\n- Gemini AI\n"
   },
   {
