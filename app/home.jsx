@@ -146,7 +146,7 @@ function HomeView({ navigate, openProject }) {
                 <p className="proj-mini-meta">{pr.role} · {pr.period}{pr.duration ? ' · ' + pr.duration : ''}</p>
                 <p className="proj-mini-desc">{pr.description}</p>
                 <div className="proj-mini-techs">
-                  {pr.techs.slice(0, 3).map((t, i) => <TechTag key={i} label={t.label} tech={t.tech} />)}
+                  {pr.techs.slice(0, 3).map((t, i) => <TechTag key={i} label={t.label} tech={t.tech} color={t.color} />)}
                 </div>
               </button>
             ))}

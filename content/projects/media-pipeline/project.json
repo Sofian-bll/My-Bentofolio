@@ -1,17 +1,52 @@
 {
   "id": "media-pipeline",
   "name": "Media Pipeline",
-  "categories": ["tooling", "devops"],
+  "categories": [
+    "tooling",
+    "devops"
+  ],
   "featured": false,
   "techs": [
-    {"label": "TypeScript", "tech": "typescript", "color": "#3178c6"},
-    {"label": "Bun", "tech": "default", "color": "#fbf0df"},
-    {"label": "Docker", "tech": "docker", "color": "#2496ed"},
-    {"label": "n8n", "tech": "n8n", "color": "#ea4b71"},
-    {"label": "ffmpeg", "tech": "default", "color": "#007808"},
-    {"label": "SQLite", "tech": "default", "color": "#003b57"},
-    {"label": "Bash", "tech": "bash", "color": "#3e3e3e"},
-    {"label": "DigitalOcean", "tech": "default", "color": "#0080ff"}
+    {
+      "label": "TypeScript",
+      "tech": "typescript",
+      "color": "#3178c6"
+    },
+    {
+      "label": "Bun",
+      "tech": "default",
+      "color": "#CFA560"
+    },
+    {
+      "label": "Docker",
+      "tech": "docker",
+      "color": "#2496ed"
+    },
+    {
+      "label": "n8n",
+      "tech": "n8n",
+      "color": "#ea4b71"
+    },
+    {
+      "label": "ffmpeg",
+      "tech": "default",
+      "color": "#007808"
+    },
+    {
+      "label": "SQLite",
+      "tech": "default",
+      "color": "#003b57"
+    },
+    {
+      "label": "Bash",
+      "tech": "bash",
+      "color": "#3e3e3e"
+    },
+    {
+      "label": "DigitalOcean",
+      "tech": "default",
+      "color": "#0080ff"
+    }
   ],
   "role": "Solo",
   "description": "Automated video transcoding pipeline — NAS folder watcher, Bun REST API with SQLite job queue, SSH Mac worker + DigitalOcean cloud fallback, n8n orchestration, and Discord notifications.",

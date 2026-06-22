@@ -1,6 +1,6 @@
 {
   "id": "jeuvideops",
-  "name": "JeuVideOps",
+  "name": "Jeux VideOps",
   "categories": [
     "devops",
     "dev"
@@ -33,7 +33,9 @@
   ],
   "demoUrl": "https://jeuvideops.github.io/jeuvideops/",
   "repoUrl": "https://github.com/jeuvideops/jeuvideops",
-  "image": "",
+  "image": "media/projects/jeuvideops/1782138289525.png",
   "startDate": "2026-01-01",
-  "endDate": null
+  "endDate": null,
+  "period": "2026",
+  "duration": "En cours"
 }

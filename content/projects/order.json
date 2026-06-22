@@ -1,6 +1,5 @@
 [
   "connect-in",
-  "connect-in-java",
   "my-cinema",
   "piscine-java",
   "klivio",
@@ -15,5 +14,6 @@
   "pplx-web-query",
   "scpdl-wav",
   "sidecarpatcher",
-  "my-og-image"
+  "my-og-image",
+  "connectin-java"
 ]

@@ -4,35 +4,40 @@
   "categories": [
     "dev"
   ],
+  "role": "Binôme",
   "featured": true,
+  "startDate": "2026-02-17",
+  "endDate": null,
+  "description": "Réseau social interne pour ESN — API REST Laravel (21 endpoints, auth Sanctum), feed social avec posts/commentaires/likes, frontend Vue 3 + shadcn-vue.",
+  "highlights": [
+    "21 endpoints API REST documentés avec Scramble (OpenAPI)",
+    "Auth complète par tokens Sanctum : register, login, logout",
+    "Feed social : posts paginés, commentaires, likes (many-to-many), upload médias",
+    "Frontend SPA Vue 3 avec shadcn-vue (reka-ui), Tailwind CSS, vue-router"
+  ],
   "techs": [
     {
       "label": "Laravel",
       "tech": "laravel"
     },
     {
-      "label": "Sanctum",
-      "tech": "laravel"
+      "label": "Vue 3",
+      "tech": "vue"
     },
     {
       "label": "MySQL",
       "tech": "mysql"
     },
     {
-      "label": "Vue 3",
-      "tech": "vue"
+      "label": "Tailwind",
+      "tech": "tailwind"
+    },
+    {
+      "label": "Docker",
+      "tech": "docker"
     }
   ],
-  "role": "Binôme",
-  "description": "Réseau social full-stack — API REST Laravel, auth Sanctum, relations SQL, tests unitaires.",
-  "highlights": [
-    "API REST sécurisée par tokens Sanctum (auth, fil d’actualité).",
-    "Relations many-to-many (follows, likes) sous MySQL avec tests.",
-    "Architecture full-stack Laravel + Vue 3 pensée pour scaler."
-  ],
-  "demoUrl": "",
-  "repoUrl": "https://github.com/Sofian-bll",
-  "image": "",
-  "startDate": "2025-01-01",
-  "endDate": null
+  "demoUrl": "https://sofian-bll.github.io/ept-connectin/",
+  "repoUrl": "https://github.com/Sofian-bll/ept-connectin",
+  "image": "media/projects/connect-in/og-image.png"
 }

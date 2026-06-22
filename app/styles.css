@@ -51,8 +51,11 @@
   --color-ae: #9999ff;
   --color-illustrator: #ff9a00;
   --color-go: #00add8;
-  --color-sops: #5b21b6;
-  --color-three: #049ef4;
+--color-sops: #5b21b6;
+--color-three: #049ef4;
+--color-nodejs: #5FA04E;
+--color-playwright: #45BA4B;
+--color-bun: #CFA560;
 
   /* ─── CATEGORY ACCENTS ─── */
   --cat-dev: #6366f1;
@@ -255,6 +258,9 @@ nav button:focus-visible, .footer-link:focus-visible, .link-arrow:focus-visible 
 .t-blender{background:var(--color-blender)} .t-ae{background:var(--color-ae);color:#15153a}
 .t-illustrator{background:var(--color-illustrator);color:#2a1700}
 .t-go{background:var(--color-go)} .t-sops{background:var(--color-sops)} .t-three{background:var(--color-three)}
+.t-nodejs{background:var(--color-nodejs)} .t-playwright{background:var(--color-playwright)}
+.t-bun{background:var(--color-bun)} .t-javascript{background:var(--color-js);color:#1a1a00}
+.t-typescript{background:var(--color-ts)}
 .t-figma{background:linear-gradient(135deg,var(--color-figma-1),var(--color-figma-2),var(--color-figma-3))}
 .t-soft{background:var(--bg-inset);color:var(--text);border:1px solid var(--border-sub)}
 .t-default{background:var(--bg-inset);color:var(--text);border:1px solid var(--border-sub)}

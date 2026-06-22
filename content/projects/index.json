@@ -5,73 +5,43 @@
     "categories": [
       "dev"
     ],
+    "role": "Binôme",
     "featured": true,
+    "startDate": "2026-02-17",
+    "endDate": null,
+    "description": "Réseau social interne pour ESN — API REST Laravel (21 endpoints, auth Sanctum), feed social avec posts/commentaires/likes, frontend Vue 3 + shadcn-vue.",
+    "highlights": [
+      "21 endpoints API REST documentés avec Scramble (OpenAPI)",
+      "Auth complète par tokens Sanctum : register, login, logout",
+      "Feed social : posts paginés, commentaires, likes (many-to-many), upload médias",
+      "Frontend SPA Vue 3 avec shadcn-vue (reka-ui), Tailwind CSS, vue-router"
+    ],
     "techs": [
       {
         "label": "Laravel",
         "tech": "laravel"
       },
       {
-        "label": "Sanctum",
-        "tech": "laravel"
-      },
-      {
-        "label": "MySQL",
-        "tech": "mysql"
-      },
-      {
-        "label": "Vue 3",
-        "tech": "vue"
-      }
-    ],
-    "role": "Binôme",
-    "description": "Réseau social full-stack — API REST Laravel, auth Sanctum, relations SQL, tests unitaires.",
-    "highlights": [
-      "API REST sécurisée par tokens Sanctum (auth, fil d’actualité).",
-      "Relations many-to-many (follows, likes) sous MySQL avec tests.",
-      "Architecture full-stack Laravel + Vue 3 pensée pour scaler."
-    ],
-    "demoUrl": "",
-    "repoUrl": "https://github.com/Sofian-bll",
-    "image": "",
-    "startDate": "2025-01-01",
-    "endDate": null,
-    "caseStudy": "## Contexte\n\nRéseau social complet : authentification par tokens Sanctum, fil d’actualité, relations many-to-many (follows, likes), et une suite de tests unitaires couvrant les endpoints critiques. Frontend Vue 3 avec composants shadcn-vue.\n\n## Points clés\n\n- API REST sécurisée par tokens Sanctum (auth, fil d’actualité).\n- Relations many-to-many (follows, likes) sous MySQL avec tests.\n- Architecture full-stack Laravel + Vue 3 pensée pour scaler.\n\n## Stack\n\n- Laravel\n- Sanctum\n- MySQL\n- Vue 3\n\n![Décris cette image](media/projects/connect-in/1781873051510.jpeg)\n"
-  },
-  {
-    "id": "connect-in-java",
-    "name": "Connect'IN V2",
-    "categories": [
-      "dev"
-    ],
-    "featured": true,
-    "techs": [
-      {
-        "label": "Java",
-        "tech": "java"
-      },
-      {
         "label": "Vue 3",
         "tech": "vue"
       },
       {
         "label": "MySQL",
         "tech": "mysql"
+      },
+      {
+        "label": "Tailwind",
+        "tech": "tailwind"
+      },
+      {
+        "label": "Docker",
+        "tech": "docker"
       }
     ],
-    "role": "Binôme",
-    "description": "Réseau social — réécriture complète de Connect’IN en Java avec le même frontend Vue 3.",
-    "highlights": [
-      "Migration complète du backend Laravel vers Java.",
-      "Mêmes fonctionnalités : auth, follows, likes, fil d’actualité.",
-      "Architecture fullstack Java + Vue 3."
-    ],
-    "demoUrl": "",
-    "repoUrl": "https://github.com/Sofian-bll",
-    "image": "",
-    "startDate": "2026-01-01",
-    "endDate": null,
-    "caseStudy": "## Contexte\n\nDeuxième itération du réseau social Connect’IN, porté de Laravel (PHP) vers Java. Fonctionnalités identiques (authentification, fil d’actualité, follows, likes) réimplémentées dans une stack Java + Vue 3.\n\n## Points clés\n\n- Migration complète du backend Laravel vers Java.\n- Mêmes fonctionnalités : auth, follows, likes, fil d’actualité.\n- Architecture fullstack Java + Vue 3.\n\n## Stack\n\n- Java\n- Vue 3\n- MySQL\n"
+    "demoUrl": "https://sofian-bll.github.io/ept-connectin/",
+    "repoUrl": "https://github.com/Sofian-bll/ept-connectin",
+    "image": "media/projects/connect-in/og-image.png",
+    "caseStudy": "## Contexte\n\nProjet Epitech en binôme — réseau social interne complet pour ESN. Plateforme full-stack : API REST Laravel avec auth Sanctum, relations many-to-many (follows, likes, comments), et frontend Vue 3 SPA avec composants shadcn-vue et Tailwind CSS. Déploiement Docker, documentation API automatique OpenAPI via Scramble.\n\n## Process\n\n1. Backend Laravel : migrations, modèles Eloquent (User, Post, Comment, Like), contrôleurs RESTful\n2. Authentification par tokens Sanctum (register, login, logout, suppression de compte)\n3. CRUD Posts avec pagination et upload de médias\n4. Commentaires et système de likes (relations many-to-many polymorphiques)\n5. Gestion de profil utilisateur avec avatar\n6. Suppression de compte avec anonymisation (soft delete)\n7. Seeders & Factories pour peupler la BDD de test\n8. Documentation API interactive auto-générée par Scramble (OpenAPI)\n9. Frontend Vue 3 : composants reka-ui (shadcn-vue), vue-router, intégration API via axios\n10. Containerisation Docker + Makefile (install, up, test, fresh en une commande)"
   },
   {
     "id": "my-cinema",
@@ -79,34 +49,52 @@
     "categories": [
       "dev"
     ],
+    "role": "Solo",
     "featured": false,
+    "startDate": "2026-01-26",
+    "endDate": "2026-02-08",
+    "description": "Back-office de gestion de cinema | Projet Epitech · PHP MVC custom + Vue 3 + MySQL",
+    "highlights": [
+      "Mini-framework PHP from scratch — Routeur, ORM PDO, validation, soft delete, error handling JSON",
+      "Anti-overlap intelligent — Detection de conflits horaires avec calcul automatique de la duree du film",
+      "Vue 3 SPA + REST API — Frontend independant, dark/light mode, composants shadcn-vue, 15 endpoints"
+    ],
     "techs": [
       {
-        "label": "PHP MVC",
-        "tech": "rag"
-      },
-      {
-        "label": "MySQL",
-        "tech": "mysql"
+        "label": "PHP",
+        "tech": "default",
+        "color": "#777bb4"
       },
       {
         "label": "Vue 3",
-        "tech": "vue"
+        "tech": "vue",
+        "color": "#42b883"
+      },
+      {
+        "label": "MySQL",
+        "tech": "mysql",
+        "color": "#00618a"
+      },
+      {
+        "label": "Tailwind",
+        "tech": "tailwind",
+        "color": "#06b6d4"
+      },
+      {
+        "label": "Vite",
+        "tech": "default",
+        "color": "#646cff"
+      },
+      {
+        "label": "Shadcn",
+        "tech": "shadcn",
+        "color": "#18181b"
       }
     ],
-    "role": "Solo",
-    "description": "Framework MVC maison from scratch — SoftDeletes, anti-chevauchement, back-office cinéma.",
-    "highlights": [
-      "Framework MVC complet développé sans aucune dépendance externe.",
-      "Suppression logique (SoftDeletes) et algorithme anti-chevauchement.",
-      "Frontend Vue 3 + Tailwind, back-office de gestion de séances."
-    ],
-    "demoUrl": "",
-    "repoUrl": "https://github.com/Sofian-bll",
-    "image": "",
-    "startDate": "2025-01-01",
-    "endDate": null,
-    "caseStudy": "## Contexte\n\nBack-office de gestion de séances de cinéma avec un framework MVC conçu from scratch.\nAucune dépendance — routing, ORM, templating, SoftDeletes et algorithme anti-chevauchement des séances par salle.\n\n## Points clés\n\n- Framework MVC complet développé sans aucune dépendance externe.\n- Suppression logique (SoftDeletes) et algorithme anti-chevauchement.\n- Frontend Vue 3 + Tailwind, back-office de gestion de séances.\n\n## Stack\n\n- PHP MVC\n- MySQL\n- Vue 3\n"
+    "demoUrl": "https://sofian-bll.github.io/ept-my-cinema/",
+    "repoUrl": "https://github.com/Sofian-bll/ept-my-cinema",
+    "image": "media/projects/my-cinema/og-image.png",
+    "caseStudy": "## Contexte\n\nProjet Epitech : creer un back-office de cinema. Contrainte : architecture MVC obligatoire. Ayant confondu framework et pattern MVC au depart, j'ai commence a coder mon propre moteur au lieu d'utiliser un framework existant. Plutot que de tout recommencer, j'ai assume et transforme ce depart en un mini-framework PHP from scratch. 13 jours pour tout livrer, en solo.\n\n## Process\n\n- Semaine 1 : Moteur MVC maison (Router, Controller, Model, PDO, ErrorHandler)\n- Milieu de projet : Pivot — abandon des vues HTML pour une API REST JSON, suppression du code legacy\n- Semaine 2 : Frontend Vue 3 SPA independante qui consomme l'API\n- Fin : Tests, validation, anti-overlap, soft delete\n\n## Difficultes\n\n- Comprendre la difference entre framework et pattern MVC a froid\n- Le pivot API REST a mi-projet : tout refactorer sans casser l'existant\n- L'anti-chevauchement des seances (hasOverlap) : logique de creneaux horaires avec duree du film\n- Un bug React parasite qui crashait le frontend\n\n## Fiertes\n\n- Avoir code un mini-framework PHP fonctionnel from scratch\n- Architecture propre : separation backend API / frontend SPA\n- Le trait SoftDelete : suppression logique sans perte de donnees\n- 15 endpoints REST couvrant tous les cas (CRUD + contraintes metier)\n\n## Si c'etait a refaire\n\n- Partir directement sur une API REST au lieu de MVC classique avec vues\n- Extraire le mini-framework en package reutilisable\n- Ajouter une vraie authentification (JWT / Sanctum)"
   },
   {
     "id": "piscine-java",
@@ -231,7 +219,7 @@
       {
         "label": "Bun",
         "tech": "default",
-        "color": "#fbf0dd"
+        "color": "#CFA560"
       },
       {
         "label": "SOPS",
@@ -282,7 +270,7 @@
   },
   {
     "id": "jeuvideops",
-    "name": "JeuVideOps",
+    "name": "Jeux VideOps",
     "categories": [
       "devops",
       "dev"
@@ -315,10 +303,12 @@
     ],
     "demoUrl": "https://jeuvideops.github.io/jeuvideops/",
     "repoUrl": "https://github.com/jeuvideops/jeuvideops",
-    "image": "",
+    "image": "media/projects/jeuvideops/1782138289525.png",
     "startDate": "2026-01-01",
     "endDate": null,
-    "caseStudy": "## Contexte\n\nProjet DevOps/DevSecOps complet : pipeline CI/CD automatisé avec gates de PR, tests E2E Playwright, rapports Allure, et déploiement continu sur GitHub Pages. Automatiser plus pour travailler moins.\n\n## Points clés\n\n- Pipeline PR Gate avec tests Playwright et rapports Allure.\n- Déploiement automatique de la plateforme sur GitHub Pages.\n- Badges CI visibles, workflow DevSecOps complet.\n\n## Stack\n\n- Docker\n- CI/CD\n- Playwright\n- Allure\n"
+    "period": "2026",
+    "duration": "En cours",
+    "caseStudy": "## Contexte\n\nProjet DevOps/DevSecOps réalisé en binôme dans le cadre W-DOP-200 (Epitech Paris). L'objectif : industrialiser la livraison de deux jeux rétro JavaScript via une pipeline CI/CD complète. GitHub Actions imposé, GitHub Pages pour le déploiement. Automatiser plus pour travailler moins.\n\n## Process\n\nLe projet a été structuré en 8 phases itératives sur 2 semaines :\n\n1. **Bootstrap** — setup du repo, premier workflow `test.yml`, vérification Node.js\n2. **Analyse des jeux** — fork des repos js13kgames, ESLint config, structure npm\n3. **CI Linter ESLint** — Google JavaScript Style Guide, annotations inline sur les PR\n4. **CI Tests unitaires** — Vitest, tests fournis + tests maison, coverage nyc\n5. **CI Tests fonctionnels** — Playwright pour les tests E2E, screenshots sur échec\n6. **Annotations & Résumés** — workflow commands, `GITHUB_STEP_SUMMARY`, badges dynamiques\n7. **CD Docker & GitHub Pages** — Dockerfiles, déploiement automatisé après CI verte\n8. **Keynote & Finalisation** — cross-training, démonstration, livraison\n\nLa CI est architecturée avec des templates réutilisables (`_ci-game.yml`, `_cd-game.yml`) que chaque jeu hérite, évitant la duplication.\n\n## Difficultés rencontrées\n\n- **Montée en gamme de la pipeline** — passer d'un workflow basique à une vraie usine CI/CD avec templates réutilisables, PR Gates conditionnelles, et release automatisée. Plusieurs resets nécessaires pour trouver la bonne architecture.\n- **Migration submodule → subtree** — les jeux étaient initialement en git submodule, mais les workflows GitHub Actions géraient mal cette configuration. Migration complète vers `git subtree` pour que la CI puisse builder chaque jeu indépendamment.\n- **Déploiement GitHub Pages propre** — faire cohabiter le dashboard central, les rapports Allure, Playwright, et la coverage dans une arborescence GitHub Pages cohérente, avec un rendu propre pour chaque rapport.\n\n## Stack\n\n- **CI/CD** — GitHub Actions (workflows manuels + automatiques, PR Gate, CD)\n- **Tests** — Vitest (unitaires), Playwright (E2E), Allure (rapports combinés)\n- **Qualité** — ESLint (Google Style Guide), npm audit (DevSecOps)\n- **Déploiement** — Docker, GitHub Pages, release automatisée (semver + changelog)\n- **Dashboard** — HTML/CSS vanilla, Tailwind, Font Awesome\n\n## Ce dont je suis fier\n\n- **L'archi CI/CD réutilisable** — des templates YAML que chaque jeu hérite, zéro duplication. Ajouter un 3e jeu prendrait 10 minutes.\n- **Le dashboard central** — une SPA qui rassemble les jeux jouables ET tous les rapports (Allure, Playwright, coverage, audit) dans une interface unique.\n- **Les rapports Allure unifiés** — tests unitaires et E2E fusionnés dans un seul rapport avec `parentSuite`, groupés par couche (Unit/E2E), généré en single-file HTML.\n- **Le pipeline complet est propre** — PR Gate, annotations inline, badges dynamiques, release semver automatique. Tout ce que le sujet demandait, fait proprement.\n\n## Si c'était à refaire\n\nRien. Le projet a atteint tous ses objectifs avec une architecture propre et maintenable. Peut-être activer Dependabot plus tôt pour l'audit de sécurité continu.\n"
   },
   {
     "id": "appstore-scraper",
@@ -434,7 +424,7 @@
       {
         "label": "Bun",
         "tech": "default",
-        "color": "#fbf0df"
+        "color": "#CFA560"
       },
       {
         "label": "Docker",
@@ -479,7 +469,7 @@
     "image": "media/projects/media-pipeline/og-image.png",
     "startDate": "2026-06-01",
     "endDate": null,
-    "caseStudy": ""
+    "caseStudy": "## Contexte\n\nJ'ai récupéré un vieux PC (dual core Celeron, 4 Go de RAM) pour monter un serveur Jellyfin. Problème : impossible de faire du transcodage en temps réel — le PC crashait. Il me fallait déporter le compute, soit sur mon MacBook M1 Pro, soit sur un VPS cloud.\n\n## Process\n\nD'abord le worker Mac : watcher → webhook n8n → vérification disponibilité Mac → transcodage via SSH + FFmpeg. Ensuite, abstraction multi-providers pour le fallback cloud (DigitalOcean aujourd'hui, AWS/GCP demain). Si le Mac est hors ligne, un droplet CPU-optimisé est provisionné à la volée, le fichier est envoyé, encodé, récupéré, puis l'instance est immédiatement détruite — du compute-as-a-service éphémère inspiré de Netflix, pour quelques centimes par encodage.\n\n## Difficultés\n\nPas de blocage technique majeur, plutôt un manque de connaissances au départ sur le compute-as-a-service et l'optimisation. Je me serais renseigné davantage en amont pour éviter les frictions.\n\n## Fiertés\n\nLa partie Mac fonctionne vraiment bien, c'est clean. Le concept de compute éphémère à la demande est élégant et économique.\n\n## Si c'était à refaire\n\nJe commencerais par le droplet DigitalOcean plutôt que par le MacBook, qui n'était pas assez optimisé au départ.\n"
   },
   {
     "id": "pplx-web-query",
@@ -635,5 +625,67 @@
     "repoUrl": "https://github.com/Sofian-bll/my-og-image",
     "image": "media/projects/my-og-image/og-image.png",
     "caseStudy": "## Contexte\n\nJe voulais depuis un moment un generateur d'images OG pour avoir des cartes visuelles sur mes vaults Obsidian — ressources, projets, services, tout. Quelque chose d'assez visuel qui rende bien dans les embeds Twitter, Discord et les apercus de liens.\n\n## Process\n\nJe m'y suis mis un soir et j'ai tout fait propre d'un coup. Plusieurs templates (8 au total), chacun avec son layout, ses couleurs, ses icones. J'ai Dockerise le truc avec un Dockerfile multi-stage et un compose. L'ajout d'un nouveau template est hyper simple — il suffit d'ajouter un fichier `.takumi.vue`. Tout passe par une URL GET : pas besoin de faire un curl ou un appel API complique, je colle juste l'URL de l'image dans Obsidian et ca la genere a la volee au moment du chargement.\n\n## Fiertes\n\nC'est mega clean, les templates sont vraiment beaux, c'est complet. Le systeme d'eyebrow qui decoupe automatiquement les titres, les context pills avec icones Lucide, et le fait que tout soit pilote par config. Aucun build a maintenir — juste l'URL et c'est bon."
+  },
+  {
+    "id": "connectin-java",
+    "name": "ConnectIn-Java",
+    "categories": [
+      "dev",
+      "devops"
+    ],
+    "role": "Binôme",
+    "featured": false,
+    "startDate": "2026-03-27",
+    "endDate": "2026-05-24",
+    "description": "Réseau social full-stack Java Spring Boot & Vue.js avec API REST, JWT auth et Docker",
+    "highlights": [
+      "API REST avec 21 endpoints",
+      "Auth JWT + Spring Security",
+      "Architecture modulaire monolith",
+      "Docker multi-conteneurs"
+    ],
+    "techs": [
+      {
+        "label": "Java",
+        "tech": "java",
+        "color": "#e76f00"
+      },
+      {
+        "label": "Spring Boot",
+        "tech": "default",
+        "color": "#888888"
+      },
+      {
+        "label": "Vue 3",
+        "tech": "vue",
+        "color": "#42b883"
+      },
+      {
+        "label": "MySQL",
+        "tech": "mysql",
+        "color": "#00618a"
+      },
+      {
+        "label": "Docker",
+        "tech": "docker",
+        "color": "#2496ed"
+      },
+      {
+        "label": "JWT",
+        "tech": "default",
+        "color": "#888888"
+      },
+      {
+        "label": "Maven",
+        "tech": "default",
+        "color": "#888888"
+      }
+    ],
+    "demoUrl": "https://sofian-bll.github.io/ept-connectin-java/",
+    "repoUrl": "https://github.com/Sofian-bll/ept-connectin-java",
+    "image": "media/projects/connectin-java/og-image.png",
+    "period": "2026",
+    "duration": "2 mois",
+    "caseStudy": "## Contexte\n\nConnectIn-Java est la migration du backend Laravel de Connect'IN vers Spring Boot, imposée par le programme Epitech. Le contrat : reproduire exactement l'API REST existante (posts, commentaires, likes, utilisateurs, équipes) que le frontend Vue.js consomme, sans jamais adapter le frontend au backend. Binôme en 3 semaines.\n\n## Process\n\nArchitecture modulaire monolith en 8 packages (auth, user, post, comment, like, team + shared/security, shared/exception). Workflow Git : une branche par feature, PR obligatoire, review avant merge. Développement piloté par le contrat API documenté côté frontend — chaque endpoint doit renvoyer exactement les champs attendus (snake_case, bons noms).\n\n## Difficultés\n\nL'écart entre le contrat frontend existant et les premières implémentations a nécessité une phase de \"Fix API Contract\" corrective. La gestion du stockage des avatars (multipart upload) et l'exposition statique des fichiers ont demandé plusieurs itérations de config. Le snake_case imposé par Jackson a forcé une discipline stricte sur tous les DTOs.\n\n## Fiertés\n\nL'architecture modulaire propre avec zéro duplication. Les 21 endpoints REST documentés et testés. Le cache applicatif sur users/teams pour les perfs. L'intégration Docker complète avec Makefile qui rend le projet exécutable en une commande."
   }
 ]

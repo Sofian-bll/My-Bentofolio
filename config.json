@@ -737,7 +737,7 @@
     {
       "id": "sgdb",
       "label": "SGBD",
-      "color": null,
+      "color": "#00758f",
       "category": "Dev Web"
     },
     {
@@ -749,19 +749,49 @@
     {
       "id": "moteur-template",
       "label": "Moteur de template",
-      "color": null,
+      "color": "#E0234E",
       "category": "Dev Web"
     },
     {
       "id": "ui-patterns",
       "label": "UI Patterns",
-      "color": null,
+      "color": "#FF4F64",
       "category": "Dev Web"
     },
     {
       "id": "securite-web",
       "label": "Sécurité web",
-      "color": null,
+      "color": "#0891b2",
+      "category": "Dev Web"
+    },
+    {
+      "id": "nodejs",
+      "label": "Node.js",
+      "color": "#5FA04E",
+      "category": "Dev Web"
+    },
+    {
+      "id": "playwright",
+      "label": "Playwright",
+      "color": "#45BA4B",
+      "category": "Dev Web"
+    },
+    {
+      "id": "bun",
+      "label": "Bun",
+      "color": "#CFA560",
+      "category": "Dev Web"
+    },
+    {
+      "id": "javascript",
+      "label": "JavaScript",
+      "color": "#f7df1e",
+      "category": "Dev Web"
+    },
+    {
+      "id": "typescript",
+      "label": "TypeScript",
+      "color": "#3178c6",
       "category": "Dev Web"
     },
     {

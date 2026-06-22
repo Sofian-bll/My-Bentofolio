@@ -16,7 +16,7 @@ function ExperienceCard({ experience, onOpen }) {
         <p className="proj-card-meta">{experience.company} · {experience.period}</p>
         <Markdown text={experience.description} className="proj-card-desc" />
         <div className="proj-card-techs">
-          {experience.techs.slice(0, 4).map((t, i) => <TechTag key={i} label={t.label} tech={t.tech} />)}
+          {experience.techs.slice(0, 4).map((t, i) => <TechTag key={i} label={t.label} tech={t.tech} color={t.color} />)}
         </div>
       </div>
     </button>
@@ -47,7 +47,7 @@ function ExperienceDetail({ experience, onClose }) {
           )}
           <Markdown text={experience.description} className="modal-case" />
           <div className="modal-techs">
-            {experience.techs.map((t, i) => <TechTag key={i} label={t.label} tech={t.tech} />)}
+            {experience.techs.map((t, i) => <TechTag key={i} label={t.label} tech={t.tech} color={t.color} />)}
           </div>
         </div>
       </div>

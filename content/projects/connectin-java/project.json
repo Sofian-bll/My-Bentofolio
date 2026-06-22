@@ -1,0 +1,61 @@
+{
+  "id": "connectin-java",
+  "name": "ConnectIn-Java",
+  "categories": [
+    "dev",
+    "devops"
+  ],
+  "role": "Binôme",
+  "featured": false,
+  "startDate": "2026-03-27",
+  "endDate": "2026-05-24",
+  "description": "Réseau social full-stack Java Spring Boot & Vue.js avec API REST, JWT auth et Docker",
+  "highlights": [
+    "API REST avec 21 endpoints",
+    "Auth JWT + Spring Security",
+    "Architecture modulaire monolith",
+    "Docker multi-conteneurs"
+  ],
+  "techs": [
+    {
+      "label": "Java",
+      "tech": "java",
+      "color": "#e76f00"
+    },
+    {
+      "label": "Spring Boot",
+      "tech": "default",
+      "color": "#888888"
+    },
+    {
+      "label": "Vue 3",
+      "tech": "vue",
+      "color": "#42b883"
+    },
+    {
+      "label": "MySQL",
+      "tech": "mysql",
+      "color": "#00618a"
+    },
+    {
+      "label": "Docker",
+      "tech": "docker",
+      "color": "#2496ed"
+    },
+    {
+      "label": "JWT",
+      "tech": "default",
+      "color": "#888888"
+    },
+    {
+      "label": "Maven",
+      "tech": "default",
+      "color": "#888888"
+    }
+  ],
+  "demoUrl": "https://sofian-bll.github.io/ept-connectin-java/",
+  "repoUrl": "https://github.com/Sofian-bll/ept-connectin-java",
+  "image": "media/projects/connectin-java/og-image.png",
+  "period": "2026",
+  "duration": "2 mois"
+}

@@ -52,7 +52,7 @@ function ProjectCard({ project, onOpen }) {
         <p className="proj-card-meta">{project.role} · {project.period}{project.duration ? ' · ' + project.duration : ''}</p>
         <p className="proj-card-desc">{project.description}</p>
         <div className="proj-card-techs">
-          {project.techs.map((t, i) => <TechTag key={i} label={t.label} tech={t.tech} />)}
+          {project.techs.map((t, i) => <TechTag key={i} label={t.label} tech={t.tech} color={t.color} />)}
         </div>
       </div>
     </button>
@@ -89,7 +89,7 @@ function ProjectModal({ project, onClose }) {
           </div>
           <CaseStudyContent project={project} />
           <div className="modal-techs">
-            {project.techs.map((t, i) => <TechTag key={i} label={t.label} tech={t.tech} />)}
+            {project.techs.map((t, i) => <TechTag key={i} label={t.label} tech={t.tech} color={t.color} />)}
           </div>
           <div className="modal-actions">
             {project.demoUrl && <a className="btn btn--brand" href={project.demoUrl} target="_blank" rel="noreferrer"><Icon name="arrowUpRight" size={16} /> Voir la démo</a>}
@@ -228,7 +228,7 @@ function ProjectDetailView({ id, navigate, openProject }) {
             {project.duration && <div className="pd-fact"><span className="pd-fact-k">Durée</span><span className="pd-fact-v">{project.duration}</span></div>}
           </div>
           <div className="pd-techs">
-            {project.techs.map((t, i) => <TechTag key={i} label={t.label} tech={t.tech} />)}
+            {project.techs.map((t, i) => <TechTag key={i} label={t.label} tech={t.tech} color={t.color} />)}
           </div>
           <div className="pd-actions">
             {project.demoUrl && <a className="btn btn--brand" href={project.demoUrl} target="_blank" rel="noreferrer"><Icon name="arrowUpRight" size={16} /> Voir la démo</a>}

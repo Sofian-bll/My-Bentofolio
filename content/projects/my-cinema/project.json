@@ -4,31 +4,49 @@
   "categories": [
     "dev"
   ],
+  "role": "Solo",
   "featured": false,
+  "startDate": "2026-01-26",
+  "endDate": "2026-02-08",
+  "description": "Back-office de gestion de cinema | Projet Epitech · PHP MVC custom + Vue 3 + MySQL",
+  "highlights": [
+    "Mini-framework PHP from scratch — Routeur, ORM PDO, validation, soft delete, error handling JSON",
+    "Anti-overlap intelligent — Detection de conflits horaires avec calcul automatique de la duree du film",
+    "Vue 3 SPA + REST API — Frontend independant, dark/light mode, composants shadcn-vue, 15 endpoints"
+  ],
   "techs": [
     {
-      "label": "PHP MVC",
-      "tech": "rag"
-    },
-    {
-      "label": "MySQL",
-      "tech": "mysql"
+      "label": "PHP",
+      "tech": "default",
+      "color": "#777bb4"
     },
     {
       "label": "Vue 3",
-      "tech": "vue"
+      "tech": "vue",
+      "color": "#42b883"
+    },
+    {
+      "label": "MySQL",
+      "tech": "mysql",
+      "color": "#00618a"
+    },
+    {
+      "label": "Tailwind",
+      "tech": "tailwind",
+      "color": "#06b6d4"
+    },
+    {
+      "label": "Vite",
+      "tech": "default",
+      "color": "#646cff"
+    },
+    {
+      "label": "Shadcn",
+      "tech": "shadcn",
+      "color": "#18181b"
     }
   ],
-  "role": "Solo",
-  "description": "Framework MVC maison from scratch — SoftDeletes, anti-chevauchement, back-office cinéma.",
-  "highlights": [
-    "Framework MVC complet développé sans aucune dépendance externe.",
-    "Suppression logique (SoftDeletes) et algorithme anti-chevauchement.",
-    "Frontend Vue 3 + Tailwind, back-office de gestion de séances."
-  ],
-  "demoUrl": "",
-  "repoUrl": "https://github.com/Sofian-bll",
-  "image": "",
-  "startDate": "2025-01-01",
-  "endDate": null
+  "demoUrl": "https://sofian-bll.github.io/ept-my-cinema/",
+  "repoUrl": "https://github.com/Sofian-bll/ept-my-cinema",
+  "image": "media/projects/my-cinema/og-image.png"
 }
