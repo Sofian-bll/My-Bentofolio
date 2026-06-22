@@ -175,9 +175,10 @@
   padding: var(--s4); background: var(--bg-inset); border-radius: var(--radius-md);
   border: 1px solid transparent; transition: border-color var(--dur) var(--ease), transform 0.3s var(--ease);
   text-align: left; display: flex; flex-direction: column; gap: var(--s2);
+  overflow: hidden;
 }
 .proj-mini:hover { border-color: var(--border); transform: translateY(-2px); }
-.proj-mini .thumb { margin: calc(var(--s4) * -1) calc(var(--s4) * -1) 0; border-radius: var(--radius-md) var(--radius-md) 0 0; overflow: hidden; }
+.proj-mini .thumb { width: calc(100% + var(--s4) * 2); margin: calc(var(--s4) * -1) calc(var(--s4) * -1) 0; border: none; border-radius: var(--radius-md) var(--radius-md) 0 0; overflow: hidden; }
 .proj-mini-top { display: flex; justify-content: space-between; align-items: center; gap: var(--s2); }
 .proj-mini-name { font-size: var(--text-md); font-weight: 700; display: flex; align-items: center; gap: 8px; }
 .proj-mini-meta { font-size: var(--text-sm); color: var(--text-2); }
