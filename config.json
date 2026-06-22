@@ -20,7 +20,8 @@
     "photo": "compact",
     "photoPosition": "center 16%",
     "photoPositionHome": "50% 61%",
-    "photoPositionCv": "50% 61%"
+    "photoPositionCv": "50% 61%",
+    "homeShowProjectImages": false
   },
   "cv": {
     "featured": [
@@ -34,6 +35,12 @@
     "cvMaxBullets": 2,
     "cvCardDensity": "compact"
   },
+  "homeFeatured": [
+    "connect-in",
+    "my-cinema",
+    "rage-ui",
+    "jeuvideops"
+  ],
   "contact": {
     "formspreeUrl": "",
     "contactShowStatus": true,
