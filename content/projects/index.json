@@ -384,6 +384,10 @@
     "image": "",
     "startDate": "2026-01-01",
     "endDate": null,
+    "homeFeatured": false,
+    "period": "2026",
+    "duration": "En cours",
+    "visible": false,
     "caseStudy": "## Contexte\n\nProjet créatif mêlant design graphique (Photoshop, After Effects), modélisation 3D (Blender, IA générative Google 3D) et développement web (Three.js) pour créer une animation 3D interactive d’un hippocampe.\n\n## Points clés\n\n- Pipeline créatif : Photoshop → After Effects → Blender → Three.js.\n- Modèle 3D généré par IA Google puis affiné dans Blender.\n- Animation interactive et rendu temps réel dans le navigateur.\n\n## Stack\n\n- Three.js\n- Blender\n- After Effects\n"
   },
   {
