@@ -1,3 +1,5 @@
+import { computeProjectDates } from './project-dates.js'
+
 const PREVIEW_KEY = 'bentofolio.preview'
 
 function cloneConfig(config) {
@@ -101,8 +103,14 @@ export function applyLiveConfig(cfg, DATA, appConfig) {
   if (isObject(cfg.contact)) {
     appConfig.contact = { ...appConfig.contact, ...cfg.contact }
   }
+  if (Array.isArray(cfg.homeFeatured)) {
+    appConfig.homeFeatured = cfg.homeFeatured
+  }
   if (Array.isArray(cfg.projects)) {
+    const homeFeaturedIds = new Set(cfg.homeFeatured || appConfig.homeFeatured || [])
     DATA.projects = markFeaturedProjects(cfg.projects, appConfig.cv?.featured)
+      .map(p => ({ ...p, homeFeatured: homeFeaturedIds.has(p.id) }))
+      .map(computeProjectDates)
     appConfig.projects = DATA.projects
   }
   if (Array.isArray(cfg.experiences)) {
