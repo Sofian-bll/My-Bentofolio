@@ -21,7 +21,7 @@
     "photoPosition": "center 16%",
     "photoPositionHome": "50% 61%",
     "photoPositionCv": "50% 61%",
-    "homeShowProjectImages": false
+    "homeShowProjectImages": true
   },
   "cv": {
     "featured": [
@@ -35,12 +35,6 @@
     "cvMaxBullets": 2,
     "cvCardDensity": "compact"
   },
-  "homeFeatured": [
-    "connect-in",
-    "my-cinema",
-    "rage-ui",
-    "jeuvideops"
-  ],
   "contact": {
     "formspreeUrl": "",
     "contactShowStatus": true,
@@ -915,5 +909,11 @@
       "color": null,
       "category": "Soft Skills"
     }
+  ],
+  "homeFeatured": [
+    "connect-in",
+    "my-cinema",
+    "rage-ui",
+    "jeuvideops"
   ]
 }
