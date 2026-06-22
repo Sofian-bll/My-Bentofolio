@@ -403,6 +403,15 @@ function AppearanceSection({ appearance, setAppearance, photo }) {
         </div>
       </div>
       <div className="ds-card">
+        <div className="ds-toggle-row" onClick={() => set('homeShowProjectImages', !appearance.homeShowProjectImages)}>
+          <div>
+            <div className="ds-toggle-label">Images couverture sur l'accueil</div>
+            <div className="ds-toggle-sub">Affiche la miniature de chaque projet dans la section Projets de l'accueil</div>
+          </div>
+          <div className={'ds-switch' + (appearance.homeShowProjectImages ? ' on' : '')}/>
+        </div>
+      </div>
+      <div className="ds-card">
         <h3 className="ds-card-title">Cadrage photo</h3>
         <p className="ds-hint" style={{marginBottom:'12px'}}>Clique ou glisse sur la photo, puis affine avec les sliders.</p>
         <div className="ds-focal-tabs">
