@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "bun test app/config-runtime.test.js app/cv-selection.test.js admin-upload-utils.test.js app/project-gallery.test.js app/project-dates.test.js app/admin-save.test.js app/admin-project-save.test.js vite-admin-plugin.test.js app/data.test.js app/project-content-loader.test.js app/markdown-renderer.test.jsx content/projects.test.js",
-    "test:e2e": "playwright test e2e/tests.js"
+    "test:e2e": "playwright test e2e/tests.js",
+    "cv:pdf": "bun scripts/generate-cv-pdfs.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",
