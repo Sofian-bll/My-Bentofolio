@@ -104,7 +104,8 @@ function ProjectModal({ project, onClose }) {
 
 function ProjectsView({ navigate, openProject, filter, setFilter, sort, setSort }) {
   const { projects, categories } = DATA;
-  const { counts, catKeys, activeFilter, shown } = getProjectGalleryState({ projects, categories, filter, sort });
+  const visibleProjects = projects.filter(p => p.visible !== false);
+  const { counts, catKeys, activeFilter, shown } = getProjectGalleryState({ projects: visibleProjects, categories, filter, sort });
   const [filterOpen, setFilterOpen] = useState(false);
   const handleFilter = (k) => { setFilter(k); setFilterOpen(false); };
 
@@ -141,7 +142,7 @@ function ProjectsView({ navigate, openProject, filter, setFilter, sort, setSort 
         <div className={'filter-chips' + (filterOpen ? ' open' : '')} aria-label="Filtrer les projets">
           <button className={'filter-chip filter-chip--all' + (activeFilter === 'all' ? ' active' : '')}
             style={{ '--fc': 'var(--accent)' }} onClick={() => handleFilter('all')}>
-            <Icon name="grid" size={14} /> Tous <span className="count">{projects.length}</span>
+            <Icon name="grid" size={14} /> Tous <span className="count">{visibleProjects.length}</span>
           </button>
           {catKeys.map((k) => (
             <button key={k} className={'filter-chip' + (activeFilter === k ? ' active' : '')}
