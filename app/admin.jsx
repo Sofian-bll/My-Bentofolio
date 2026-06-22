@@ -928,12 +928,14 @@ function ProjectsSection({ projects, setProjects, skillPalette, showToast, onDra
     setProjects(prev => prev.map(p => p.id === id ? { ...p, visible: p.visible === false ? true : false } : p))
   }
   const toggleHomeFeatured = (id) => {
-    const isSelected = homeFeatured.includes(id)
-    if (!isSelected && homeFeatured.length >= 4) {
-      showToast('Maximum 4 projets sur l\'accueil')
-      return
-    }
-    setHomeFeatured(isSelected ? homeFeatured.filter(x => x !== id) : [...homeFeatured, id])
+    setHomeFeatured(prev => {
+      const isSelected = prev.includes(id)
+      if (!isSelected && prev.length >= 4) {
+        showToast('Maximum 4 projets sur l\'accueil')
+        return prev
+      }
+      return isSelected ? prev.filter(x => x !== id) : [...prev, id]
+    })
   }
   const startEdit = (pr) => {
     setEditing(pr)
