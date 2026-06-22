@@ -23,7 +23,7 @@ function slugify(s) {
     .replace(/['']/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'projet'
 }
 
-function buildConfig(projects, socialLinks, photo, appearance, cv, contact, experiences, profile, skillPalette) {
+function buildConfig(projects, socialLinks, photo, appearance, cv, contact, experiences, profile, skillPalette, homeFeatured) {
   const featuredIds = new Set(cv?.featured || [])
   const projWithFeatured = projects.map(p => ({...p, featured: featuredIds.has(p.id)}))
   return {
@@ -36,6 +36,7 @@ function buildConfig(projects, socialLinks, photo, appearance, cv, contact, expe
     experiences: experiences || [],
     profile: profile || {},
     skillPalette: skillPalette || [],
+    homeFeatured: homeFeatured || [],
   }
 }
 
@@ -49,11 +50,12 @@ function useConfigState() {
   const [experiences, setExperiences] = useState(() => [...(APP_CONFIG.experiences || [])])
   const [profile, setProfile] = useState(() => ({ ...(APP_CONFIG.profile || {}) }))
   const [skillPalette, setSkillPalette] = useState(() => [...(APP_CONFIG.skillPalette || [])])
+  const [homeFeatured, setHomeFeatured] = useState(() => [...(APP_CONFIG.homeFeatured || [])])
 
-  const config = buildConfig(projects, socialLinks, photo, appearance, cv, contact, experiences, profile, skillPalette)
+  const config = buildConfig(projects, socialLinks, photo, appearance, cv, contact, experiences, profile, skillPalette, homeFeatured)
 
   return { projects, setProjects, socialLinks, setSocialLinks, photo, setPhoto,
-    appearance, setAppearance, cv, setCv, contact, setContact, experiences, setExperiences, profile, setProfile, skillPalette, setSkillPalette, config }
+    appearance, setAppearance, cv, setCv, contact, setContact, experiences, setExperiences, profile, setProfile, skillPalette, setSkillPalette, homeFeatured, setHomeFeatured, config }
 }
 
 function syncLivePreview(cfg) {
@@ -170,7 +172,7 @@ function FocalPointControl({ label, hint, photo, value, fallback, aspectRatio, o
 /* ─── MAIN DASHBOARD ─── */
 function DashboardView({ navigate, showToast, onLogout }) {
   const { projects, setProjects, socialLinks, setSocialLinks, photo, setPhoto,
-    appearance, setAppearance, cv, setCv, contact, setContact, experiences, setExperiences, profile, setProfile, skillPalette, setSkillPalette, config } = useConfigState()
+    appearance, setAppearance, cv, setCv, contact, setContact, experiences, setExperiences, profile, setProfile, skillPalette, setSkillPalette, homeFeatured, setHomeFeatured, config } = useConfigState()
 
   const [section, setSection] = useState('projets')
   const [previewPage, setPreviewPage] = useState('/')
@@ -225,11 +227,11 @@ function DashboardView({ navigate, showToast, onLogout }) {
           ? projects.map(p => p.id === draftProject.id ? draftProject : p)
           : [...projects, draftProject]
       }
-      const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, experiences, profile, skillPalette)
+      const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, experiences, profile, skillPalette, homeFeatured)
       syncLivePreview(cfg)
       setPreviewKey(k => k + 1)
     }, 300)
-  }, [projects, socialLinks, photo, appearance, cv, contact, experiences, profile, skillPalette, draftProject])
+  }, [projects, socialLinks, photo, appearance, cv, contact, experiences, profile, skillPalette, draftProject, homeFeatured])
 
   const handleSave = useCallback(async () => {
     setSaving(true)
@@ -240,7 +242,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
         ? projects.map(p => p.id === draftProject.id ? draftProject : p)
         : [...projects, draftProject]
     }
-    const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, experiences, profile, skillPalette)
+    const cfg = buildConfig(merged, socialLinks, photo, appearance, cv, contact, experiences, profile, skillPalette, homeFeatured)
     const { projects: _proj, ...cfgForDisk } = cfg
     const result = await saveConfigToDisk(cfgForDisk)
     if (result.ok) {
@@ -254,7 +256,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
       showToast(`Sauvegarde echouee — ${result.error || 'dev uniquement'}`)
     }
     setSaving(false)
-  }, [projects, socialLinks, photo, appearance, cv, contact, experiences, profile, skillPalette, draftProject, showToast, setProjects])
+  }, [projects, socialLinks, photo, appearance, cv, contact, experiences, profile, skillPalette, draftProject, homeFeatured, showToast, setProjects])
 
   const previewNavigate = useCallback((path) => {
     setPreviewPage(path)
@@ -317,7 +319,7 @@ function DashboardView({ navigate, showToast, onLogout }) {
       </aside>
       <main className={'dash-main' + (mainWidth ? '' : ' is-auto')} style={mainWidth ? { width: mainWidth } : undefined}>
         <div className="dash-content">
-          {section === 'projets'   && <ProjectsSection   projects={projects} setProjects={setProjects} skillPalette={skillPalette} showToast={showToast} onDraftChange={setDraftProject} setPreviewPage={setPreviewPage}/>}
+          {section === 'projets'   && <ProjectsSection   projects={projects} setProjects={setProjects} skillPalette={skillPalette} showToast={showToast} onDraftChange={setDraftProject} setPreviewPage={setPreviewPage} homeFeatured={homeFeatured} setHomeFeatured={setHomeFeatured}/>}
           {section === 'apparence' && <AppearanceSection appearance={appearance} setAppearance={setAppearance} photo={photo}/>}
           {section === 'cv'        && <CvSection         cv={cv} setCv={setCv} projects={projects} photo={photo} setPhoto={setPhoto} showToast={showToast}/>}
           {section === 'contact'   && <ContactSection    contact={contact} setContact={setContact}/>}
