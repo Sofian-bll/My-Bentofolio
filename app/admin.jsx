@@ -896,7 +896,7 @@ function ProjectForm({ init, onSave, onCancel, showToast, onDraftChange, setPrev
   )
 }
 
-function ProjectsSection({ projects, setProjects, skillPalette, showToast, onDraftChange, setPreviewPage }) {
+function ProjectsSection({ projects, setProjects, skillPalette, showToast, onDraftChange, setPreviewPage, homeFeatured, setHomeFeatured }) {
   const [editing, setEditing] = useState(null)
   const handleSave = async (proj) => {
     const next = editing === 'new' ? [...projects, proj] : projects.map(p => p.id === proj.id ? proj : p)
@@ -924,6 +924,17 @@ function ProjectsSection({ projects, setProjects, skillPalette, showToast, onDra
       showToast(`Suppression échouée — ${err.message || ''}`)
     }
   }
+  const toggleVisibility = (id) => {
+    setProjects(prev => prev.map(p => p.id === id ? { ...p, visible: p.visible === false ? true : false } : p))
+  }
+  const toggleHomeFeatured = (id) => {
+    const isSelected = homeFeatured.includes(id)
+    if (!isSelected && homeFeatured.length >= 4) {
+      showToast('Maximum 4 projets sur l\'accueil')
+      return
+    }
+    setHomeFeatured(isSelected ? homeFeatured.filter(x => x !== id) : [...homeFeatured, id])
+  }
   const startEdit = (pr) => {
     setEditing(pr)
     if (setPreviewPage) setPreviewPage(`/projet/${pr.id}`)
@@ -949,6 +960,8 @@ function ProjectsSection({ projects, setProjects, skillPalette, showToast, onDra
               <div className="ds-proj-meta">{pr.role} · {pr.period}{pr.duration ? ' · ' + pr.duration : ''}</div>
             </div>
             <div className="ds-proj-acts">
+              <button className={'ds-vis-btn' + (pr.visible !== false ? ' on' : '')} onClick={() => toggleVisibility(pr.id)}>{pr.visible !== false ? 'Visible' : 'Masqué'}</button>
+              <button className={'ds-vis-btn' + (homeFeatured.includes(pr.id) ? ' on' : '')} onClick={() => toggleHomeFeatured(pr.id)} style={{ marginLeft: 6 }}>Accueil</button>
               <button className="icon-btn" onClick={() => startEdit(pr)} title="Modifier"><Icon name="pen" size={15}/></button>
               <button className="icon-btn" onClick={() => del(pr.id)} title="Supprimer"><Icon name="trash" size={15}/></button>
             </div>
