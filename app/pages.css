@@ -230,7 +230,7 @@
 .cv-proj-list li svg { color: var(--cv-c, var(--color-zinc-500)); flex-shrink: 0; margin-top: 2px; }
 .cv-proj-desc { font-size: 11.5px; color: var(--color-zinc-600); line-height: 1.5; }
 
-.cv-interests { display: flex; gap: 24px; flex-wrap: wrap; }
+.cv-interests { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .cv-int { display: flex; gap: 9px; align-items: flex-start; min-width: 0; }
 .cv-int-emoji { font-size: 19px; }
 .cv-int strong { font-size: 12.5px; display: block; }
@@ -396,11 +396,6 @@
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
-  }
-
-  /* Avoid embedding AppleColorEmoji font in PDF */
-  .cv-int-emoji {
-    display: none !important;
   }
 
   /* Activate only if PDF > 2MB: system fonts in print to avoid web font embedding */
